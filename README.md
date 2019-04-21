@@ -1,11 +1,12 @@
-# Smarthome 🏠
+# 🏠 home-automation-model
 
-## Architecture
+## Application architecture
 
 - User authentication.
 - House dashbord.
+- Device toggle functionality.
 
-## Directions
+# Software directions
 
 1. [Get Raspberry Pi's O.S. lite (server) version](https://www.raspberrypi.org/downloads/raspbian/)
 2. [Follow the instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
@@ -35,10 +36,8 @@
     - `yarn add johnny-five raspi-io & yarn add -D @types/johnny-five`
 
 17. _pi@raspberrypi_ Reboot: `sudo reboot`
-18. _pi@raspberrypi_ Start the application: `yarn start`
-
-- (https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04)
-- Head to <host_ipv4_address>:3000
+18. _pi@raspberrypi_ Install PostgreSQL: `sudo apt-get install postgres`
+19. _pi@raspberrypi_ Start the application: `pm2...`
 
 ### [johnny-five](https://github.com/rwaldron/johnny-five)
 
@@ -50,4 +49,30 @@ Bryan Hughes - _The JQuery of robotics. A physical web UI._
 
 ### [MQTT](https://github.com/mqtt/mqtt.github.io/wiki/software?id=software)
 
-IoT connectivity protocol that can be used to glue devices together.
+IoT **connectivity protocol** that can be used to glue devices together.
+
+# Hardware directions
+
+## Controllers
+
+- [ESP controller](https://www.google.com/search?q=esp+controller&oq=esp+controller&aqs=chrome..69i57j69i65l3.4142j0j7&sourceid=chrome&ie=UTF-8)
+  - ESP controllers are the conductors of the application and they orchestrate the application's logic and responses to client requests. Via `action` functions, they receive client requests and generate appropriate responses, mutating the applications data model as required.
+    An ESP controller is a `C` source file that contains action functions to receive incoming client requests and manage the applications response. The controller may be part of an ESP MVC application or it may be a stand-alone controller. [Source](https://www.embedthis.com/esp/doc/users/controllers.html).
+  - Connects to [LAN](https://en.wikipedia.org/wiki/Local_area_network).
+  - Have ports
+
+### Connectivity protocols
+
+## Transistors
+
+## Relays
+
+A relay is an electrally operated _switch_. Many relays use an electromagnet to mechanically operate a switch, but other operating pricnipals are also used, such as solid-state relays. Relays are used where it is necessary to control a circuit by a separate low-power signal, or where several circuits must be controlled by one signal. The first relays were used in long distance telegraph circuits as amplifiers: they repeated the signal coming in from one circuit and re-transmitted it on another circuit. Relays were used extensively in telephone exchanges and early computers to perform logical operations.
+
+## Use cases
+
+| Case             | Communication steps                                   |
+| ---------------- | ----------------------------------------------------- |
+| Eletric bulbs    | Broker -> Controller -> Relay -> Device               |
+| -                | Broker -> Controller -> Transistor -> Relay -> Device |
+| Infrared devices | Broker -> Controller -> Infrared emissor -> Device    |
