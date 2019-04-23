@@ -26,20 +26,33 @@
 11. _pi@raspberrypi_ Set time to local time: `sudo dpkg-reconfigure tzdata`
 12. _pi@raspberrypi_ Install Node (Debian approaches versioning differently than Node's, and in this case `apt-get` straight away is not the best option):
     - `curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -`
+      - Note: if you get stuck on `[Connecting to archive.raspberrypi.org (etc...)]`, try:
+        - `sudo apt-get -o Acquire::ForceIPv4=true update`
+        - `sudo apt-get -o Acquire::ForceIPv4=true -y dist-upgrade`
+        - Note that `-o Acquire::ForceIPv=true` can be used for stucked installs as well
     - `sudo apt-get install nodejs`
     - `node -v`
     - `npm -v`
-13. _pi@raspberrypi_ Install Nginx: `sudo apt-get install nginx`
-14. _pi@raspberrypi_ Adjust the Firewall: `sudo ufw app list`
-15. _pi@raspberrypi_ Clone this repo: `git clone https://github.com/marcelovicentegc/home-automation-model.git`
-16. _pi@raspberrypi_ Install dependencies:
+13. If willing to set a minimum decent development environment on the Raspberry, install VS Code (Code-OSS):
+    - `wget https://packagecloud.io/headmelted/codebuilds/gpgkey -O - | sudo apt-key add -` or `sudo apt-get install code-oss=<version>` [check version here](https://packagecloud.io/headmelted/codebuilds)
+    - `curl -L https://code.headmelted.com/installers/apt.sh | sudo bash`
+14. _pi@raspberrypi_ Install Nginx: `sudo apt-get install nginx`
+15. _pi@raspberrypi_ Adjust the Firewall: `sudo ufw app list`
+16. _pi@raspberrypi_ Clone this repo: `git clone https://github.com/marcelovicentegc/home-automation-model.git`
+17. Install yarn:
+    - `curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -`
+    - `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`
+    - `sudo apt update`
+    - `sudo apt install --no-install-recommends yarn`
+    - `yarn --version`
+18. _pi@raspberrypi_ Install dependencies:
 
     - `yarn install`
     - `yarn add johnny-five raspi-io & yarn add -D @types/johnny-five`
 
-17. _pi@raspberrypi_ Reboot: `sudo reboot`
-18. _pi@raspberrypi_ Install PostgreSQL: `sudo apt-get install postgres`
-19. _pi@raspberrypi_ Start the application: `pm2...`
+19. _pi@raspberrypi_ Reboot: `sudo reboot`
+20. _pi@raspberrypi_ Install PostgreSQL: `sudo apt-get install postgres`
+21. _pi@raspberrypi_ Start the application: `pm2...`
 
 ## Configure the Raspberry Pi's O.S. on a Hyper-V V.M.:
 
