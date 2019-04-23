@@ -33,7 +33,7 @@
     - `sudo apt-get install nodejs`
     - `node -v`
     - `npm -v`
-13. If willing to set a minimum decent development environment on the Raspberry, install VS Code (Code-OSS):
+13. **If willing to set a minimum decent development environment on the Raspberry [RECOMMENDED, otherwise will you have problems handling johnny-five and raspi-io], install VS Code (Code-OSS)**:
     - `wget https://packagecloud.io/headmelted/codebuilds/gpgkey -O - | sudo apt-key add -` or `sudo apt-get install code-oss=<version>` [check version here](https://packagecloud.io/headmelted/codebuilds)
     - `curl -L https://code.headmelted.com/installers/apt.sh | sudo bash`
 14. _pi@raspberrypi_ Install Nginx: `sudo apt-get install nginx`
