@@ -153,6 +153,8 @@ Makes it simple (Javascript way) to interact with Pi's hardware.
 
 Bryan Hughes - _The JQuery of robotics. A physical web UI._
 
+It communicates with Raspberry Pi through the Firmata Protocol
+
 Sources: [Getting Started with the Johnny-Five Robotics](https://www.youtube.com/watch?v=bqdbglIRRJA&list=PL9z6q1fnu6aBbcgDRXlzAmqAf9MsTaRJk)
 
 ### [raspi-io](https://github.com/nebrius/raspi-io)

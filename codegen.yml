@@ -1,5 +1,5 @@
 overwrite: true
-schema: "http://127.0.0.1:8080/api/playground"
+schema: "http://127.0.0.1:8080/api"
 documents: ./src/**/*.graphql.{ts, tsx}
 generates:
   ./src/client/__types__/typeDefs.ts:
