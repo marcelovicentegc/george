@@ -7,6 +7,8 @@ const typeDefs = gql`
   }
   type Mutation {
     toggleLed(toggle: String!): Boolean!
+    toggleAbajur(toggle: String!): Boolean!
+    toggleAC(toggle: String!): Boolean!
   }
 `;
 

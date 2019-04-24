@@ -59,91 +59,91 @@
 1.  [Get Raspbian Pi Desktop's ISO version](https://www.raspberrypi.org/downloads/raspberry-pi-desktop/)
 2.  Launch Hyper-V
 
-    ![Launch Hyper-V](docs/1.jpg)
+    ![Launch Hyper-V](assets/1.jpg)
 
 3.  Launch the V.M. creation wizard
 
-    ![Launch the V.M. creation wizard](docs/2.jpg)
+    ![Launch the V.M. creation wizard](assets/2.jpg)
 
 4.  Name the V.M.
 
-    ![Name the V.M.](docs/3.jpg)
+    ![Name the V.M.](assets/3.jpg)
 
 5.  Specify its generation
 
-    ![Specify its generation](docs/4.jpg)
+    ![Specify its generation](assets/4.jpg)
 
 6.  Specify the amount of RAM to allocate to the O.S. (note that Raspberry Pi's manufacture RAM is of 1024MB).
 
-    ![Specify the amount of RAM](docs/5.jpg)
+    ![Specify the amount of RAM](assets/5.jpg)
 
 7.  Select the network adapter that you want to connect with this V.M. so it have access to internet (usually, the `External Virtual Switch`).
 
-    ![Select the network adpater](docs/6.jpg)
+    ![Select the network adpater](assets/6.jpg)
 
 8.  Select the size of the virtual hard disk for the V.M.
 
-    ![Select the size of the virtual hard disk](docs/7.jpg)
+    ![Select the size of the virtual hard disk](assets/7.jpg)
 
 9.  Reference the downloaded ISO
 
-    ![Reference the downloaded ISO](docs/8.jpg)
+    ![Reference the downloaded ISO](assets/8.jpg)
 
 10. Now, wait the wizard create the Raspbian's V.M. on Hyper-V
 
-    ![Raspbian's V.M. creation](docs/9.jpg)
+    ![Raspbian's V.M. creation](assets/9.jpg)
 
 11. Once the V.M. has been created, start it
 
-    ![Start Raspbian](docs/10.jpg)
+    ![Start Raspbian](assets/10.jpg)
 
 12. On Raspbian O.S. installation wizard, select the `Graphical install` option and press `return`
 
-    ![Raspbian O.S. installation wizard options](docs/11.jpg)
+    ![Raspbian O.S. installation wizard options](assets/11.jpg)
 
 13. Select your preferred language
 
-    ![Select your preferred language](docs/12.jpg)
+    ![Select your preferred language](assets/12.jpg)
 
 14. Set the disk partition up: select `guided - use entire disk`, and continue
 
-    ![Set the disk partition up](docs/13.jpg)
+    ![Set the disk partition up](assets/13.jpg)
 
 15. It will warn you that all the data on the test will be arranged. Continue
 
-    ![Warn](docs/14.jpg)
+    ![Warn](assets/14.jpg)
 
 16. Select the first option `All files in one partition`, and continue
 
-    ![Partition options](docs/15.jpg)
+    ![Partition options](assets/15.jpg)
 
 17. Proceed to the summary of the partition setup, and select `Finish partitioning and write changes to disk`
 
-    ![Partition summary](docs/16.jpg)
+    ![Partition summary](assets/16.jpg)
 
 18. Confirm the changes by selecting `Yes`
 
-    ![Partition confirmation](docs/17.jpg)
+    ![Partition confirmation](assets/17.jpg)
 
 19. Wait for Raspbian's install
 
-    ![Wait for Raspbian's install](docs/18.jpg)
+    ![Wait for Raspbian's install](assets/18.jpg)
 
 20. Select `Yes` for the GRUB bootloader install prompt
 
-    ![GRUP bootloader install](docs/19.jpg)
+    ![GRUP bootloader install](assets/19.jpg)
 
 21. Specify the location you want to install the GRUB bootloader (usually, the second option)
 
-    ![Specify the GRUB bootloader's location](docs/20.jpg)
+    ![Specify the GRUB bootloader's location](assets/20.jpg)
 
 22. Once the installation is completed, the wizard will notify it
 
-    ![Installation is completed](docs/21.jpg)
+    ![Installation is completed](assets/21.jpg)
 
 23. After reboot, log in to Raspbian
 
-    ![](docs/22.jpg)
+    ![](assets/22.jpg)
 
 Sources: [How to install Raspbian O.S. on Hyper-V](https://www.avoiderrors.com/how-to-install-raspbian-os-on-hyper-v/)
 
