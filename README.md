@@ -147,6 +147,10 @@
 
 Sources: [How to install Raspbian O.S. on Hyper-V](https://www.avoiderrors.com/how-to-install-raspbian-os-on-hyper-v/)
 
+---
+
+## Node.js libraries
+
 ### [johnny-five](https://github.com/rwaldron/johnny-five)
 
 Makes it simple (Javascript way) to interact with Pi's hardware.
@@ -159,9 +163,36 @@ Sources: [Getting Started with the Johnny-Five Robotics](https://www.youtube.com
 
 ### [raspi-io](https://github.com/nebrius/raspi-io)
 
-### [MQTT](https://github.com/mqtt/mqtt.github.io/wiki/software?id=software)
+### [MQTT](https://github.com/mqtt/mqtt.github.io/wiki/software?id=software) (Message Queue Telemetry Transport, a.k.a. Mosquitto by the Python community)
 
 IoT **connectivity protocol** that can be used to glue devices together.
+
+MQTT is a machine-to-machine (M2M) data transfer protocol. MQTT was created with the goal of collecting data from many devices and then transporting that data to the IT infrastructure. It is lightweight, and therefore ideal for remote monitoring, especially in M2M connections that require a small code footprint or where network bandwidth is limited.
+
+MQTT is a publish/subscribe (PubSub) protocol that allows edge-of-network devices to publish to a broker. Clients connect to this broker, which then mediates communication between the two devices. **Each device can subscribe, or register, to particular topics**. When another client publishes a message on a subscribed topic, the broker forwards the message to any client that has subscribed.
+
+MQQT is bidrectional, and maintains stateful session awareness. If an edge-of-network device loses connectivity, all subscribed clients will be notified with the "Last Will and Testament" feature of the MQTT server so that any authorized client in the system can publish a new value back to the edge-of-network device, maintening bidirectional connectivity.
+
+Sources: [Getting started with Node.js and MQTT](https://blog.risingstack.com/getting-started-with-nodejs-and-mqtt/), [ESP8266 and Node-RED with MQTT (Publish and Subscribe)](https://randomnerdtutorials.com/esp8266-and-node-red-with-mqtt/)
+
+### Installing MQTT broker
+
+1. Update the O.S.: `sudo apt update`
+2. Install Mosquitto: `sudo apt install -y mosquitto mosquitto-clients`
+3. Enable Mosquitto to start on boot: `sudo systemctl enable mosquitto.service`
+4. Check Mosquitto's version: `mosquitto --version`
+5. To use the Mosquitto broker, you'll need your Raspberry Pi's IP address, check it out by typing: `hostname -I`
+
+### Testing the MQTT broker
+
+1. Install Mosquitto's client: `sudo apt-get install mosquitto-clients`
+2. Run Mosquitto as a daemon: `mosquitto -d`
+3. Subscribe to a `testTopic`: `mosquitto_sub -d -t testTopic`
+4. Open another terminal and publish a message to `testTopic`: `mosquitto_pub -d -t testTopic -m "Hello world!"`
+5. Open one more terminal and subscribe to `testTopic`: `mosquitto_sub -d -t testTopic`
+6. Again, on the second window, publish another message to `testTopic`: `mosquitto_pub -d -t testTopic -m "Hello world again!"`
+
+Sources: [How to Install Mosquitto Broker on Raspberry Pi](https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/), [Testing Mosquitto Broker and Client on Raspbbery Pi](https://randomnerdtutorials.com/testing-mosquitto-broker-and-client-on-raspbbery-pi/)
 
 # Hardware directions
 
@@ -173,13 +204,48 @@ IoT **connectivity protocol** that can be used to glue devices together.
   - Connects to [LAN](https://en.wikipedia.org/wiki/Local_area_network).
   - Have ports
 
-### Connectivity protocols
+### ESP8266 (ESP8266 NodeMCU ESP-12E WiFi module) + Raspberry Pi
+
+- Both can talk to each other directly.
+- Both use 3.3V signaling, so no level converting is required.
+
+Sources: [Connect the ESP8266 WiFi Chip to your Raspberry Pi](https://openhomeautomation.net/connect-esp8266-raspberry-pi), [Connect an ESP8266 to your Raspberry Pi](https://www.instructables.com/id/Connect-an-ESP8266-to-your-RaspberryPi/), [Raspberry Pi talking to ESP8266 using MQTT](https://www.hackster.io/ruchir1674/raspberry-pi-talking-to-esp8266-using-mqtt-ed9037),
+
+### ESP8266 + MQTT
+
+Sources: [Como programar o NodeMCU com IDE Arduino](https://www.filipeflop.com/blog/programar-nodemcu-com-ide-arduino/), [Controle monitoramento IoT com NodeMCU e MQTT](https://www.filipeflop.com/blog/controle-monitoramento-iot-nodemcu-e-mqtt/), [MQTT + ESP8266 12e (NodeMCU)](https://www.hackster.io/techiesms/mqtt-esp8266-12e-nodemcu-157e8b), [NodeMCU - Lua scripting language](https://www.cloudmqtt.com/docs/nodemcu.html), [Configurando o ESP8266 para trabalhar com MQTT](https://douglaszuqueto.com/artigos/configurando-o-esp8266-para-trabalhar-com-mqtt)
+
+---
+
+## Breadboard (a.k.a. protoboard)
+
+Wires stuff together. The physical glue.
+
+---
+
+## Jump wire (a.k.a. jumpers)
+
+---
+
+## Switches
+
+--
+
+## Resistors
+
+### Pull up/down resistors
+
+---
 
 ## Transistors
+
+---
 
 ## Relays
 
 A relay is an electrally operated _switch_. Many relays use an electromagnet to mechanically operate a switch, but other operating pricnipals are also used, such as solid-state relays. Relays are used where it is necessary to control a circuit by a separate low-power signal, or where several circuits must be controlled by one signal. The first relays were used in long distance telegraph circuits as amplifiers: they repeated the signal coming in from one circuit and re-transmitted it on another circuit. Relays were used extensively in telephone exchanges and early computers to perform logical operations.
+
+---
 
 ## Use cases
 
@@ -188,3 +254,12 @@ A relay is an electrally operated _switch_. Many relays use an electromagnet to 
 | Eletric bulbs    | Broker -> Controller -> Relay -> Device               |
 |                  | Broker -> Controller -> Transistor -> Relay -> Device |
 | Infrared devices | Broker -> Controller -> Infrared emissor -> Device    |
+
+---
+
+## Hardware dictionary
+
+| Word | Meaning                              |
+| ---- | ------------------------------------ |
+| TX   | Transmit (transmit FROM this server) |
+| RX   | Receive (receive TO this server)     |
