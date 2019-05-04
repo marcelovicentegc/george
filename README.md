@@ -6,9 +6,15 @@
 - House dashbord.
 - Device toggle functionality.
 
+---
+
 # Software directions
 
-## Configure the Raspberry Pi's O.S. through a remote machine:
+| General steps                                                                                      |
+| -------------------------------------------------------------------------------------------------- |
+| Install Node.js on Raspberry -> Set a MQTT broker on Raspberry -> Set a MQTT client on Application |
+
+## Configure the Raspberry Pi's O.S. through a remote machine
 
 1. [Get Raspberry Pi's O.S. lite (server) version](https://www.raspberrypi.org/downloads/raspbian/)
 2. [Follow the instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
@@ -54,40 +60,40 @@
 20. _pi@raspberrypi_ Install PostgreSQL: `sudo apt-get install postgres`
 21. _pi@raspberrypi_ Start the application: `pm2...`
 
-## Configure the Raspberry Pi's O.S. on a Hyper-V V.M.:
+## Configure the Raspberry Pi's O.S. on a Hyper-V V.M
 
-1.  [Get Raspbian Pi Desktop's ISO version](https://www.raspberrypi.org/downloads/raspberry-pi-desktop/)
-2.  Launch Hyper-V
+1. [Get Raspbian Pi Desktop's ISO version](https://www.raspberrypi.org/downloads/raspberry-pi-desktop/)
+2. Launch Hyper-V
 
-    ![Launch Hyper-V](assets/1.jpg)
+   ![Launch Hyper-V](assets/1.jpg)
 
-3.  Launch the V.M. creation wizard
+3. Launch the V.M. creation wizard
 
-    ![Launch the V.M. creation wizard](assets/2.jpg)
+   ![Launch the V.M. creation wizard](assets/2.jpg)
 
-4.  Name the V.M.
+4. Name the V.M.
 
-    ![Name the V.M.](assets/3.jpg)
+   ![Name the V.M.](assets/3.jpg)
 
-5.  Specify its generation
+5. Specify its generation
 
-    ![Specify its generation](assets/4.jpg)
+   ![Specify its generation](assets/4.jpg)
 
-6.  Specify the amount of RAM to allocate to the O.S. (note that Raspberry Pi's manufacture RAM is of 1024MB).
+6. Specify the amount of RAM to allocate to the O.S. (note that Raspberry Pi's manufacture RAM is of 1024MB).
 
-    ![Specify the amount of RAM](assets/5.jpg)
+   ![Specify the amount of RAM](assets/5.jpg)
 
-7.  Select the network adapter that you want to connect with this V.M. so it have access to internet (usually, the `External Virtual Switch`).
+7. Select the network adapter that you want to connect with this V.M. so it have access to internet (usually, the `External Virtual Switch`).
 
-    ![Select the network adpater](assets/6.jpg)
+   ![Select the network adpater](assets/6.jpg)
 
-8.  Select the size of the virtual hard disk for the V.M.
+8. Select the size of the virtual hard disk for the V.M.
 
-    ![Select the size of the virtual hard disk](assets/7.jpg)
+   ![Select the size of the virtual hard disk](assets/7.jpg)
 
-9.  Reference the downloaded ISO
+9. Reference the downloaded ISO
 
-    ![Reference the downloaded ISO](assets/8.jpg)
+   ![Reference the downloaded ISO](assets/8.jpg)
 
 10. Now, wait the wizard create the Raspbian's V.M. on Hyper-V
 
@@ -143,7 +149,7 @@
 
 23. After reboot, log in to Raspbian
 
-    ![](assets/22.jpg)
+    ![Raspbian](assets/22.jpg)
 
 Sources: [How to install Raspbian O.S. on Hyper-V](https://www.avoiderrors.com/how-to-install-raspbian-os-on-hyper-v/)
 
@@ -194,6 +200,8 @@ Sources: [Getting started with Node.js and MQTT](https://blog.risingstack.com/ge
 
 Sources: [How to Install Mosquitto Broker on Raspberry Pi](https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/), [Testing Mosquitto Broker and Client on Raspbbery Pi](https://randomnerdtutorials.com/testing-mosquitto-broker-and-client-on-raspbbery-pi/)
 
+---
+
 # Hardware directions
 
 ## Controllers
@@ -213,7 +221,7 @@ Sources: [Connect the ESP8266 WiFi Chip to your Raspberry Pi](https://openhomeau
 
 ### ESP8266 + MQTT
 
-Sources: [Como programar o NodeMCU com IDE Arduino](https://www.filipeflop.com/blog/programar-nodemcu-com-ide-arduino/), [Controle monitoramento IoT com NodeMCU e MQTT](https://www.filipeflop.com/blog/controle-monitoramento-iot-nodemcu-e-mqtt/), [MQTT + ESP8266 12e (NodeMCU)](https://www.hackster.io/techiesms/mqtt-esp8266-12e-nodemcu-157e8b), [NodeMCU - Lua scripting language](https://www.cloudmqtt.com/docs/nodemcu.html), [Configurando o ESP8266 para trabalhar com MQTT](https://douglaszuqueto.com/artigos/configurando-o-esp8266-para-trabalhar-com-mqtt)
+Sources: [Como programar o NodeMCU com IDE Arduino](https://www.filipeflop.com/blog/programar-nodemcu-com-ide-arduino/), [Controle monitoramento IoT com NodeMCU e MQTT](https://www.filipeflop.com/blog/controle-monitoramento-iot-nodemcu-e-mqtt/), [MQTT + ESP8266 12e (NodeMCU)](https://www.hackster.io/techiesms/mqtt-esp8266-12e-nodemcu-157e8b), [NodeMCU - Lua scripting language](https://www.cloudmqtt.com/docs/nodemcu.html), [Configurando o ESP8266 para trabalhar com MQTT](https://douglaszuqueto.com/artigos/configurando-o-esp8266-para-trabalhar-com-mqtt), [Experimentando a NodeMCU com Node.js e MQTT](https://medium.com/@czarantoniodesouza/experimentando-a-node-mcu-com-nodejs-e-mqtt-798bc5666d2f)
 
 ---
 
@@ -229,7 +237,7 @@ Wires stuff together. The physical glue.
 
 ## Switches
 
---
+---
 
 ## Resistors
 
