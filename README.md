@@ -212,23 +212,31 @@ Sources: [How to Install Mosquitto Broker on Raspberry Pi](https://randomnerdtut
   - Connects to [LAN](https://en.wikipedia.org/wiki/Local_area_network).
   - Have ports
 
-### ESP8266 (ESP8266 NodeMCU ESP-12E WiFi module) + Raspberry Pi
+### ESP8266 NodeMCU ESP-12E WiFi module board + Raspberry Pi
 
 - Both can talk to each other directly.
 - Both use 3.3V signaling, so no level converting is required.
 
 Sources: [Connect the ESP8266 WiFi Chip to your Raspberry Pi](https://openhomeautomation.net/connect-esp8266-raspberry-pi), [Connect an ESP8266 to your Raspberry Pi](https://www.instructables.com/id/Connect-an-ESP8266-to-your-RaspberryPi/), [Raspberry Pi talking to ESP8266 using MQTT](https://www.hackster.io/ruchir1674/raspberry-pi-talking-to-esp8266-using-mqtt-ed9037)
 
-### ESP8266 NodeMCU + Arduino
+### ESP8266 NodeMCU ESP-12E WiFi module board + Arduino
 
 - Install NodeMCU on local machine
 - Configure it via Arduino IDE
 
 Sources: [ESP8266 ESP-01 Real time clock with DS3231/DS1307](https://simple-circuit.com/esp8266-esp-01-ds3231-ds1307-rtc/), [NodeMCU – Como criar um Web Server e conectar a uma rede WiFi](http://blogmasterwalkershop.com.br/embarcados/nodemcu/nodemcu-como-criar-um-web-server-e-conectar-a-uma-rede-wifi/)
 
-### ESP8266 + MQTT
+### ESP8266 NodeMCU ESP-12E WiFi module board + MQTT
 
 Sources: [Como programar o NodeMCU com IDE Arduino](https://www.filipeflop.com/blog/programar-nodemcu-com-ide-arduino/), [Controle monitoramento IoT com NodeMCU e MQTT](https://www.filipeflop.com/blog/controle-monitoramento-iot-nodemcu-e-mqtt/), [MQTT + ESP8266 12e (NodeMCU)](https://www.hackster.io/techiesms/mqtt-esp8266-12e-nodemcu-157e8b), [NodeMCU - Lua scripting language](https://www.cloudmqtt.com/docs/nodemcu.html), [Configurando o ESP8266 para trabalhar com MQTT](https://douglaszuqueto.com/artigos/configurando-o-esp8266-para-trabalhar-com-mqtt), [Experimentando a NodeMCU com Node.js e MQTT](https://medium.com/@czarantoniodesouza/experimentando-a-node-mcu-com-nodejs-e-mqtt-798bc5666d2f)
+
+### Powering a ESP8266 NodeMCU ESP-12E WiFi module board
+
+Sources: [Powering the ESP-12E NodeMCU Development Board](http://henrysbench.capnfatz.com/henrys-bench/arduino-projects-tips-and-more/powering-the-esp-12e-nodemcu-development-board/)
+
+### Controlling lights with a ESP8266 NodeMCU ESP-12E WiFi module board
+
+- ## Connect ESP8266 to a Relay
 
 ---
 
@@ -260,15 +268,17 @@ Wires stuff together. The physical glue.
 
 A relay is an electrally operated _switch_. Many relays use an electromagnet to mechanically operate a switch, but other operating pricnipals are also used, such as solid-state relays. Relays are used where it is necessary to control a circuit by a separate low-power signal, or where several circuits must be controlled by one signal. The first relays were used in long distance telegraph circuits as amplifiers: they repeated the signal coming in from one circuit and re-transmitted it on another circuit. Relays were used extensively in telephone exchanges and early computers to perform logical operations.
 
+Sources: [How to connect a lamp to a DIY relay module for the popular clap switch](https://www.buildcircuit.com/how-to-use-diy-relay-module-for-popular-clap-switch/), [How to set up a 5V relay on the Arduino](http://www.circuitbasics.com/setting-up-a-5v-relay-on-the-arduino/), [Relay Logic](https://ncd.io/relay-logic/)
+
 ---
 
 ## Use cases
 
-| Case             | Communication steps                                   |
-| ---------------- | ----------------------------------------------------- |
-| Eletric bulbs    | Broker -> Controller -> Relay -> Device               |
-|                  | Broker -> Controller -> Transistor -> Relay -> Device |
-| Infrared devices | Broker -> Controller -> Infrared emissor -> Device    |
+| Case                          | Communication steps                                   |
+| ----------------------------- | ----------------------------------------------------- |
+| Eletric bulbs (light control) | Broker -> Controller -> Relay -> Device               |
+|                               | Broker -> Controller -> Transistor -> Relay -> Device |
+| Infrared devices              | Broker -> Controller -> Infrared emissor -> Device    |
 
 ---
 
