@@ -9,7 +9,7 @@ const resolvers: IResolvers = {
       toggle === "true" ? console.log("Led is on") : console.log("Led is off");
       // board.on('ready', () => {
       //   Five.Led() receives a pin number
-      //     const led = new Five.Led(10);
+      // const led = new Five.Led(10);
       //     toggle ? led.on() : led.off();
       //   });
     },

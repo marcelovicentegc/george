@@ -217,7 +217,14 @@ Sources: [How to Install Mosquitto Broker on Raspberry Pi](https://randomnerdtut
 - Both can talk to each other directly.
 - Both use 3.3V signaling, so no level converting is required.
 
-Sources: [Connect the ESP8266 WiFi Chip to your Raspberry Pi](https://openhomeautomation.net/connect-esp8266-raspberry-pi), [Connect an ESP8266 to your Raspberry Pi](https://www.instructables.com/id/Connect-an-ESP8266-to-your-RaspberryPi/), [Raspberry Pi talking to ESP8266 using MQTT](https://www.hackster.io/ruchir1674/raspberry-pi-talking-to-esp8266-using-mqtt-ed9037),
+Sources: [Connect the ESP8266 WiFi Chip to your Raspberry Pi](https://openhomeautomation.net/connect-esp8266-raspberry-pi), [Connect an ESP8266 to your Raspberry Pi](https://www.instructables.com/id/Connect-an-ESP8266-to-your-RaspberryPi/), [Raspberry Pi talking to ESP8266 using MQTT](https://www.hackster.io/ruchir1674/raspberry-pi-talking-to-esp8266-using-mqtt-ed9037)
+
+### ESP8266 NodeMCU + Arduino
+
+- Install NodeMCU on local machine
+- Configure it via Arduino IDE
+
+Sources: [ESP8266 ESP-01 Real time clock with DS3231/DS1307](https://simple-circuit.com/esp8266-esp-01-ds3231-ds1307-rtc/), [NodeMCU – Como criar um Web Server e conectar a uma rede WiFi](http://blogmasterwalkershop.com.br/embarcados/nodemcu/nodemcu-como-criar-um-web-server-e-conectar-a-uma-rede-wifi/)
 
 ### ESP8266 + MQTT
 
