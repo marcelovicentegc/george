@@ -36,7 +36,7 @@ const startServer = async () => {
 
     try {
       await createConnection(connectionOptions).then(() => {
-        console.log("Connected to remote empty database");
+        console.log("Connected to sqlite database");
       });
 
       if (process.env.NODE_ENV === "development") {
@@ -47,7 +47,7 @@ const startServer = async () => {
           password: hashedPassword
         });
         await user.save();
-        console.log("Created default user nº1");
+        console.log("Created default user");
       }
 
       break;

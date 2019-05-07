@@ -1,10 +1,29 @@
+import * as bcrypt from "bcrypt";
 import { IResolvers } from "graphql-tools";
+import User from "../database/entities/User.model";
 // import * as Five from 'johnny-five';
 
 // const board = new Five.Board();
 
 const resolvers: IResolvers = {
   Mutation: {
+    loginUser: async (_, { username, password }, { req }) => {
+      const user = await User.findOne({
+        where: username
+      });
+
+      if (!user) {
+        throw new Error("This user doesn't exist");
+      }
+
+      const valid = bcrypt.compare(password, user.password);
+      if (!valid) {
+        throw new Error("Wrong password.");
+      }
+
+      req.session.userId = user.id;
+      return user;
+    },
     toggleLed: async (_, { toggle }) => {
       toggle === "true" ? console.log("Led is on") : console.log("Led is off");
       // board.on('ready', () => {

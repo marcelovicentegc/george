@@ -10,7 +10,7 @@
     "client-wait": "wait-on tcp:8080 && yarn run client",
     "types": "gql-gen --config codegen.yml",
     "server": "nodemon",
-    "start": "concurrently \"yarn run server\" \"yarn run client-wait\"",
+    "start": "cross-env NODE_ENV=development concurrently \"yarn run server\" \"yarn run client-wait\"",
     "test-watch": "jest --watch",
     "test": "jest",
     "test-wait": "wait-on tcp:8080 && yarn test",

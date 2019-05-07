@@ -5,7 +5,15 @@ const typeDefs = gql`
   type Query {
     dummy: String
   }
+
+  type User {
+    id: ID!
+    username: String!
+    password: String!
+  }
+
   type Mutation {
+    loginUser(username: String!, password: String!): User
     toggleLed(toggle: String!): Boolean!
     toggleAbajur(toggle: String!): Boolean!
     toggleAC(toggle: String!): Boolean!
