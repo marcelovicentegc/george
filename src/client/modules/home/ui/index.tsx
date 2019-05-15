@@ -6,7 +6,9 @@ import {
   GetUserUsernameFromIdQuery,
   GetUserUsernameFromIdVariables
 } from "../../../__types__/typeDefs";
+import ComponentsDashboard from "./components/ComponentsDashboard";
 import Nav from "./components/Nav";
+import "./main.scss";
 
 interface Props {
   user: GetUserIdFromSessionGetUserIdFromSession;
@@ -23,7 +25,12 @@ const Home: React.FunctionComponent<Props> = props => {
           {({ data, loading }) => {
             if (loading) return null;
             if (!data || !data.getUserUsernameFromId) return null;
-            return <Nav username={data.getUserUsernameFromId.username} />;
+            return (
+              <>
+                <Nav username={data.getUserUsernameFromId.username} />
+                <ComponentsDashboard />
+              </>
+            );
           }}
         </Query>
       </div>
