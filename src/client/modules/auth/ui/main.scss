@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Gloria+Hallelujah");
+
 .auth-wrapper {
   position: absolute;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   right: 0;
   left: 0;
@@ -9,10 +12,20 @@
 
   .form-wrapper {
     display: flex;
+    flex-direction: column;
     align-content: center;
     justify-content: center;
     width: 320px;
     margin: auto;
+
+    .form-header {
+      font-family: "Gloria Hallelujah", cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 342px;
+      font-size: 32px;
+    }
 
     form {
       display: flex;

@@ -100,7 +100,7 @@ void reconnectMQTT()
         if (MQTT.connect("ESP8266-ESP12-E"))
         {
             Serial.println("Connected");
-            MQTT.subscribe("DZ/esp8266-01/led");
+            MQTT.subscribe("marcelo/abajur");
         }
         else
         {

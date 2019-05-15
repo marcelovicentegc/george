@@ -50,3 +50,33 @@ export type ToggleAcMutation = {
 
   toggleAC: boolean;
 };
+
+export type GetUserIdFromSessionVariables = {};
+
+export type GetUserIdFromSessionQuery = {
+  __typename?: "Query";
+
+  getUserIdFromSession: Maybe<GetUserIdFromSessionGetUserIdFromSession>;
+};
+
+export type GetUserIdFromSessionGetUserIdFromSession = {
+  __typename?: "User";
+
+  id: string;
+};
+
+export type GetUserUsernameFromIdVariables = {
+  id: string;
+};
+
+export type GetUserUsernameFromIdQuery = {
+  __typename?: "Query";
+
+  getUserUsernameFromId: Maybe<GetUserUsernameFromIdGetUserUsernameFromId>;
+};
+
+export type GetUserUsernameFromIdGetUserUsernameFromId = {
+  __typename?: "User";
+
+  username: string;
+};

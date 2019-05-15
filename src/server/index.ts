@@ -40,10 +40,9 @@ const startServer = async () => {
       });
 
       if (process.env.NODE_ENV === "development") {
-        const hashedPassword = await bcrypt.hash("pierre", 12);
+        const hashedPassword = await bcrypt.hash("admin", 12);
         const user = User.create({
-          username: "pierre",
-          email: "pierre@example.com",
+          username: "admin",
           password: hashedPassword
         });
         await user.save();

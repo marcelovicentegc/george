@@ -57,8 +57,7 @@
     - `yarn add johnny-five raspi-io & yarn add -D @types/johnny-five`
 
 19. _pi@raspberrypi_ Reboot: `sudo reboot`
-20. _pi@raspberrypi_ Install PostgreSQL: `sudo apt-get install postgres`
-21. _pi@raspberrypi_ Start the application: `pm2...`
+20. _pi@raspberrypi_ Start the application: `pm2...`
 
 ## Configure the Raspberry Pi's O.S. on a Hyper-V V.M
 
@@ -155,6 +154,142 @@ Sources: [How to install Raspbian O.S. on Hyper-V](https://www.avoiderrors.com/h
 
 ---
 
+## Raspberry Pi as a web server
+
+1.  Install `ufw`: `sudo apt install ufw`
+
+2.  Set up default Firewall policies
+
+- `sudo ufw default deny incoming`
+- `sudo ufw default allow outgoing`
+
+3.  Allow SSH connections: `sudo ufw allow OpenSSH`
+
+4.  Enable UFW: `sudo ufw enable`
+
+5.  Check it's status: `sudo ufw status verbose`
+
+6.  Install `nginx`: `sudo apt-get install nginx`
+
+7.  Allow HTTP connections: `sudo ufw allow 'Nginx HTTP'`
+
+8.  Start the server: `sudo /etc/init.d/nginx start`
+
+9.  Get the Raspberry's IP address: `hostname -I`
+
+10. Make sure the web server is up and running: `systemctl status nginx` should return
+
+    ```shell
+    ● nginx.service - A high performance web server and a reverse proxy server
+    Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+    Active: active (running) since Fri 2018-04-20 16:08:19 UTC; 3 days ago
+        Docs: man:nginx(8)
+    Main PID: 2369 (nginx)
+        Tasks: 2 (limit: 1153)
+    CGroup: /system.slice/nginx.service
+            ├─2369 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+            └─2380 nginx: worker process
+    ```
+
+11. Set up Nginx as a Reverse Proxy Server: - Open `/etc/nginx/sites-available/example.com` for editing:
+
+    - Replace the contents of the `location /` block
+
+            . . .
+
+                location / {
+                    proxy_pass http://localhost:8080;
+                    proxy_http_version 1.1;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection 'upgrade';
+                    proxy_set_header Host $host;
+                    proxy_cache_bypass $http_upgrade;
+                }
+            . . .
+
+12. Test the webserver by heading to the Raspberry's IP
+
+13. Install [PM2](http://pm2.keymetrics.io/) (a process manager for Node.js applications): `sudo npm install pm2@latest -g`
+
+14. Clone the git repository: `git clone https://github.com/<user>/<project>.git`
+
+15. Change directory into <project>: `cd <project>`
+
+16. Install dependencies: `yarn install`
+
+17. Build the application: `yarn build`
+
+18. Test the application
+    - `yarn launch`
+    - `curl http://localhost:4000`
+19. Run the `<project>`'s main application in the background: `NODE_ENV=production pm2 start dist/server/index.js`
+20. Applications that are running under PM2 will be restarted automatically if the application crashes or is killed, but we can take an additional step to get the application to launch on system startup using the `startup` subcommand. This subcommand generates and configures a startup script to launch PM2 and its managed processes on server boots: `pm2 startup systemd`
+
+    - The last line of the resulting output will include a command to run with superuser privileges in order to set PM2 to start on boot:
+
+    ```shell
+    [PM2] Init System found: systemd
+    [PM2] To setup the Startup Script, copy/paste the following command:
+    sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u pi --hp /home/pi
+    ```
+
+    - Run the command from the output: `sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u pi --hp /home/pi`
+
+21. As an additional step, we can save the PM2 process list and corresponding environments: `pm2 save`
+
+22. Start the service with `systemctl`: `sudo systemctl start pm2-pi`
+
+    - Note: if this command raises an error, reboot the server (`sudo reboot`) and run it again as soon as you ssh in.
+
+23. Check the status of systemd unit: `systemctl status pm2-pi`
+
+24. Managing PM2:
+
+    - Stop an application: `pm2 stop <app_name_or_id>`
+    - Restart an application: `pm2 restart <app_name_or_id>`
+    - List applications currently managed by PM2: `pm2 list`
+    - Get information about a specific application using its `App name`: `pm2 info <app_name>`
+    - The PM2 process monitor can be pulled up with the `monit` subcommand. This displays the application status, CPU, and memory usage: `pm2 monit`
+
+25. Managing the Nginx Process:
+
+    1. To stop the web server: `sudo systemctl stop nginx`
+    2. To start the web server: `sudo systemcl start nginx`
+    3. To stop and start the service again: `sudo systemctl restart nginx`
+    4. To reload the service without dropping connection: `sudo systemctl reload nginx`
+    5. By default, Nginx is configured to start automatically when the server boots. If this is not what you want, you can disable this behavior by typing: `sudo systemctl disable nginx`
+    6. To re-enable the service: `sudo systemctl enable nginx`
+
+26. Setting up Server Blocks:
+
+    1.  Add a server block to `example.com`: `sudo vi /etc/nginx/sites-available/example.com`
+
+        ```
+            server {
+                listen 80;
+                listen [::]:80;
+
+                    root /home/pi/project/dist/index.html;
+                    index index.html index.htm index.nginx-debian.html;
+
+                    server_name example.com www.example.com;
+
+                    location / {
+                            try_files $uri $uri/ =404;
+                    }
+            }
+        ```
+
+    2.  Enable the file by creating a link from it to the `sites-enabled` directory, which Nginx reads from during startup: `sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled`
+    3.  To avoid possible hash bucket memory problem that can arise from adding additional server names, it is necessary to adjust a single value in the `/etc/nginx/nginx.conf` file. Open it (`vi` or `nano`) and find the `server_names_hash_bucket_size` directive and uncomment that line.
+    4.  Test for syntax errors in any of Nginx files: `sudo nginx -t`
+    5.  Restart Nginx to enable the changes: `sudo systemctl restart nginx`
+
+Sources: [How To Set Up a Firewall with UFW on Debian 9](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-debian-9), [Setting up an NGINX web server on a Raspberry Pi](https://www.raspberrypi.org/documentation/remote-access/web-server/nginx.md), [How to set up a Node.js application for production on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04)
+Sources: [How to install yarn on Ubuntu 18.04](https://linux4one.com/how-to-install-yarn-on-ubuntu-18-04/)
+
+---
+
 ## Node.js libraries
 
 ### [johnny-five](https://github.com/rwaldron/johnny-five)
@@ -179,14 +314,16 @@ MQTT is a publish/subscribe (PubSub) protocol that allows edge-of-network device
 
 MQQT is bidrectional, and maintains stateful session awareness. If an edge-of-network device loses connectivity, all subscribed clients will be notified with the "Last Will and Testament" feature of the MQTT server so that any authorized client in the system can publish a new value back to the edge-of-network device, maintening bidirectional connectivity.
 
-Sources: [Getting started with Node.js and MQTT](https://blog.risingstack.com/getting-started-with-nodejs-and-mqtt/), [ESP8266 and Node-RED with MQTT (Publish and Subscribe)](https://randomnerdtutorials.com/esp8266-and-node-red-with-mqtt/)
+Sources: [Getting started with Node.js and MQTT](https://blog.risingstack.com/getting-started-with-nodejs-and-mqtt/), [ESP8266 and Node-RED with MQTT (Publish and Subscribe)](https://randomnerdtutorials.com/esp8266-and-node-red-with-mqtt/), [CloudMQTT](https://www.cloudmqtt.com/)
+
+---
 
 ### Installing MQTT broker
 
 1. Update the O.S.: `sudo apt update`
-2. Install Mosquitto: `sudo apt install -y mosquitto mosquitto-clients`
+2. Install Mosquitto: `sudo apt-get install -y mosquitto mosquitto-clients`
 3. Enable Mosquitto to start on boot: `sudo systemctl enable mosquitto.service`
-4. Check Mosquitto's version: `mosquitto --version`
+4. Check Mosquitto's version: `mosquitto -v`
 5. To use the Mosquitto broker, you'll need your Raspberry Pi's IP address, check it out by typing: `hostname -I`
 
 ### Testing the MQTT broker
@@ -197,8 +334,29 @@ Sources: [Getting started with Node.js and MQTT](https://blog.risingstack.com/ge
 4. Open another terminal and publish a message to `testTopic`: `mosquitto_pub -d -t testTopic -m "Hello world!"`
 5. Open one more terminal and subscribe to `testTopic`: `mosquitto_sub -d -t testTopic`
 6. Again, on the second window, publish another message to `testTopic`: `mosquitto_pub -d -t testTopic -m "Hello world again!"`
+7. Unsubscribe topic: `mosquitto_sub -t testTopic -U testTopic -v`
 
 Sources: [How to Install Mosquitto Broker on Raspberry Pi](https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/), [Testing Mosquitto Broker and Client on Raspbbery Pi](https://randomnerdtutorials.com/testing-mosquitto-broker-and-client-on-raspbbery-pi/)
+
+### Installing Redis Server
+
+1. Update the O.S.: `sudo apt update`
+2. Install Redis: `sudo apt-get install redis-server`
+3. Enable Redis to start on system boot: `sudo systemctl enable redis-server.service`
+4. If you need to make any changes to Redis configuration, head to: `/etc/redis/redis.conf`
+
+   - I.g.: If you need to adjust the max memory limit used by Redis, you can update it by `sudo vim /etc/redis/redis.conf`ing and altering the `maxmemory` line.
+
+5. After configuring it, restart it: `sudo systemctl restart redis-server.service`
+6. Test connection:
+
+```bash
+  $ redis-cli
+
+  127.0.0.1:6379> ping
+  PONG
+  127.0.0.1:6379>
+```
 
 ---
 
@@ -228,7 +386,7 @@ Sources: [ESP8266 ESP-01 Real time clock with DS3231/DS1307](https://simple-circ
 
 ### ESP8266 NodeMCU ESP-12E WiFi module board + MQTT
 
-Sources: [Como programar o NodeMCU com IDE Arduino](https://www.filipeflop.com/blog/programar-nodemcu-com-ide-arduino/), [Controle monitoramento IoT com NodeMCU e MQTT](https://www.filipeflop.com/blog/controle-monitoramento-iot-nodemcu-e-mqtt/), [MQTT + ESP8266 12e (NodeMCU)](https://www.hackster.io/techiesms/mqtt-esp8266-12e-nodemcu-157e8b), [NodeMCU - Lua scripting language](https://www.cloudmqtt.com/docs/nodemcu.html), [Configurando o ESP8266 para trabalhar com MQTT](https://douglaszuqueto.com/artigos/configurando-o-esp8266-para-trabalhar-com-mqtt), [Experimentando a NodeMCU com Node.js e MQTT](https://medium.com/@czarantoniodesouza/experimentando-a-node-mcu-com-nodejs-e-mqtt-798bc5666d2f)
+Sources: [Como programar o NodeMCU com IDE Arduino](https://www.filipeflop.com/blog/programar-nodemcu-com-ide-arduino/), [Controle monitoramento IoT com NodeMCU e MQTT](https://www.filipeflop.com/blog/controle-monitoramento-iot-nodemcu-e-mqtt/), [MQTT + ESP8266 12e (NodeMCU)](https://www.hackster.io/techiesms/mqtt-esp8266-12e-nodemcu-157e8b), [NodeMCU - Lua scripting language](https://www.cloudmqtt.com/docs/nodemcu.html), [Configurando o ESP8266 para trabalhar com MQTT](https://douglaszuqueto.com/artigos/configurando-o-esp8266-para-trabalhar-com-mqtt), [Experimentando a NodeMCU com Node.js e MQTT](https://medium.com/@czarantoniodesouza/experimentando-a-node-mcu-com-nodejs-e-mqtt-798bc5666d2f), [How to Use MQTT With the Raspberry Pi and ESP8266](https://www.instructables.com/id/How-to-Use-MQTT-With-the-Raspberry-Pi-and-ESP8266/)
 
 ### Powering a ESP8266 NodeMCU ESP-12E WiFi module board
 
