@@ -8,6 +8,12 @@ export const loginUser = gql`
   }
 `;
 
+export const logoutUser = gql`
+  mutation LogoutUser {
+    logoutUser
+  }
+`;
+
 export const toggleLed = gql`
   mutation ToggleLed($toggle: String!) {
     toggleLed(toggle: $toggle)

@@ -44,6 +44,11 @@ const resolvers: IResolvers = {
       req.session.userId = user.id;
       return user;
     },
+    logoutUser: async (_, __, { req, res }) => {
+      await new Promise(res => req.session.destroy(() => res()));
+      res.clearCookie("cookie.sid");
+      return true;
+    },
     toggleLed: async (_, { toggle }) => {
       toggle === "true" ? console.log("Led is on") : console.log("Led is off");
       // board.on('ready', () => {

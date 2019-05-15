@@ -21,6 +21,14 @@ export type LoginUserLoginUser = {
   username: string;
 };
 
+export type LogoutUserVariables = {};
+
+export type LogoutUserMutation = {
+  __typename?: "Mutation";
+
+  logoutUser: boolean;
+};
+
 export type ToggleLedVariables = {
   toggle: string;
 };

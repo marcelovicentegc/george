@@ -15,6 +15,7 @@ const typeDefs = gql`
 
   type Mutation {
     loginUser(username: String!, password: String!): User
+    logoutUser: Boolean!
     toggleLed(toggle: String!): Boolean!
     toggleAbajur(toggle: String!): Boolean!
     toggleAC(toggle: String!): Boolean!
