@@ -11,4 +11,13 @@ nav {
   span {
     margin: 0px 20px;
   }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    background-color: #fff;
+    border: 1px solid #c2c2c2;
+    color: #242424;
+  }
 }
