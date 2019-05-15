@@ -19,8 +19,8 @@ const Nav: React.FunctionComponent<Props> = props => {
   useOnClickOutside(dropDownMenu, hideDropDown);
 
   return (
-    <nav>
-      <span onMouseEnter={() => setDropDown(true)}>{props.username}</span>
+    <nav className={` ${dropDown ? "open" : ""}`}>
+      <span onClick={() => setDropDown(true)}>{props.username}</span>
       {dropDown ? (
         <div className="nav-dropdown-menu" ref={dropDownMenu}>
           <Mutation<LogoutUserMutation>
