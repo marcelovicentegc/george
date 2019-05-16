@@ -392,9 +392,9 @@ Sources: [Como programar o NodeMCU com IDE Arduino](https://www.filipeflop.com/b
 
 Sources: [Powering the ESP-12E NodeMCU Development Board](http://henrysbench.capnfatz.com/henrys-bench/arduino-projects-tips-and-more/powering-the-esp-12e-nodemcu-development-board/)
 
-### Controlling lights with a ESP8266 NodeMCU ESP-12E WiFi module board
+### Controlling a relay with ESP8266 NodeMCU ESP-12E WiFi module board
 
-- ## Connect ESP8266 to a Relay
+Sources: [How to make a 5 volts relay work with NodeMCU](https://arduino.stackexchange.com/questions/36330/how-to-make-a-5-volt-relay-work-with-nodemcu), [ESP8266 WiFi relay control](https://www.youtube.com/watch?v=3bFs_MZVFxw)
 
 ---
 
