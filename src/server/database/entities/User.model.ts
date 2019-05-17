@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn
+} from "typeorm";
+import Group from "./Group.model";
 
 @Entity("user")
 export default class User extends BaseEntity {
@@ -10,4 +17,7 @@ export default class User extends BaseEntity {
 
   @Column()
   password: string;
+
+  @ManyToOne(() => Group, group => group.users)
+  group: Group;
 }
