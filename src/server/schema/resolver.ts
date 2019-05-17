@@ -65,7 +65,8 @@ const resolvers: IResolvers = {
       });
 
       const group = await Group.findOne({
-        where: { userId }
+        where: { userId },
+        relations: ["things"]
       });
 
       if (!group) {
