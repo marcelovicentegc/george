@@ -13,9 +13,20 @@ const typeDefs = gql`
     password: String!
   }
 
+  type Group {
+    users: [User]
+  }
+
+  type Thing {
+    id: ID!
+    name: String!
+    topic: String!
+  }
+
   type Mutation {
     loginUser(username: String!, password: String!): User
     logoutUser: Boolean!
+    addThing(name: String!, topic: String!): Boolean!
     toggleLed(toggle: String!): Boolean!
     toggleAbajur(toggle: String!): Boolean!
     toggleAC(toggle: String!): Boolean!

@@ -1,6 +1,6 @@
 module.exports = {
   type: "sqlite",
-  database: "db.sqlite3",
+  database: "./src/server/database/db.sqlite3",
   dropSchema: true,
   synchronize: true,
   logging: false,

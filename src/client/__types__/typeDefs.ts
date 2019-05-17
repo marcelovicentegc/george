@@ -29,6 +29,17 @@ export type LogoutUserMutation = {
   logoutUser: boolean;
 };
 
+export type AddThingVariables = {
+  name: string;
+  topic: string;
+};
+
+export type AddThingMutation = {
+  __typename?: "Mutation";
+
+  addThing: boolean;
+};
+
 export type ToggleLedVariables = {
   toggle: string;
 };

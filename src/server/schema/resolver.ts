@@ -1,5 +1,7 @@
 import * as bcrypt from "bcrypt";
 import { IResolvers } from "graphql-tools";
+import Group from "../database/entities/Group.model";
+import Thing from "../database/entities/Thing.model";
 import User from "../database/entities/User.model";
 // import * as Five from 'johnny-five';
 
@@ -47,6 +49,31 @@ const resolvers: IResolvers = {
     logoutUser: async (_, __, { req, res }) => {
       await new Promise(res => req.session.destroy(() => res()));
       res.clearCookie("cookie.sid");
+      return true;
+    },
+    addThing: async (_, { name, topic }, { req }) => {
+      const userId = req.session.userId;
+
+      if (!userId) {
+        return false;
+      }
+
+      const thing = await Thing.create({
+        name: name,
+        topic: topic,
+        user: userId
+      });
+
+      const group = await Group.findOne({
+        where: { userId }
+      });
+
+      if (!group) {
+        return false;
+      }
+
+      await thing.save();
+      await group.things.push(thing);
       return true;
     },
     toggleLed: async (_, { toggle }) => {

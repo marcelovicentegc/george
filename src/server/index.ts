@@ -1,15 +1,18 @@
 import { ApolloServer } from "apollo-server-express";
 import * as bcrypt from "bcrypt";
 import * as bodyParser from "body-parser";
+import chalk from "chalk";
 import * as connectRedis from "connect-redis";
 import * as express from "express";
 import * as session from "express-session";
 import * as path from "path";
 import "reflect-metadata";
 import { createConnection, getConnectionOptions } from "typeorm";
+import Group from "./database/entities/Group.model";
 import User from "./database/entities/User.model";
 import { redis } from "./redis";
 import schema from "./schema/schema";
+const log = console.log;
 
 export interface Context {
   req: {
@@ -36,17 +39,31 @@ const startServer = async () => {
 
     try {
       await createConnection(connectionOptions).then(() => {
-        console.log("Connected to sqlite database");
+        log(chalk.blue("Connected to sqlite database"));
       });
 
       if (process.env.NODE_ENV === "development") {
-        const hashedPassword = await bcrypt.hash("admin", 12);
-        const user = User.create({
-          username: "admin",
-          password: hashedPassword
+        const group = await Group.create({
+          name: "Default",
+          users: [],
+          things: []
         });
+        await group.save();
+        log(chalk.blue("Created default group"));
+
+        const hashedPassword = await bcrypt.hash("admin", 12);
+        const user = await User.create({
+          username: "admin",
+          password: hashedPassword,
+          group: group
+        });
+
         await user.save();
-        console.log("Created default user");
+        log(chalk.blue("Created default user"));
+
+        await group.users.push(user);
+        await group.save();
+        log(chalk.blue("Linked default group to default user"));
       }
 
       break;

@@ -14,6 +14,12 @@ export const logoutUser = gql`
   }
 `;
 
+export const addThing = gql`
+  mutation AddThing($name: String!, $topic: String!) {
+    addThing(name: $name, topic: $topic)
+  }
+`;
+
 export const toggleLed = gql`
   mutation ToggleLed($toggle: String!) {
     toggleLed(toggle: $toggle)
