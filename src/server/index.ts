@@ -111,8 +111,8 @@ const startServer = async () => {
     });
   }
 
-  app.listen(8080, () => {
-    console.log("Server is ready for requests on port 8080");
+  app.listen(4000, () => {
+    log(chalk.bgCyan("Server is ready for requests on port 4000"));
   });
 };
 startServer();

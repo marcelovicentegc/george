@@ -23,7 +23,7 @@ const client = new ApolloClient({
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
     createUploadLink({
-      uri: "http://127.0.0.1:8080/api",
+      uri: "http://127.0.0.1:4000/api",
       credentials: "include"
     })
   ]),

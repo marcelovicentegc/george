@@ -6,7 +6,7 @@ const char *SSID = "my wifi network";                           // WiFi network
 const char *PASSWORD = "the password is written on the router"; // WiFi network password
 
 const char *BROKER_MQTT = "127.0.0.1"; // broker ip/host
-int BROKER_PORT = 8080;                // broker port
+int BROKER_PORT = 4000;                // broker port
 
 // prototypes
 void initPins();
