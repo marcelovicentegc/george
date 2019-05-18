@@ -3,7 +3,8 @@
 const char *ssid = "your network name";
 const char *password = "your network password";
 
-int ledPin = D0;
+int relay = D0;
+int led = D1;
 WiFiServer server(80);
 
 void setup()
@@ -11,8 +12,9 @@ void setup()
     Serial.begin(9600);
     delay(10);
 
-    pinMode(ledPin, OUTPUT);
-    digitalWrite(ledPin, LOW);
+    pinMode(relay, OUTPUT);
+    pinMode(led, OUTPUT);
+    digitalWrite(led, HIGH);
 
     Serial.println();
     Serial.println();
@@ -61,13 +63,13 @@ void loop()
     int value = LOW;
     if (request.indexOf("/LED=ON") != -1)
     {
-        digitalWrite(ledPin, HIGH);
+        digitalWrite(relay, HIGH);
         value = HIGH;
     }
 
     if (request.indexOf("/LED=OFF") != -1)
     {
-        digitalWrite(ledPin, LOW);
+        digitalWrite(relay, LOW);
         value = LOW;
     }
 
