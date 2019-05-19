@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
-const char *ssid = "your network name";
-const char *password = "your network password";
+const char *ssid = "VIVOFIBRA-BC2C";
+const char *password = "auxPXwWJEk";
 
 int relay = D0;
 int led = D1;
@@ -13,8 +13,6 @@ void setup()
     delay(10);
 
     pinMode(relay, OUTPUT);
-    pinMode(led, OUTPUT);
-    digitalWrite(led, HIGH);
 
     Serial.println();
     Serial.println();

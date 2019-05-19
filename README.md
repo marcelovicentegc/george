@@ -368,7 +368,13 @@ Sources: [How to Install Mosquitto Broker on Raspberry Pi](https://randomnerdtut
   - ESP controllers are the conductors of the application and they orchestrate the application's logic and responses to client requests. Via `action` functions, they receive client requests and generate appropriate responses, mutating the applications data model as required.
     An ESP controller is a `C` source file that contains action functions to receive incoming client requests and manage the applications response. The controller may be part of an ESP MVC application or it may be a stand-alone controller. [Source](https://www.embedthis.com/esp/doc/users/controllers.html).
   - Connects to [LAN](https://en.wikipedia.org/wiki/Local_area_network).
-  - Have ports
+
+### ESP8266 power consumption
+
+| Energy      |
+| ----------- |
+| 1,2 W/h     |
+| 720 W/month |
 
 ### ESP8266 NodeMCU ESP-12E WiFi module board + Raspberry Pi
 
@@ -394,7 +400,7 @@ Sources: [Powering the ESP-12E NodeMCU Development Board](http://henrysbench.cap
 
 ### Controlling a relay with ESP8266 NodeMCU ESP-12E WiFi module board
 
-Sources: [How to make a 5 volts relay work with NodeMCU](https://arduino.stackexchange.com/questions/36330/how-to-make-a-5-volt-relay-work-with-nodemcu), [ESP8266 WiFi relay control](https://www.youtube.com/watch?v=3bFs_MZVFxw)
+Sources: [How to make a 5 volts relay work with NodeMCU](https://arduino.stackexchange.com/questions/36330/how-to-make-a-5-volt-relay-work-with-nodemcu), [ESP8266 WiFi relay control](https://www.youtube.com/watch?v=3bFs_MZVFxw), [ESP8266 Web Server - Control a Relay, LED, Read Temperature & Humidity](https://www.youtube.com/watch?v=vItG2NUKovk), [Connecting a Relay Module with NodeMCU](http://www.notespoint.com/relaymodule-nodemcu/)
 
 ---
 

@@ -26,6 +26,28 @@ const resolvers: IResolvers = {
       if (!username) return null;
 
       return username;
+    },
+    getGroupIdFromUserId: async (_, __, { req }) => {
+      const userId = req.session.id;
+      const user = await User.findOne({
+        where: { userId },
+        relations: ["group"]
+      });
+      const groupId = user.group;
+      return groupId;
+    },
+    getThingsFromGroupId: async (_, { id }) => {
+      const group = await Group.findOne(id);
+      if (!group) {
+        throw new Error("This group doesn't exist");
+      }
+
+      const groupId = group.id;
+      const things = await Thing.find({
+        where: { groupId }
+      });
+
+      return things;
     }
   },
   Mutation: {
@@ -75,6 +97,10 @@ const resolvers: IResolvers = {
 
       await thing.save();
       await group.things.push(thing);
+      await group.save();
+      console.log("@addThing");
+      console.log("group: ", group);
+      console.log("thing: ", thing);
       return true;
     },
     toggleLed: async (_, { toggle }) => {

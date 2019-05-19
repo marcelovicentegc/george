@@ -15,3 +15,21 @@ export const getUserUsernameFromId = gql`
     }
   }
 `;
+
+export const getGroupIdFromUserId = gql`
+  query GetGroupIdFromUserId {
+    getGroupIdFromUserId {
+      id
+    }
+  }
+`;
+
+export const getThingsFromGroupId = gql`
+  query GetThingsFromGroupId($id: String!) {
+    getThingsFromGroupId(id: $id) {
+      id
+      name
+      topic
+    }
+  }
+`;

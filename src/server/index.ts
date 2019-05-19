@@ -39,7 +39,7 @@ const startServer = async () => {
 
     try {
       await createConnection(connectionOptions).then(() => {
-        log(chalk.blue("Connected to sqlite database"));
+        log(chalk.bgGreen("Connected to sqlite database"));
       });
 
       if (process.env.NODE_ENV === "development") {
@@ -49,7 +49,7 @@ const startServer = async () => {
           things: []
         });
         await group.save();
-        log(chalk.blue("Created default group"));
+        log(chalk.bgYellowBright("Created default group"));
 
         const hashedPassword = await bcrypt.hash("admin", 12);
         const user = await User.create({
@@ -59,11 +59,11 @@ const startServer = async () => {
         });
 
         await user.save();
-        log(chalk.blue("Created default user"));
+        log(chalk.bgRed("Created default user"));
 
         await group.users.push(user);
         await group.save();
-        log(chalk.blue("Linked default group to default user"));
+        log(chalk.bgGreen("Linked default group to default user"));
       }
 
       break;
@@ -112,7 +112,8 @@ const startServer = async () => {
   }
 
   app.listen(4000, () => {
-    log(chalk.bgCyan("Server is ready for requests on port 4000"));
+    log(chalk.bgYellowBright("Server is ready for requests on port 4000"));
+    log(chalk.bgRed("Have fun :)"));
   });
 };
 startServer();

@@ -99,3 +99,39 @@ export type GetUserUsernameFromIdGetUserUsernameFromId = {
 
   username: string;
 };
+
+export type GetGroupIdFromUserIdVariables = {};
+
+export type GetGroupIdFromUserIdQuery = {
+  __typename?: "Query";
+
+  getGroupIdFromUserId: Maybe<GetGroupIdFromUserIdGetGroupIdFromUserId>;
+};
+
+export type GetGroupIdFromUserIdGetGroupIdFromUserId = {
+  __typename?: "Group";
+
+  id: string;
+};
+
+export type GetThingsFromGroupIdVariables = {
+  id: string;
+};
+
+export type GetThingsFromGroupIdQuery = {
+  __typename?: "Query";
+
+  getThingsFromGroupId: Maybe<
+    (Maybe<GetThingsFromGroupIdGetThingsFromGroupId>)[]
+  >;
+};
+
+export type GetThingsFromGroupIdGetThingsFromGroupId = {
+  __typename?: "Thing";
+
+  id: string;
+
+  name: string;
+
+  topic: string;
+};
