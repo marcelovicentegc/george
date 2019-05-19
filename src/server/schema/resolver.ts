@@ -98,9 +98,6 @@ const resolvers: IResolvers = {
       await thing.save();
       await group.things.push(thing);
       await group.save();
-      console.log("@addThing");
-      console.log("group: ", group);
-      console.log("thing: ", thing);
       return true;
     },
     toggleLed: async (_, { toggle }) => {

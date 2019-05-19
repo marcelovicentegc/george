@@ -5,6 +5,7 @@ import chalk from "chalk";
 import * as connectRedis from "connect-redis";
 import * as express from "express";
 import * as session from "express-session";
+import * as mosca from "mosca";
 import * as path from "path";
 import "reflect-metadata";
 import { createConnection, getConnectionOptions } from "typeorm";
@@ -104,6 +105,14 @@ const startServer = async () => {
     }
   });
 
+  const broker = new mosca.Server({
+    port: 1883
+  });
+
+  broker.on("ready", () => {
+    log(chalk.bgYellowBright("Broker is ready on port 1883"));
+  });
+
   if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve("./dist")));
     app.get("*", (req, res) => {
@@ -112,8 +121,7 @@ const startServer = async () => {
   }
 
   app.listen(4000, () => {
-    log(chalk.bgYellowBright("Server is ready for requests on port 4000"));
-    log(chalk.bgRed("Have fun :)"));
+    log(chalk.bgRed("Server is ready for requests on port 4000"));
   });
 };
 startServer();
