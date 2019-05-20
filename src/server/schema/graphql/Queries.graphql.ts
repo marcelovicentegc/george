@@ -16,9 +16,17 @@ export const getUserUsernameFromId = gql`
   }
 `;
 
+export const getGroupIdFromUserIdFromSession = gql`
+  query GetGroupIdFromUserIdFromSession {
+    getGroupIdFromUserIdFromSession {
+      id
+    }
+  }
+`;
+
 export const getGroupIdFromUserId = gql`
-  query GetGroupIdFromUserId {
-    getGroupIdFromUserId {
+  query GetGroupIdFromUserId($id: String!) {
+    getGroupIdFromUserId(id: $id) {
       id
     }
   }

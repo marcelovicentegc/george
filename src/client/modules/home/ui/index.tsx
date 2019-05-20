@@ -2,6 +2,7 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import { getUserUsernameFromId } from "../../../../server/schema/graphql/Queries.graphql";
 import {
+  GetGroupIdFromUserIdGetGroupIdFromUserId,
   GetUserIdFromSessionGetUserIdFromSession,
   GetUserUsernameFromIdQuery,
   GetUserUsernameFromIdVariables
@@ -12,6 +13,7 @@ import "./main.scss";
 
 interface Props {
   user: GetUserIdFromSessionGetUserIdFromSession;
+  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
 }
 
 const Home: React.FunctionComponent<Props> = props => {
@@ -28,7 +30,7 @@ const Home: React.FunctionComponent<Props> = props => {
             return (
               <>
                 <Nav username={data.getUserUsernameFromId.username} />
-                <ComponentsDashboard />
+                <ComponentsDashboard groupId={props.groupId} />
               </>
             );
           }}

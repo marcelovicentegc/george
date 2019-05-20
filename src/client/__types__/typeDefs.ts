@@ -100,7 +100,25 @@ export type GetUserUsernameFromIdGetUserUsernameFromId = {
   username: string;
 };
 
-export type GetGroupIdFromUserIdVariables = {};
+export type GetGroupIdFromUserIdFromSessionVariables = {};
+
+export type GetGroupIdFromUserIdFromSessionQuery = {
+  __typename?: "Query";
+
+  getGroupIdFromUserIdFromSession: Maybe<
+    GetGroupIdFromUserIdFromSessionGetGroupIdFromUserIdFromSession
+  >;
+};
+
+export type GetGroupIdFromUserIdFromSessionGetGroupIdFromUserIdFromSession = {
+  __typename?: "Group";
+
+  id: string;
+};
+
+export type GetGroupIdFromUserIdVariables = {
+  id: string;
+};
 
 export type GetGroupIdFromUserIdQuery = {
   __typename?: "Query";

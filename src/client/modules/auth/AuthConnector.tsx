@@ -1,14 +1,22 @@
 import * as React from "react";
-import { GetUserIdFromSessionGetUserIdFromSession } from "../../__types__/typeDefs";
+import {
+  GetGroupIdFromUserIdGetGroupIdFromUserId,
+  GetUserIdFromSessionGetUserIdFromSession
+} from "../../__types__/typeDefs";
 import Home from "../home/ui";
 import Auth from "./ui";
 
 interface Props {
   user: GetUserIdFromSessionGetUserIdFromSession | null;
+  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId | null;
 }
 
 const AuthConnector: React.FunctionComponent<Props> = props => {
-  return props.user === null ? <Auth /> : <Home user={props.user} />;
+  return props.user === null ? (
+    <Auth />
+  ) : (
+    <Home user={props.user} groupId={props.groupId} />
+  );
 };
 
 export default AuthConnector;

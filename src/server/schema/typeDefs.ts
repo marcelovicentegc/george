@@ -5,7 +5,8 @@ const typeDefs = gql`
   type Query {
     getUserIdFromSession: User
     getUserUsernameFromId(id: String!): User
-    getGroupIdFromUserId: Group
+    getGroupIdFromUserIdFromSession: Group
+    getGroupIdFromUserId(id: String!): Group
     getThingsFromGroupId(id: String!): [Thing]
   }
 

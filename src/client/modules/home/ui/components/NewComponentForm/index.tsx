@@ -3,20 +3,25 @@ import * as React from "react";
 import { Mutation } from "react-apollo";
 import useOnClickOutside from "use-onclickoutside";
 import { addThing } from "../../../../../../server/schema/graphql/Mutations.graphql";
+import { getThingsFromGroupId } from "../../../../../../server/schema/graphql/Queries.graphql";
 import NewComponentStoreContext from "../../../../../stores/NewComponentStore.store";
 import {
   AddThingMutation,
-  AddThingVariables
+  AddThingVariables,
+  GetGroupIdFromUserIdGetGroupIdFromUserId
 } from "../../../../../__types__/typeDefs";
 import ErrorMessage from "../ErrorMessage";
 import "./main.scss";
 
-const NewComponentForm: React.FunctionComponent = observer(() => {
+interface Props {
+  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
+}
+
+const NewComponentForm: React.FunctionComponent<Props> = observer(props => {
   const [space, setSpace] = React.useState();
   const [component, setComponent] = React.useState();
   const [errorMessage, setErrorMessage] = React.useState(undefined);
   const [awaiting, setAwaiting] = React.useState(false);
-  const [success, setSucces] = React.useState(false);
   const NewComponentStore = React.useContext(NewComponentStoreContext);
   const newComponentForm = React.useRef();
 
@@ -24,15 +29,8 @@ const NewComponentForm: React.FunctionComponent = observer(() => {
   const hideNewComponentForm = () => {
     NewComponentStore.form = false;
   };
-  console.log(NewComponentStore.form);
 
   useOnClickOutside(newComponentForm, hideNewComponentForm);
-
-  if (success === true) {
-    setTimeout(() => {
-      // Alter global state in
-    }, 3000);
-  }
 
   return (
     <div className="new-component-form-wrapper">
@@ -41,6 +39,15 @@ const NewComponentForm: React.FunctionComponent = observer(() => {
         onError={error => {
           setErrorMessage(error.message);
         }}
+        refetchQueries={[
+          {
+            query: getThingsFromGroupId,
+            variables: {
+              id: props.groupId.id
+            }
+          }
+        ]}
+        awaitRefetchQueries={true}
       >
         {mutate => (
           <>
@@ -86,7 +93,7 @@ const NewComponentForm: React.FunctionComponent = observer(() => {
                     }).then(() => {
                       if (errorMessage === undefined) {
                         setAwaiting(false);
-                        setSucces(true);
+                        hideNewComponentForm();
                         // Display success message and close this window 3s after displaying that message by altering
                         // the global state related to this pop up.
                       }
@@ -94,7 +101,11 @@ const NewComponentForm: React.FunctionComponent = observer(() => {
                   }}
                   className="submit-button"
                 >
-                  <span>Send</span>
+                  {awaiting ? (
+                    <span className="awaiting">Sending</span>
+                  ) : (
+                    <span>Send</span>
+                  )}
                 </button>
               </div>
             </form>

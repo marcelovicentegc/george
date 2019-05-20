@@ -1,13 +1,18 @@
 import { observer } from "mobx-react-lite";
 import * as React from "react";
 import NewComponentStoreContext from "../../../../../stores/NewComponentStore.store";
+import { GetGroupIdFromUserIdGetGroupIdFromUserId } from "../../../../../__types__/typeDefs";
 import Components from "../Components";
 import NewComponentButton from "../NewComponentButton";
 import NewComponentForm from "../NewComponentForm";
 import StatusBar from "../StatusBar";
 import "./main.scss";
 
-const ComponentsDashboard: React.FunctionComponent = observer(() => {
+interface Props {
+  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
+}
+
+const ComponentsDashboard: React.FunctionComponent<Props> = observer(props => {
   const NewComponentStore = React.useContext(NewComponentStoreContext);
   NewComponentStore.form;
   return (
@@ -15,9 +20,11 @@ const ComponentsDashboard: React.FunctionComponent = observer(() => {
       <div className="components-dashboard">
         <NewComponentButton />
         <StatusBar />
-        {NewComponentStore.form ? <NewComponentForm /> : null}
+        {NewComponentStore.form ? (
+          <NewComponentForm groupId={props.groupId} />
+        ) : null}
       </div>
-      <Components />
+      <Components groupId={props.groupId} />
     </div>
   );
 });

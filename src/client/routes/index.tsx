@@ -1,10 +1,17 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { getUserIdFromSession } from "../../server/schema/graphql/Queries.graphql";
+import {
+  getGroupIdFromUserId,
+  getUserIdFromSession
+} from "../../server/schema/graphql/Queries.graphql";
 import AuthConnector from "../modules/auth/AuthConnector";
 import Loading from "../modules/utils/Loading";
-import { GetUserIdFromSessionQuery } from "../__types__/typeDefs";
+import {
+  GetGroupIdFromUserIdQuery,
+  GetGroupIdFromUserIdVariables,
+  GetUserIdFromSessionQuery
+} from "../__types__/typeDefs";
 
 export const Routes = () => {
   return (
@@ -18,17 +25,32 @@ export const Routes = () => {
                 <Route
                   exact={true}
                   path="/"
-                  component={() => <AuthConnector user={null} />}
+                  component={() => <AuthConnector user={null} groupId={null} />}
                 />
               );
+            const user = data.getUserIdFromSession;
             return (
-              <Route
-                exact={true}
-                path="/"
-                component={() => (
-                  <AuthConnector user={data.getUserIdFromSession} />
-                )}
-              />
+              <Query<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdVariables>
+                query={getGroupIdFromUserId}
+                variables={{ id: data.getUserIdFromSession.id }}
+              >
+                {({ data, loading }) => {
+                  if (loading) return null;
+                  if (!data || !data.getGroupIdFromUserId) return null;
+                  return (
+                    <Route
+                      exact={true}
+                      path="/"
+                      component={() => (
+                        <AuthConnector
+                          user={user}
+                          groupId={data.getGroupIdFromUserId}
+                        />
+                      )}
+                    />
+                  );
+                }}
+              </Query>
             );
           }}
         </Query>
