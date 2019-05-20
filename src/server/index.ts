@@ -14,6 +14,9 @@ import User from "./database/entities/User.model";
 import { redis } from "./redis";
 import schema from "./schema/schema";
 const log = console.log;
+const bgPink = chalk.bgRgb(255, 127, 255);
+const bgBlue = chalk.bgRgb(0, 0, 255);
+const bgCyan = chalk.bgRgb(127, 255, 255);
 
 export interface Context {
   req: {
@@ -40,7 +43,7 @@ const startServer = async () => {
 
     try {
       await createConnection(connectionOptions).then(() => {
-        log(chalk.bgGreen("Connected to sqlite database"));
+        log(bgPink("Connected to sqlite database"));
       });
 
       if (process.env.NODE_ENV === "development") {
@@ -50,7 +53,7 @@ const startServer = async () => {
           things: []
         });
         await group.save();
-        log(chalk.bgYellowBright("Created default group"));
+        log(bgBlue("Created default group"));
 
         const hashedPassword = await bcrypt.hash("admin", 12);
         const user = await User.create({
@@ -60,11 +63,11 @@ const startServer = async () => {
         });
 
         await user.save();
-        log(chalk.bgRed("Created default user"));
+        log(bgCyan("Created default user"));
 
         await group.users.push(user);
         await group.save();
-        log(chalk.bgGreen("Linked default group to default user"));
+        log(bgPink("Linked default group to default user"));
       }
 
       break;
@@ -110,7 +113,7 @@ const startServer = async () => {
   });
 
   broker.on("ready", () => {
-    log(chalk.bgYellowBright("Broker is ready on port 1883"));
+    log(bgBlue("Broker is ready on port 1883"));
   });
 
   if (process.env.NODE_ENV === "production") {
@@ -121,7 +124,7 @@ const startServer = async () => {
   }
 
   app.listen(4000, () => {
-    log(chalk.bgRed("Server is ready for requests on port 4000"));
+    log(bgCyan("Server is ready for requests on port 4000"));
   });
 };
 startServer();

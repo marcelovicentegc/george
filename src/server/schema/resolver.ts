@@ -3,6 +3,7 @@ import { IResolvers } from "graphql-tools";
 import Group from "../database/entities/Group.model";
 import Thing from "../database/entities/Thing.model";
 import User from "../database/entities/User.model";
+import slugify from "../utils/slugify";
 // import * as Five from 'johnny-five';
 
 // const board = new Five.Board();
@@ -73,16 +74,19 @@ const resolvers: IResolvers = {
       res.clearCookie("cookie.sid");
       return true;
     },
-    addThing: async (_, { name, topic }, { req }) => {
+    addThing: async (_, { space, component }, { req }) => {
       const userId = req.session.userId;
 
       if (!userId) {
         return false;
       }
 
+      const spaceSlug = slugify(space);
+      const componentSlug = slugify(component);
       const thing = await Thing.create({
-        name: name,
-        topic: topic,
+        space: space,
+        component: component,
+        topic: spaceSlug + "/" + componentSlug,
         user: userId
       });
 
@@ -98,6 +102,7 @@ const resolvers: IResolvers = {
       await thing.save();
       await group.things.push(thing);
       await group.save();
+      console.log("thing: ", thing);
       return true;
     },
     toggleLed: async (_, { toggle }) => {

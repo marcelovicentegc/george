@@ -24,14 +24,15 @@ const typeDefs = gql`
 
   type Thing {
     id: ID!
-    name: String!
-    topic: String!
+    space: String!
+    component: String!
+    topic: String
   }
 
   type Mutation {
     loginUser(username: String!, password: String!): User
     logoutUser: Boolean!
-    addThing(name: String!, topic: String!): Boolean!
+    addThing(space: String!, component: String!): Boolean!
     toggleLed(toggle: String!): Boolean!
     toggleAbajur(toggle: String!): Boolean!
     toggleAC(toggle: String!): Boolean!

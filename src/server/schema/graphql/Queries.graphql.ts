@@ -28,7 +28,8 @@ export const getThingsFromGroupId = gql`
   query GetThingsFromGroupId($id: String!) {
     getThingsFromGroupId(id: $id) {
       id
-      name
+      space
+      component
       topic
     }
   }

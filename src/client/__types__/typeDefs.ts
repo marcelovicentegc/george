@@ -30,8 +30,8 @@ export type LogoutUserMutation = {
 };
 
 export type AddThingVariables = {
-  name: string;
-  topic: string;
+  space: string;
+  component: string;
 };
 
 export type AddThingMutation = {
@@ -131,7 +131,9 @@ export type GetThingsFromGroupIdGetThingsFromGroupId = {
 
   id: string;
 
-  name: string;
+  space: string;
 
-  topic: string;
+  component: string;
+
+  topic: Maybe<string>;
 };

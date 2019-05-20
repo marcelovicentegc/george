@@ -44,10 +44,10 @@ const Components: React.FunctionComponent = () => {
                   return (
                     <div className="component" key={i}>
                       <div className="component-name">
-                        <span>{thing.name}</span>
+                        <span>{thing.space}</span>
                       </div>
                       <div className="component-topic">
-                        <span>{thing.topic}</span>
+                        <span>{thing.component}</span>
                       </div>
                     </div>
                   );

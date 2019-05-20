@@ -15,8 +15,8 @@ export const logoutUser = gql`
 `;
 
 export const addThing = gql`
-  mutation AddThing($name: String!, $topic: String!) {
-    addThing(name: $name, topic: $topic)
+  mutation AddThing($space: String!, $component: String!) {
+    addThing(space: $space, component: $component)
   }
 `;
 

@@ -12,8 +12,8 @@ import ErrorMessage from "../ErrorMessage";
 import "./main.scss";
 
 const NewComponentForm: React.FunctionComponent = observer(() => {
-  const [name, setName] = React.useState();
-  const [topic, setTopic] = React.useState();
+  const [space, setSpace] = React.useState();
+  const [component, setComponent] = React.useState();
   const [errorMessage, setErrorMessage] = React.useState(undefined);
   const [awaiting, setAwaiting] = React.useState(false);
   const [success, setSucces] = React.useState(false);
@@ -53,22 +53,24 @@ const NewComponentForm: React.FunctionComponent = observer(() => {
               ref={newComponentForm}
             >
               <div className="input-wrapper">
-                <span>Component name</span>
+                <span>Space</span>
                 <input
                   type="text"
+                  placeholder="I.g. living room"
                   onChange={e => {
                     setErrorMessage(undefined);
-                    setName(e.target.value);
+                    setSpace(e.target.value);
                   }}
                 />
               </div>
               <div className="input-wrapper">
-                <span>Component topic</span>
+                <span>Component</span>
                 <input
                   type="text"
+                  placeholder="I.g. balcony lamp"
                   onChange={e => {
                     setErrorMessage(undefined);
-                    setTopic(e.target.value);
+                    setComponent(e.target.value);
                   }}
                 />
               </div>
@@ -78,8 +80,8 @@ const NewComponentForm: React.FunctionComponent = observer(() => {
                     setAwaiting(true);
                     await mutate({
                       variables: {
-                        name: name,
-                        topic: topic
+                        space: space,
+                        component: component
                       }
                     }).then(() => {
                       if (errorMessage === undefined) {

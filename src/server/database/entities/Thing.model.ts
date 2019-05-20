@@ -14,7 +14,10 @@ export default class Thing extends BaseEntity {
   id: string;
 
   @Column()
-  name: string;
+  space: string;
+
+  @Column()
+  component: string;
 
   @Column()
   topic: string;
