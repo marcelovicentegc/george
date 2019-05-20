@@ -1,4 +1,24 @@
 .components {
+  padding: 20px;
   height: 100%;
-  width: 100%;
+
+  .help-box {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    left: 0;
+    background: #fff;
+    border: 1px solid #c2c2c2;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  .component {
+    display: flex;
+    flex-direction: row;
+
+    > div {
+      padding: 10px;
+    }
+  }
 }

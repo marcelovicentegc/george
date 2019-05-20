@@ -13,6 +13,10 @@ interface Props {
 }
 
 const Components: React.FunctionComponent<Props> = props => {
+  const [help, setHelp] = React.useState(false);
+  const helpText =
+    "This is the topic which you need to subscribe your modules to";
+
   return (
     <div className="components">
       <Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdVariables>
@@ -34,18 +38,34 @@ const Components: React.FunctionComponent<Props> = props => {
               </div>
             );
           }
-          return data.getThingsFromGroupId.map((thing, i) => {
-            return (
-              <div className="component" key={i}>
-                <div className="component-name">
-                  <span>{thing.space}</span>
+          return (
+            <>
+              {help ? (
+                <div className="help-box">
+                  <span>{helpText}</span>
                 </div>
-                <div className="component-topic">
-                  <span>{thing.component}</span>
-                </div>
-              </div>
-            );
-          });
+              ) : null}
+              {data.getThingsFromGroupId.map((thing, i) => {
+                return (
+                  <div className="component" key={i}>
+                    <div className="component-space">
+                      <span>{thing.space}</span>
+                    </div>
+                    <div className="component-itself">
+                      <span>{thing.component}</span>
+                    </div>
+                    <div
+                      className="component-topic"
+                      onMouseEnter={() => setHelp(true)}
+                      onMouseLeave={() => setHelp(false)}
+                    >
+                      <span>{thing.topic}</span>
+                    </div>
+                  </div>
+                );
+              })}{" "}
+            </>
+          );
         }}
       </Query>
     </div>
