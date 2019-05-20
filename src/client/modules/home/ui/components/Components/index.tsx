@@ -50,8 +50,8 @@ const Components: React.FunctionComponent<Props> = props => {
               {data.getThingsFromGroupId.map((thing, i) => {
                 return (
                   <>
-                    <Link to={thing.topic}>
-                      <div className="component" key={i}>
+                    <Link to={thing.topic} key={i}>
+                      <div className="component">
                         <div className="component-space">
                           <span>{thing.space}</span>
                         </div>

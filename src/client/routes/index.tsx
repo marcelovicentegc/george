@@ -6,7 +6,7 @@ import {
   getUserIdFromSession
 } from "../../server/schema/graphql/Queries.graphql";
 import AuthConnector from "../modules/auth/AuthConnector";
-import Controller from "../modules/controller/ui";
+import ControllerConnector from "../modules/controller/ControllerConnector";
 import Loading from "../modules/utils/Loading";
 import {
   GetGroupIdFromUserIdQuery,
@@ -53,7 +53,11 @@ export const Routes = () => {
                       <Route
                         exact={true}
                         path="/:space/:name"
-                        component={() => <Controller />}
+                        component={() => (
+                          <ControllerConnector
+                            groupId={data.getGroupIdFromUserId}
+                          />
+                        )}
                       />
                     </>
                   );
