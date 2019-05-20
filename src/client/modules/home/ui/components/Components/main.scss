@@ -1,5 +1,5 @@
 .components {
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   height: 100%;
 
   .help-box {
@@ -13,12 +13,30 @@
     border-bottom-right-radius: 3px;
   }
 
-  .component {
-    display: flex;
-    flex-direction: row;
+  a {
+    text-decoration: none;
+    color: #242424;
 
-    > div {
-      padding: 10px;
+    .component {
+      display: flex;
+      flex-direction: row;
+      transition: 0.2s;
+
+      &:hover {
+        margin: 0px -20px;
+        padding: 0px 20px;
+        background: #e9e9e9;
+        cursor: pointer;
+      }
+
+      > div {
+        padding: 10px;
+
+        &.component-topic {
+          position: absolute;
+          right: 20px;
+        }
+      }
     }
   }
 }
