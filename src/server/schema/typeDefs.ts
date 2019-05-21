@@ -35,9 +35,7 @@ const typeDefs = gql`
     loginUser(username: String!, password: String!): User
     logoutUser: Boolean!
     addThing(space: String!, component: String!): Boolean!
-    toggleLed(toggle: String!): Boolean!
-    toggleAbajur(toggle: String!): Boolean!
-    toggleAC(toggle: String!): Boolean!
+    toggleThing(toggle: String!, topic: String!): Boolean!
   }
 `;
 

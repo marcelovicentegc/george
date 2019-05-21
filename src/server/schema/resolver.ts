@@ -121,21 +121,14 @@ const resolvers: IResolvers = {
       await group.save();
       return true;
     },
-    toggleLed: async (_, { toggle }) => {
-      toggle === "true" ? console.log("Led is on") : console.log("Led is off");
-      // board.on('ready', () => {
-      //   Five.Led() receives a pin number
-      // const led = new Five.Led(10);
-      //     toggle ? led.on() : led.off();
-      //   });
-    },
-    toggleAbajur: async (_, { toggle }) => {
+    toggleThing: async (_, { toggle, topic }) => {
       toggle === "true"
-        ? console.log("Abajur is on")
-        : console.log("Abajur is off");
-    },
-    toggleAC: async (_, { toggle }) => {
-      toggle === "true" ? console.log("AC is on") : console.log("AC is off");
+        ? console.log(`Component subscribed to topic ${topic} is on`)
+        : console.log(`Component subscribed to topic ${topic} is off`);
+
+      // mqttClient.publish(topic, toggle);
+
+      return true;
     }
   }
 };

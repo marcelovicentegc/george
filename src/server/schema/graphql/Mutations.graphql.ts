@@ -20,20 +20,8 @@ export const addThing = gql`
   }
 `;
 
-export const toggleLed = gql`
-  mutation ToggleLed($toggle: String!) {
-    toggleLed(toggle: $toggle)
-  }
-`;
-
-export const toggleAbajur = gql`
-  mutation ToggleAbajur($toggle: String!) {
-    toggleAbajur(toggle: $toggle)
-  }
-`;
-
-export const toggleAC = gql`
-  mutation ToggleAC($toggle: String!) {
-    toggleAC(toggle: $toggle)
+export const toggleThing = gql`
+  mutation ToggleThing($toggle: String!, $topic: String!) {
+    toggleThing(toggle: $toggle, topic: $topic)
   }
 `;

@@ -40,34 +40,15 @@ export type AddThingMutation = {
   addThing: boolean;
 };
 
-export type ToggleLedVariables = {
+export type ToggleThingVariables = {
   toggle: string;
+  topic: string;
 };
 
-export type ToggleLedMutation = {
+export type ToggleThingMutation = {
   __typename?: "Mutation";
 
-  toggleLed: boolean;
-};
-
-export type ToggleAbajurVariables = {
-  toggle: string;
-};
-
-export type ToggleAbajurMutation = {
-  __typename?: "Mutation";
-
-  toggleAbajur: boolean;
-};
-
-export type ToggleAcVariables = {
-  toggle: string;
-};
-
-export type ToggleAcMutation = {
-  __typename?: "Mutation";
-
-  toggleAC: boolean;
+  toggleThing: boolean;
 };
 
 export type GetUserIdFromSessionVariables = {};
