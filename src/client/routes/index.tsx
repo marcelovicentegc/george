@@ -3,15 +3,19 @@ import { Query } from "react-apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   getGroupIdFromUserId,
-  getUserIdFromSession
+  getUserIdFromSession,
+  getUserUsernameFromId
 } from "../../server/schema/graphql/Queries.graphql";
 import AuthConnector from "../modules/auth/AuthConnector";
 import ControllerConnector from "../modules/controller/ControllerConnector";
+import Nav from "../modules/home/ui/components/Nav";
 import Loading from "../modules/utils/Loading";
 import {
   GetGroupIdFromUserIdQuery,
   GetGroupIdFromUserIdVariables,
-  GetUserIdFromSessionQuery
+  GetUserIdFromSessionQuery,
+  GetUserUsernameFromIdQuery,
+  GetUserUsernameFromIdVariables
 } from "../__types__/typeDefs";
 
 export const Routes = () => {
@@ -40,6 +44,25 @@ export const Routes = () => {
                   if (!data || !data.getGroupIdFromUserId) return null;
                   return (
                     <>
+                      <Query<
+                        GetUserUsernameFromIdQuery,
+                        GetUserUsernameFromIdVariables
+                      >
+                        query={getUserUsernameFromId}
+                        variables={{
+                          id: user.id
+                        }}
+                      >
+                        {({ data, loading }) => {
+                          if (loading) return null;
+                          if (!data || !data.getUserUsernameFromId) return null;
+                          return (
+                            <Nav
+                              username={data.getUserUsernameFromId.username}
+                            />
+                          );
+                        }}
+                      </Query>
                       <Route
                         exact={true}
                         path="/"

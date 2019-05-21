@@ -57,6 +57,15 @@ const resolvers: IResolvers = {
       });
 
       return things;
+    },
+    getThingFromTopic: async (_, { topic }) => {
+      const thing = await Thing.findOne({
+        where: { topic }
+      });
+
+      if (!thing) return new Error("This component doesn't exist.");
+
+      return thing;
     }
   },
   Mutation: {

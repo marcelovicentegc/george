@@ -8,6 +8,7 @@ const typeDefs = gql`
     getGroupIdFromUserIdFromSession: Group
     getGroupIdFromUserId(id: String!): Group
     getThingsFromGroupId(id: String!): [Thing]
+    getThingFromTopic(topic: String!): Thing
   }
 
   type User {

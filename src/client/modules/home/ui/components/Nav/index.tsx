@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
+import { RouteComponentProps, withRouter } from "react-router";
 import useOnClickOutside from "use-onclickoutside";
 import { logoutUser } from "../../../../../../server/schema/graphql/Mutations.graphql";
 import { getUserIdFromSession } from "../../../../../../server/schema/graphql/Queries.graphql";
 import { LogoutUserMutation } from "../../../../../__types__/typeDefs";
 import "./main.scss";
 
-interface Props {
+interface Props extends RouteComponentProps {
   username: string;
 }
 
@@ -19,18 +20,23 @@ const Nav: React.FunctionComponent<Props> = props => {
   useOnClickOutside(dropDownMenu, hideDropDown);
 
   return (
-    <nav className={` ${dropDown ? "open" : ""}`}>
+    <nav className={`${dropDown ? "open" : ""}`}>
       <span onClick={() => setDropDown(true)}>{props.username}</span>
       {dropDown ? (
         <div className="nav-dropdown-menu" ref={dropDownMenu}>
           <Mutation<LogoutUserMutation>
             mutation={logoutUser}
             refetchQueries={[{ query: getUserIdFromSession }]}
+            awaitRefetchQueries={true}
           >
             {mutate => (
               <span
                 onClick={async () => {
-                  mutate();
+                  await mutate().then(() => {
+                    if (props.location.pathname !== "/") {
+                      props.history.push("/");
+                    }
+                  });
                 }}
               >
                 Logout
@@ -43,4 +49,4 @@ const Nav: React.FunctionComponent<Props> = props => {
   );
 };
 
-export default Nav;
+export default withRouter(Nav);

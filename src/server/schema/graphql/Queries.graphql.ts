@@ -42,3 +42,14 @@ export const getThingsFromGroupId = gql`
     }
   }
 `;
+
+export const getThingFromTopic = gql`
+  query GetThingFromTopic($topic: String!) {
+    getThingFromTopic(topic: $topic) {
+      id
+      space
+      component
+      topic
+    }
+  }
+`;

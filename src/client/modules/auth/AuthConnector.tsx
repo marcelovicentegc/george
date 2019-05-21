@@ -12,11 +12,7 @@ interface Props {
 }
 
 const AuthConnector: React.FunctionComponent<Props> = props => {
-  return props.user === null ? (
-    <Auth />
-  ) : (
-    <Home user={props.user} groupId={props.groupId} />
-  );
+  return props.user === null ? <Auth /> : <Home groupId={props.groupId} />;
 };
 
 export default AuthConnector;

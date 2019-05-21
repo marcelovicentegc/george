@@ -155,3 +155,25 @@ export type GetThingsFromGroupIdGetThingsFromGroupId = {
 
   topic: Maybe<string>;
 };
+
+export type GetThingFromTopicVariables = {
+  topic: string;
+};
+
+export type GetThingFromTopicQuery = {
+  __typename?: "Query";
+
+  getThingFromTopic: Maybe<GetThingFromTopicGetThingFromTopic>;
+};
+
+export type GetThingFromTopicGetThingFromTopic = {
+  __typename?: "Thing";
+
+  id: string;
+
+  space: string;
+
+  component: string;
+
+  topic: Maybe<string>;
+};

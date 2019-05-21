@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { RouteComponentProps, withRouter } from "react-router";
-import { getThingsFromGroupId } from "../../../../server/schema/graphql/Queries.graphql";
+import { getThingFromTopic } from "../../../../server/schema/graphql/Queries.graphql";
 import {
   GetGroupIdFromUserIdGetGroupIdFromUserId,
-  GetThingsFromGroupIdQuery,
-  GetThingsFromGroupIdVariables
+  GetThingFromTopicQuery,
+  GetThingFromTopicVariables
 } from "../../../__types__/typeDefs";
 import Loading from "../../utils/Loading";
 import Led from "./components/Led";
@@ -18,24 +18,26 @@ interface Props extends RouteComponentProps {
 
 const Controller: React.FunctionComponent<Props> = props => {
   return (
-    <Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdVariables>
-      query={getThingsFromGroupId}
+    <Query<GetThingFromTopicQuery, GetThingFromTopicVariables>
+      query={getThingFromTopic}
       variables={{
-        id: props.groupId.id
+        topic: props.location.pathname.slice(1)
       }}
     >
       {({ data, loading }) => {
         if (loading) return <Loading />;
-        if (!data || !data.getThingsFromGroupId) {
+        if (!data || !data.getThingFromTopic) {
           props.history.push("/");
         }
         return (
-          <div className="controller-wrapper">
-            <div className="controller">
-              <span>{props.location.pathname}</span>
-              <Led />
+          <>
+            <div className="controller-wrapper">
+              <div className="controller">
+                <span>{data.getThingFromTopic.topic}</span>
+                <Led />
+              </div>
             </div>
-          </div>
+          </>
         );
       }}
     </Query>
