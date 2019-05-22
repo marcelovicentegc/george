@@ -2,22 +2,22 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-const char *SSID = "my wifi network";                           // WiFi network
-const char *PASSWORD = "the password is written on the router"; // WiFi network password
+const char *SSID = "my wifi network";
+const char *PASSWORD = "the password is written on the router";
 
-const char *BROKER_MQTT = "127.0.0.1"; // broker ip/host
-int BROKER_PORT = 4000;                // broker port
+const char *BROKER_MQTT = "localhost";
+int BROKER_PORT = 1883;
 
-// prototypes
+const char *TOPIC = "";
+
 void initPins();
 void initSerial();
 void initWiFi();
 void initMQTT();
 
 WiFiClient espClient;
-PubSubClient MQTT(espClient); // instancia o mqtt
+PubSubClient MQTT(espClient);
 
-// setup
 void setup()
 {
     initPins();
@@ -36,7 +36,6 @@ void loop()
     MQTT.loop();
 }
 
-// prototypes implementation
 void initPins()
 {
     pinMode(D5, OUTPUT);
@@ -63,14 +62,12 @@ void initWiFi()
     Serial.println(WiFi.localIP());
 }
 
-// connects to the broker
 void initMQTT()
 {
     MQTT.setServer(BROKER_MQTT, BROKER_PORT);
     MQTT.setCallback(mqtt_callback);
 }
 
-// receives published messages
 void mqtt_callback(char *topic, byte *payload, unsigned int length)
 {
 
@@ -100,7 +97,7 @@ void reconnectMQTT()
         if (MQTT.connect("ESP8266-ESP12-E"))
         {
             Serial.println("Connected");
-            MQTT.subscribe("sala/ar-condicionado");
+            MQTT.subscribe(TOPIC);
         }
         else
         {

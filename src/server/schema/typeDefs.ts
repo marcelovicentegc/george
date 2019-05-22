@@ -29,6 +29,11 @@ const typeDefs = gql`
     space: String!
     component: String!
     topic: String
+    triggered: [Triggered]
+  }
+
+  type Triggered {
+    at: String!
   }
 
   type Mutation {

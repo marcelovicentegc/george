@@ -22,6 +22,9 @@ export default class Thing extends BaseEntity {
   @Column()
   topic: string;
 
+  @Column({ nullable: true })
+  triggeredAt: string;
+
   @ManyToOne(() => User, user => user.group)
   user: User;
 

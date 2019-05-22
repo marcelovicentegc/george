@@ -35,7 +35,7 @@ const Components: React.FunctionComponent<Props> = props => {
             data.getThingsFromGroupId.length === 0
           ) {
             return (
-              <div className="component">
+              <div className="component no-component">
                 <span>You have no components yet</span>
               </div>
             );

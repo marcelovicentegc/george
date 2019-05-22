@@ -157,4 +157,12 @@ export type GetThingFromTopicGetThingFromTopic = {
   component: string;
 
   topic: Maybe<string>;
+
+  triggered: Maybe<(Maybe<GetThingFromTopicTriggered>)[]>;
+};
+
+export type GetThingFromTopicTriggered = {
+  __typename?: "Triggered";
+
+  at: string;
 };

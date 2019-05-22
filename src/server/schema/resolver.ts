@@ -126,6 +126,16 @@ const resolvers: IResolvers = {
         ? console.log(`Component subscribed to topic ${topic} is on`)
         : console.log(`Component subscribed to topic ${topic} is off`);
 
+      const thing = await Thing.findOne({
+        where: { topic }
+      });
+
+      thing.triggeredAt = new Date()
+        .toISOString()
+        .replace(/T/, " ")
+        .replace(/\..+/, "");
+      thing.save();
+      console.log(thing);
       // mqttClient.publish(topic, toggle);
 
       return true;

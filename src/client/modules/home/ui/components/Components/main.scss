@@ -13,6 +13,22 @@
     border-bottom-right-radius: 3px;
   }
 
+  .no-component {
+    position: absolute;
+    top: 121.69px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      position: relative;
+      top: -21.69px;
+    }
+  }
+
   a {
     text-decoration: none;
     color: #242424;

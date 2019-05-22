@@ -376,12 +376,14 @@ Sources: [How to Install Mosquitto Broker on Raspberry Pi](https://randomnerdtut
 | 1,2 W/h     |
 | 720 W/month |
 
+Sources: [ESP8266 Power Consumption](https://bbs.espressif.com/viewtopic.php?t=133)
+
 ### ESP8266 NodeMCU ESP-12E WiFi module board + Raspberry Pi
 
 - Both can talk to each other directly.
 - Both use 3.3V signaling, so no level converting is required.
 
-Sources: [Connect the ESP8266 WiFi Chip to your Raspberry Pi](https://openhomeautomation.net/connect-esp8266-raspberry-pi), [Connect an ESP8266 to your Raspberry Pi](https://www.instructables.com/id/Connect-an-ESP8266-to-your-RaspberryPi/), [Raspberry Pi talking to ESP8266 using MQTT](https://www.hackster.io/ruchir1674/raspberry-pi-talking-to-esp8266-using-mqtt-ed9037)
+Sources: [Connect the ESP8266 WiFi Chip to your Raspberry Pi](https://openhomeautomation.net/connect-esp8266-raspberry-pi), [Connect an ESP8266 to your Raspberry Pi](https://www.instructables.com/id/Connect-an-ESP8266-to-your-RaspberryPi/), [Raspberry Pi talking to ESP8266 using MQTT](https://www.hackster.io/ruchir1674/raspberry-pi-talking-to-esp8266-using-mqtt-ed9037), [Introduction to IoT: Build an MQTT Server Using Raspberry Pi](https://appcodelabs.com/introduction-to-iot-build-an-mqtt-server-using-raspberry-pi)
 
 ### ESP8266 NodeMCU ESP-12E WiFi module board + Arduino
 
