@@ -42,6 +42,7 @@ export const getThingsFromGroupId = gql`
       triggerLog {
         date
         state
+        thingId
       }
     }
   }
@@ -57,6 +58,7 @@ export const getThingFromTopic = gql`
       triggerLog {
         state
         date
+        thingId
       }
     }
   }

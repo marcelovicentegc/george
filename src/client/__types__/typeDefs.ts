@@ -145,6 +145,8 @@ export type GetThingsFromGroupIdTriggerLog = {
   date: string;
 
   state: string;
+
+  thingId: string;
 };
 
 export type GetThingFromTopicVariables = {
@@ -177,4 +179,6 @@ export type GetThingFromTopicTriggerLog = {
   state: string;
 
   date: string;
+
+  thingId: string;
 };

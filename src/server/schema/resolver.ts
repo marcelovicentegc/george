@@ -62,7 +62,8 @@ const resolvers: IResolvers = {
     },
     getThingFromTopic: async (_, { topic }) => {
       const thing = await Thing.findOne({
-        where: { topic }
+        where: { topic },
+        relations: ["triggerLog"]
       });
 
       if (!thing) return new Error("This component doesn't exist.");
@@ -141,11 +142,9 @@ const resolvers: IResolvers = {
       const triggerLog = await TriggerLog.create({
         state: state,
         date: date,
-        thing: thing
+        thing: thing,
+        thingId: thing.id
       });
-
-      console.log("triggerLog: ", triggerLog);
-      console.log("thing: ", thing);
 
       await triggerLog.save();
       await thing.triggerLog.push(triggerLog);

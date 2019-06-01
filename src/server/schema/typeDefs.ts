@@ -33,6 +33,7 @@ const typeDefs = gql`
   type TriggerLog {
     state: String!
     date: String!
+    thingId: String!
   }
 
   type Mutation {

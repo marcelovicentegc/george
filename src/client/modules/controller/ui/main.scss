@@ -1,0 +1,10 @@
+.controller-wrapper {
+  height: calc(100% - 80px);
+  padding: 20px;
+
+  .controller {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

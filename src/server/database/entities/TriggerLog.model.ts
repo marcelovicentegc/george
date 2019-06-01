@@ -20,4 +20,7 @@ export default class TriggerLog extends BaseEntity {
 
   @ManyToOne(() => Thing, thing => thing.triggerLog)
   thing: Thing;
+
+  @Column()
+  thingId: string;
 }

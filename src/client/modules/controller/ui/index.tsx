@@ -2,16 +2,22 @@ import * as React from "react";
 import { Mutation, Query } from "react-apollo";
 import { RouteComponentProps, withRouter } from "react-router";
 import { toggleThing } from "../../../../server/schema/graphql/Mutations.graphql";
-import { getThingFromTopic } from "../../../../server/schema/graphql/Queries.graphql";
+import {
+  getThingFromTopic,
+  getThingsFromGroupId
+} from "../../../../server/schema/graphql/Queries.graphql";
 import {
   GetGroupIdFromUserIdGetGroupIdFromUserId,
   GetThingFromTopicQuery,
   GetThingFromTopicVariables,
   ToggleThingMutation,
-  ToggleThingVariables
+  ToggleThingVariables,
+  GetThingsFromGroupIdQuery,
+  GetThingsFromGroupIdVariables
 } from "../../../__types__/typeDefs";
 import Loading from "../../utils/Loading";
 import "./main.scss";
+import Log from "./components/Log";
 
 interface Props extends RouteComponentProps {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
@@ -65,6 +71,12 @@ const Controller: React.FunctionComponent<Props> = props => {
                   )}
                 </Mutation>
                 <span>{data.getThingFromTopic.topic}</span>
+              </div>
+              <div className="log-wrapper">
+                {data.getThingFromTopic.triggerLog !== null &&
+                  data.getThingFromTopic.triggerLog.map(log => {
+                    return <Log date={log.date} state={log.state} />;
+                  })}
               </div>
             </div>
           </>

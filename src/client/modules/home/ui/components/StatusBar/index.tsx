@@ -31,8 +31,8 @@ const StatusBar: React.FunctionComponent<Props> = props => {
                 return thing.triggerLog.map((log, i) => {
                   return (
                     <span key={i}>
-                      {thing.component} on the {thing.space} turned
-                      {log.state[0]} @ {log.date[0]}
+                      {thing.component} on the {thing.space} turned {log.state}{" "}
+                      @ {log.date}
                     </span>
                   );
                 });
