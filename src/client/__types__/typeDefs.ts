@@ -135,6 +135,16 @@ export type GetThingsFromGroupIdGetThingsFromGroupId = {
   component: string;
 
   topic: Maybe<string>;
+
+  triggerLog: Maybe<(Maybe<GetThingsFromGroupIdTriggerLog>)[]>;
+};
+
+export type GetThingsFromGroupIdTriggerLog = {
+  __typename?: "TriggerLog";
+
+  date: string;
+
+  state: string;
 };
 
 export type GetThingFromTopicVariables = {
@@ -163,6 +173,8 @@ export type GetThingFromTopicGetThingFromTopic = {
 
 export type GetThingFromTopicTriggerLog = {
   __typename?: "TriggerLog";
+
+  state: string;
 
   date: string;
 };

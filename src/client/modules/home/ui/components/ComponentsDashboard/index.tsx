@@ -19,7 +19,7 @@ const ComponentsDashboard: React.FunctionComponent<Props> = observer(props => {
     <div className="components-dashboard-wrapper">
       <div className="components-dashboard">
         <NewComponentButton />
-        <StatusBar />
+        <StatusBar groupId={props.groupId} />
         {NewComponentStore.form ? (
           <NewComponentForm groupId={props.groupId} />
         ) : null}

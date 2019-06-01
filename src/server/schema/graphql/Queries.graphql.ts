@@ -39,6 +39,10 @@ export const getThingsFromGroupId = gql`
       space
       component
       topic
+      triggerLog {
+        date
+        state
+      }
     }
   }
 `;
@@ -51,6 +55,7 @@ export const getThingFromTopic = gql`
       component
       topic
       triggerLog {
+        state
         date
       }
     }

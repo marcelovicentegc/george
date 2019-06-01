@@ -13,6 +13,9 @@ export default class TriggerLog extends BaseEntity {
   id: string;
 
   @Column()
+  state: string;
+
+  @Column()
   date: string;
 
   @ManyToOne(() => Thing, thing => thing.triggerLog)

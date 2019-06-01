@@ -54,7 +54,8 @@ const resolvers: IResolvers = {
 
       const groupId = group.id;
       const things = await Thing.find({
-        where: { groupId }
+        where: { groupId },
+        relations: ["triggerLog"]
       });
 
       return things;
@@ -108,7 +109,6 @@ const resolvers: IResolvers = {
         user: userId,
         triggerLog: []
       });
-      console.log("thing: ", thing);
 
       const group = await Group.findOne({
         where: { userId },
@@ -125,9 +125,8 @@ const resolvers: IResolvers = {
       return true;
     },
     toggleThing: async (_, { toggle, topic }) => {
-      toggle === "true"
-        ? console.log(`Component subscribed to topic ${topic} is on`)
-        : console.log(`Component subscribed to topic ${topic} is off`);
+      const state = toggle === "true" ? "on" : "off";
+      console.log(`Component subscribed to topic ${topic} is ${state}`);
 
       const thing = await Thing.findOne({
         where: { topic },
@@ -140,9 +139,13 @@ const resolvers: IResolvers = {
         .replace(/\..+/, "");
 
       const triggerLog = await TriggerLog.create({
+        state: state,
         date: date,
         thing: thing
       });
+
+      console.log("triggerLog: ", triggerLog);
+      console.log("thing: ", thing);
 
       await triggerLog.save();
       await thing.triggerLog.push(triggerLog);
