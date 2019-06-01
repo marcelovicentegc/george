@@ -16,7 +16,6 @@ const typeDefs = gql`
     username: String!
     password: String!
   }
-
   type Group {
     id: String!
     name: String!
@@ -29,11 +28,10 @@ const typeDefs = gql`
     space: String!
     component: String!
     topic: String
-    triggered: [Triggered]
+    triggerLog: [TriggerLog]
   }
-
-  type Triggered {
-    at: String!
+  type TriggerLog {
+    date: String!
   }
 
   type Mutation {

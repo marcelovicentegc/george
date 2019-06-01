@@ -50,8 +50,8 @@ export const getThingFromTopic = gql`
       space
       component
       topic
-      triggered {
-        at
+      triggerLog {
+        date
       }
     }
   }

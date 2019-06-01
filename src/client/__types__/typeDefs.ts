@@ -158,11 +158,11 @@ export type GetThingFromTopicGetThingFromTopic = {
 
   topic: Maybe<string>;
 
-  triggered: Maybe<(Maybe<GetThingFromTopicTriggered>)[]>;
+  triggerLog: Maybe<(Maybe<GetThingFromTopicTriggerLog>)[]>;
 };
 
-export type GetThingFromTopicTriggered = {
-  __typename?: "Triggered";
+export type GetThingFromTopicTriggerLog = {
+  __typename?: "TriggerLog";
 
-  at: string;
+  date: string;
 };

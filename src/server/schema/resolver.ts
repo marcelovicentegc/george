@@ -4,6 +4,7 @@ import Group from "../database/entities/Group.model";
 import Thing from "../database/entities/Thing.model";
 import User from "../database/entities/User.model";
 import slugify from "../utils/slugify";
+import TriggerLog from "../database/entities/TriggerLog.model";
 // import * as Five from 'johnny-five';
 
 // const board = new Five.Board();
@@ -104,8 +105,10 @@ const resolvers: IResolvers = {
         space: space,
         component: component,
         topic: spaceSlug + "/" + componentSlug,
-        user: userId
+        user: userId,
+        triggerLog: []
       });
+      console.log("thing: ", thing);
 
       const group = await Group.findOne({
         where: { userId },
@@ -127,15 +130,23 @@ const resolvers: IResolvers = {
         : console.log(`Component subscribed to topic ${topic} is off`);
 
       const thing = await Thing.findOne({
-        where: { topic }
+        where: { topic },
+        relations: ["triggerLog"]
       });
 
-      thing.triggeredAt = new Date()
+      const date = new Date()
         .toISOString()
         .replace(/T/, " ")
         .replace(/\..+/, "");
-      thing.save();
-      console.log(thing);
+
+      const triggerLog = await TriggerLog.create({
+        date: date,
+        thing: thing
+      });
+
+      await triggerLog.save();
+      await thing.triggerLog.push(triggerLog);
+      await thing.save();
       // mqttClient.publish(topic, toggle);
 
       return true;
