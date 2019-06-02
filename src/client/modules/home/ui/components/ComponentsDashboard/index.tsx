@@ -16,16 +16,18 @@ const ComponentsDashboard: React.FunctionComponent<Props> = observer(props => {
   const NewComponentStore = React.useContext(NewComponentStoreContext);
   NewComponentStore.form;
   return (
-    <div className="components-dashboard-wrapper">
-      <div className="components-dashboard">
-        <NewComponentButton />
-        <StatusBar groupId={props.groupId} />
-        {NewComponentStore.form ? (
-          <NewComponentForm groupId={props.groupId} />
-        ) : null}
+    <>
+      <StatusBar groupId={props.groupId} />
+      <div className="components-dashboard-wrapper">
+        <div className="components-dashboard">
+          <NewComponentButton />
+          {NewComponentStore.form ? (
+            <NewComponentForm groupId={props.groupId} />
+          ) : null}
+        </div>
+        <Components groupId={props.groupId} />
       </div>
-      <Components groupId={props.groupId} />
-    </div>
+    </>
   );
 });
 

@@ -8,7 +8,9 @@ import { ApolloProvider } from "react-apollo";
 import * as ReactDOM from "react-dom";
 import { Routes } from "./routes/index";
 import "./main.scss";
-import "antd/dist/antd.css";
+import "antd/lib/button/style/index";
+import "antd/lib/table/style/index";
+import "antd-mobile/lib/notice-bar/style/index";
 
 declare let module: any;
 
