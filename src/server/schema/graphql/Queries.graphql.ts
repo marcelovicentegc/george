@@ -56,6 +56,7 @@ export const getThingFromTopic = gql`
       component
       topic
       triggerLog {
+        id
         state
         date
         thingId

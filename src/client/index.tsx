@@ -6,8 +6,9 @@ import { createUploadLink } from "apollo-upload-client";
 import * as React from "react";
 import { ApolloProvider } from "react-apollo";
 import * as ReactDOM from "react-dom";
-import "./main.scss";
 import { Routes } from "./routes/index";
+import "./main.scss";
+import "antd/dist/antd.css";
 
 declare let module: any;
 

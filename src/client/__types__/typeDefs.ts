@@ -176,6 +176,8 @@ export type GetThingFromTopicGetThingFromTopic = {
 export type GetThingFromTopicTriggerLog = {
   __typename?: "TriggerLog";
 
+  id: string;
+
   state: string;
 
   date: string;

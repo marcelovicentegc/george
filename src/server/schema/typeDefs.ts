@@ -31,6 +31,7 @@ const typeDefs = gql`
     triggerLog: [TriggerLog]
   }
   type TriggerLog {
+    id: ID!
     state: String!
     date: String!
     thingId: String!

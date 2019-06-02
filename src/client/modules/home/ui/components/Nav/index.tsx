@@ -6,6 +6,7 @@ import { logoutUser } from "../../../../../../server/schema/graphql/Mutations.gr
 import { getUserIdFromSession } from "../../../../../../server/schema/graphql/Queries.graphql";
 import { LogoutUserMutation } from "../../../../../__types__/typeDefs";
 import "./main.scss";
+import { Link } from "react-router-dom";
 
 interface Props extends RouteComponentProps {
   username: string;
@@ -21,6 +22,9 @@ const Nav: React.FunctionComponent<Props> = props => {
 
   return (
     <nav className={`${dropDown ? "open" : ""}`}>
+      <Link to={"/"}>
+        <span>home</span>
+      </Link>
       <span onClick={() => setDropDown(true)}>{props.username}</span>
       {dropDown ? (
         <div className="nav-dropdown-menu" ref={dropDownMenu}>
