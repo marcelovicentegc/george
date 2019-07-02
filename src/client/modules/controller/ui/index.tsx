@@ -20,7 +20,7 @@ interface Props extends RouteComponentProps {
 }
 
 const Controller: React.FunctionComponent<Props> = props => {
-  const [thingState, setThingState] = React.useState(false);
+  const [thingState, setThingState] = React.useState();
 
   const handleClick = () => {
     if (thingState === true) {
@@ -31,6 +31,8 @@ const Controller: React.FunctionComponent<Props> = props => {
   };
 
   const topic = props.location.pathname.slice(1);
+
+  let currentThingState: string;
 
   let dataSource: [
     {
@@ -65,6 +67,22 @@ const Controller: React.FunctionComponent<Props> = props => {
         if (!data || !data.getThingFromTopic) {
           props.history.push("/");
         }
+
+        if (data.getThingFromTopic.triggerLog !== null) {
+          if (data.getThingFromTopic.triggerLog.length === 0) {
+            setThingState(false);
+          } else {
+            currentThingState =
+              data.getThingFromTopic.triggerLog[
+                data.getThingFromTopic.triggerLog.length - 1
+              ].state;
+
+            currentThingState === "off"
+              ? setThingState(true)
+              : setThingState(false);
+          }
+        }
+
         data.getThingFromTopic.triggerLog !== null &&
           data.getThingFromTopic.triggerLog.map(log => {
             if (dataSource === undefined) {
@@ -75,60 +93,60 @@ const Controller: React.FunctionComponent<Props> = props => {
                   state: log.state
                 }
               ]);
-            } else if (dataSource !== undefined) {
-              return dataSource.push({
+            }
+            if (dataSource !== undefined) {
+              return dataSource.unshift({
                 key: log.id,
                 date: log.date,
                 state: log.state
               });
             }
           });
+
         return (
-          <>
-            {console.log(dataSource)}
-            <div className="controller-wrapper">
-              <div className="controller">
-                <Mutation<ToggleThingMutation, ToggleThingVariables>
-                  mutation={toggleThing}
-                  refetchQueries={[
-                    {
-                      query: getThingFromTopic,
-                      variables: {
-                        topic: topic
-                      }
+          <div className="controller-wrapper">
+            <div className="controller">
+              <Mutation<ToggleThingMutation, ToggleThingVariables>
+                mutation={toggleThing}
+                refetchQueries={[
+                  {
+                    query: getThingFromTopic,
+                    variables: {
+                      topic: topic
                     }
-                  ]}
-                >
-                  {mutate => (
-                    <Button
-                      type="primary"
-                      onClick={async () => {
-                        handleClick();
-                        await mutate({
-                          variables: {
-                            toggle: JSON.stringify(thingState),
-                            topic: topic
-                          }
-                        });
-                      }}
-                    >
-                      <span>{thingState ? "Off" : "On"}</span>
-                    </Button>
-                  )}
-                </Mutation>
-                <span>{data.getThingFromTopic.topic}</span>
-              </div>
-              <div className="log-wrapper">
-                <div className="log">
-                  <Table
-                    dataSource={dataSource}
-                    columns={columns}
-                    rowKey={record => record.key}
-                  />
-                </div>
+                  }
+                ]}
+              >
+                {mutate => (
+                  <Button
+                    type="primary"
+                    onClick={async () => {
+                      handleClick();
+                      await mutate({
+                        variables: {
+                          toggle: JSON.stringify(thingState),
+                          topic: topic
+                        }
+                      });
+                    }}
+                  >
+                    <span>{thingState ? "Off" : "On"}</span>
+                  </Button>
+                )}
+              </Mutation>
+              <span>{data.getThingFromTopic.topic}</span>
+            </div>
+            <div className="log-wrapper">
+              <div className="log">
+                {console.log("dataSource: ", dataSource)}
+                <Table
+                  dataSource={dataSource}
+                  columns={columns}
+                  rowKey={record => record.key}
+                />
               </div>
             </div>
-          </>
+          </div>
         );
       }}
     </Query>

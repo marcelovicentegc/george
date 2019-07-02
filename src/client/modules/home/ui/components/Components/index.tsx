@@ -49,7 +49,7 @@ const Components: React.FunctionComponent<Props> = props => {
               ) : null}
               {data.getThingsFromGroupId.map((thing, i) => {
                 return (
-                  <>
+                  <React.Fragment key={i}>
                     <Link to={thing.topic}>
                       <div className="component" key={i}>
                         <div className="component-space">
@@ -68,7 +68,7 @@ const Components: React.FunctionComponent<Props> = props => {
                       </div>
                     </Link>
                     <Separator />
-                  </>
+                  </React.Fragment>
                 );
               })}
             </>

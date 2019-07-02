@@ -5,9 +5,6 @@ import Thing from "../database/entities/Thing.model";
 import User from "../database/entities/User.model";
 import slugify from "../utils/slugify";
 import TriggerLog from "../database/entities/TriggerLog.model";
-// import * as Five from 'johnny-five';
-
-// const board = new Five.Board();
 
 const resolvers: IResolvers = {
   Query: {
@@ -127,7 +124,6 @@ const resolvers: IResolvers = {
     },
     toggleThing: async (_, { toggle, topic }) => {
       const state = toggle === "true" ? "on" : "off";
-      console.log(`Component subscribed to topic ${topic} is ${state}`);
 
       const thing = await Thing.findOne({
         where: { topic },
