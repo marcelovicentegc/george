@@ -11,6 +11,7 @@
     "types": "gql-gen --config codegen.yml",
     "server": "nodemon",
     "start": "cross-env NODE_ENV=development concurrently \"yarn run server\" \"yarn run client-wait\"",
+    "e2e": "yarn run cypress open",
     "test-watch": "jest --watch",
     "test": "jest",
     "test-wait": "wait-on tcp:4000 && yarn test",
