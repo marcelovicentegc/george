@@ -1,8 +1,8 @@
 {
-  "fixturesFolder": "./src/client/__tests__/e2e/fixtures",
-  "integrationFolder": "./src/client/__tests__/e2e/integration",
+  "fixturesFolder": "./e2e/fixtures",
+  "integrationFolder": "./e2e/integration",
   "pluginsFile": false,
-  "screenshotsFolder": "./src/client/__tests__/e2e/screenshots",
-  "videosFolder": "./src/client/__tests__/e2e/videos",
+  "screenshotsFolder": "./e2e/screenshots",
+  "videosFolder": "./e2e/videos",
   "supportFile": false
 }

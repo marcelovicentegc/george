@@ -51,6 +51,7 @@ export default class Auth extends React.Component<Props, State> {
                   <span>Username</span>
                   <input
                     type="text"
+                    name="username"
                     onChange={e => {
                       this.setState({ username: e.target.value });
                       this.setState({
@@ -66,6 +67,7 @@ export default class Auth extends React.Component<Props, State> {
                   <span>Password</span>
                   <input
                     type="password"
+                    name="password"
                     onChange={e => {
                       this.setState({ password: e.target.value });
                       this.setState({ errorMessage: undefined });

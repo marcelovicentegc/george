@@ -63,6 +63,7 @@ const NewComponentForm: React.FunctionComponent<Props> = observer(props => {
                 <span>Space</span>
                 <input
                   type="text"
+                  name="space"
                   placeholder="I.g. living room"
                   onChange={e => {
                     setErrorMessage(undefined);
@@ -74,6 +75,7 @@ const NewComponentForm: React.FunctionComponent<Props> = observer(props => {
                 <span>Component</span>
                 <input
                   type="text"
+                  name="component"
                   placeholder="I.g. balcony lamp"
                   onChange={e => {
                     setErrorMessage(undefined);

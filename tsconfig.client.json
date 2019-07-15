@@ -5,6 +5,5 @@
     "module": "esnext",
     "lib": ["es6", "dom", "dom.iterable"]
   },
-  "include": ["./src/client/**/*"],
-  "exclude": ["./src/client/cypress/**/*"]
+  "include": ["./src/client/**/*"]
 }
