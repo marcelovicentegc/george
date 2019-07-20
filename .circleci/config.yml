@@ -62,6 +62,10 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: Check redis-server status
+          command: service redis-server status
+
+      - run:
           name: Start the application
           command: NODE_ENV=production yarn start
           background: true
