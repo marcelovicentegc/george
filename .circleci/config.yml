@@ -63,6 +63,7 @@ jobs:
       - run:
           name: Start the application
           command: NODE_ENV=production yarn start
+          background: true
 
       - run:
           name: Run tests
