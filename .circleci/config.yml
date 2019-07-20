@@ -62,18 +62,6 @@ jobs:
             - v1-dependencies-
 
       - run:
-          name: Install redis-server
-          command: sudo apt update && apt install redis-server -y
-
-      - run:
-          name: Start redis-server
-          command: sudo service redis-server start
-
-      - run:
-          name: Check redis-server status
-          command: sudo service redis-server status
-
-      - run:
           name: Start the application
           command: NODE_ENV=production yarn start
           background: true
