@@ -63,15 +63,15 @@ jobs:
 
       - run:
           name: Install redis-server
-          command: apt update && apt install redis-server -y
+          command: sudo apt update && apt install redis-server -y
 
       - run:
           name: Start redis-server
-          command: service redis-server start
+          command: sudo service redis-server start
 
       - run:
           name: Check redis-server status
-          command: service redis-server status
+          command: sudo service redis-server status
 
       - run:
           name: Start the application
