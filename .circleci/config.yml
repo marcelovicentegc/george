@@ -62,11 +62,11 @@ jobs:
 
       - run:
           name: Start the application
-          command: yarn start
+          command: NODE_ENV=production yarn start
 
       - run:
           name: Run tests
-          command: wait-on http://localhost:8000 & yarn test
+          command: wait-on http://localhost:4000 & yarn test
 
 workflows:
   version: 2

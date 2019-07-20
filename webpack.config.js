@@ -121,7 +121,7 @@ module.exports = {
     port: 3000,
     hot: true,
     inline: true,
-    open: true,
+    open: process.env.NODE_ENV !== "production" ? true : false,
     openPage: "",
     historyApiFallback: true,
     allowedHosts: ["127.0.0.0", "localhost"],
