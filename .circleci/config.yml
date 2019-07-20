@@ -67,7 +67,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: wait-on http://localhost:4000 & yarn test
+          command: yarn e2e-wait
 
 workflows:
   version: 2
