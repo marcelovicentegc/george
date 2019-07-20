@@ -37,15 +37,15 @@ jobs:
       - checkout
       - run:
           name: Install redis-server
-          command: sudo apt update && sudo apt install redis-server -y
+          command: apt update && apt install redis-server -y
 
       - run:
           name: Start redis-server
-          command: sudo service redis-server start
+          command: service redis-server start
 
       - run:
           name: Install sqlite
-          command: sudo apt install sqlite3 -y
+          command: apt install sqlite3 -y
 
       - run:
           name: Start the application
