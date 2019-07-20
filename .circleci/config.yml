@@ -4,6 +4,25 @@
 #
 version: 2
 jobs:
+  setup:
+    docker:
+      - image: circleci/redis:latest
+
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Install redis-server
+          command: apt update && apt install redis-server -y
+
+      - run:
+          name: Start redis-server
+          command: service redis-server start
+
+      - run:
+          name: Install sqlite
+          command: apt install sqlite3 -y
+
   build:
     docker:
       - image: circleci/node:10
@@ -30,35 +49,28 @@ jobs:
 
   test:
     docker:
-      - image: circleci/redis:latest
+      - image: circleci/node:10
 
     working_directory: ~/app
     steps:
       - checkout
-      - run:
-          name: Install redis-server
-          command: apt update && apt install redis-server -y
-
-      - run:
-          name: Start redis-server
-          command: service redis-server start
-
-      - run:
-          name: Install sqlite
-          command: apt install sqlite3 -y
 
       - run:
           name: Start the application
-          command: yarn start & wait-on http://localhost:8000
-      # - run:
-      #   name: Run tests
-      #   command: yarn test
+          command: yarn start
+
+      - run:
+          name: Run tests
+          command: wait-on http://localhost:8000 & yarn test
 
 workflows:
   version: 2
   build-and-test:
     jobs:
-      - build
+      - setup
+      - build:
+          requires:
+            - setup
       - test:
           requires:
             - build
