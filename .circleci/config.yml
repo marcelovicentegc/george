@@ -42,6 +42,10 @@ jobs:
           name: Install node dependencies
           command: yarn install
 
+      - run:
+          name: Install cypress-cli globally
+          command: npm install --global cypress-cli
+
       - save_cache:
           paths:
             - node_modules
