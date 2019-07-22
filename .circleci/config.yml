@@ -76,7 +76,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: yarn e2e-wait
+          command: sudo yarn e2e-wait
 
 workflows:
   version: 2
