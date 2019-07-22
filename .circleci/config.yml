@@ -52,23 +52,23 @@ jobs:
             - .cache/Cypress
           key: v1-dependencies-{{ checksum "package.json" }}
 
-  test:
-    # docker:
-    #   - image: circleci/node:10
-    # working_directory: ~/app
-    # steps:
-    #   - checkout
-    #   - restore_cache:
-    #       keys:
-    #         - v1-dependencies-{{ checksum "package.json" }}
-    #         - v1-dependencies-
-    #   - run:
-    #       name: Start the application
-    #       command: NODE_ENV=production yarn start
-    #       background: true
-    #   - run:
-    #       name: Run tests
-    #       command: yarn e2e-wait
+  # test:
+  # docker:
+  #   - image: circleci/node:10
+  # working_directory: ~/app
+  # steps:
+  #   - checkout
+  #   - restore_cache:
+  #       keys:
+  #         - v1-dependencies-{{ checksum "package.json" }}
+  #         - v1-dependencies-
+  #   - run:
+  #       name: Start the application
+  #       command: NODE_ENV=production yarn start
+  #       background: true
+  #   - run:
+  #       name: Run tests
+  #       command: yarn e2e-wait
 
   cypress/run:
     docker:
@@ -108,6 +108,6 @@ workflows:
       - build:
           requires:
             - setup
-      - test:
+      - cypress/run:
           requires:
             - build
