@@ -76,6 +76,8 @@ jobs:
     parallelism: 1
     yarn: true
     cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
+    start: yarn start
+    wait-on: "http://localhost:4000"
     steps:
       - checkout
       - restore_cache:
