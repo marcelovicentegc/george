@@ -1,8 +1,16 @@
-# name: build
-# resources:
-#   containers: [ containerResource ]
-#   repositories: [ repositoryResource ]
-# variables: { string: string } | [ variable | templateReference ]
-# trigger: trigger
-# pr: pr
-# stages: [ stage | templateReference ]
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install dependencies and build app'
+
+- script: |
+    yarn install
+    yarn build
+  displayName: 'yarn install and build'
