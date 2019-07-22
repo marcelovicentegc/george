@@ -25,10 +25,12 @@ Integration test:
     name: node:11
   only:
     - master
-  script:
+  before_script:
     - apt-get update
-    - apt-get install redis-server
+    - apt-get install redis-server sqlite3 -y
     - service redis-server start
+    - yarn start
+  script:
     - yarn e2e-wait
 
 Unit test:
@@ -37,8 +39,10 @@ Unit test:
     name: node:11
   only:
     - master
-  script:
+  before_script:
     - apt-get update
-    - apt-get install redis-server
+    - apt-get install redis-server sqlite3 -y
     - service redis-server start
+    - yarn start
+  script:
     - yarn test-wait
