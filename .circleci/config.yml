@@ -66,6 +66,10 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: Install cypress globally
+          command: npm install -g cypress
+
+      - run:
           name: Start the application
           command: NODE_ENV=production yarn start
           background: true

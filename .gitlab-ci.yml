@@ -1,3 +1,4 @@
+# worskpaces: https://gitlab.com/gitlab-org/gitlab-ce/issues/47062, https://gitlab.com/gitlab-org/gitlab-ce/issues/62475, https://gitlab.com/gitlab-org/gitlab-ce/issues/62476, https://gitlab.com/gitlab-org/gitlab-ce/issues/62477
 stages:
   - setup
   - build
