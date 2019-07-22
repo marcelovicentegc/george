@@ -65,9 +65,9 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      # - run:
-      #     name: Install cypress globally
-      #     command: sudo npm install -g cypress --unsafe-perm --silent
+      - run:
+          name: Install cypress globally
+          command: sudo npm install -g cypress --unsafe-perm --silent
 
       - run:
           name: Install cypress' binaries
