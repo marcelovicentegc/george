@@ -42,6 +42,10 @@ jobs:
           name: Install node dependencies
           command: yarn install --frozen-lockfile
 
+      - run:
+          name: Build app
+          command: yarn build
+
       - save_cache:
           paths:
             - node_modules

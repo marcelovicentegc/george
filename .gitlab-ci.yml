@@ -1,0 +1,44 @@
+stages:
+  - setup
+  - build
+  - e2e-test
+  - unit-test
+
+services:
+  - redis:latest
+
+Build:
+  image: node:11
+  stage: build
+  only:
+    - master
+  script:
+    - yarn
+    - NODE_ENV=development yarn build
+  artifacts:
+    paths:
+      - dist/
+
+Integration test:
+  stage: e2e-test
+  image:
+    name: node:11
+  only:
+    - master
+  script:
+    - apt-get update
+    - apt-get install redis-server
+    - service redis-server start
+    - yarn e2e-wait
+
+Unit test:
+  stage: unit-test
+  image:
+    name: node:11
+  only:
+    - master
+  script:
+    - apt-get update
+    - apt-get install redis-server
+    - service redis-server start
+    - yarn test-wait

@@ -1,0 +1,8 @@
+# name: build
+# resources:
+#   containers: [ containerResource ]
+#   repositories: [ repositoryResource ]
+# variables: { string: string } | [ variable | templateReference ]
+# trigger: trigger
+# pr: pr
+# stages: [ stage | templateReference ]
