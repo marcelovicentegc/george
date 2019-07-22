@@ -67,7 +67,7 @@ jobs:
 
       - run:
           name: Install cypress globally
-          command: npm install -g cypress
+          command: sudo npm install -g cypress
 
       - run:
           name: Start the application
