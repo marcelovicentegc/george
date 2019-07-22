@@ -24,8 +24,7 @@ Build:
 
 Run application:
   stage: test
-  image:
-    name: node:11
+  image: cypress/base:10
   only:
     - master
   before_script:
