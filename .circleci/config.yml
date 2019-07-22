@@ -67,7 +67,7 @@ jobs:
 
       - run:
           name: Install cypress globally
-          command: sudo npm install -g cypress
+          command: sudo npm install -g cypress --unsafe-perm --silent
 
       - run:
           name: Start the application
@@ -76,7 +76,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: sudo yarn e2e-wait
+          command: yarn e2e-wait
 
 workflows:
   version: 2
