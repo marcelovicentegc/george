@@ -1,8 +1,8 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-version: 2
+version: 2.1
+
+orbs:
+  cypress: cypress-io/cypress@1
+
 jobs:
   setup:
     docker:
@@ -64,14 +64,6 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-
-      - run:
-          name: Install cypress globally
-          command: sudo npm install -g cypress --unsafe-perm --silent
-
-      - run:
-          name: Install cypress' binaries
-          command: cypress install
 
       - run:
           name: Start the application
