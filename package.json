@@ -13,6 +13,7 @@
     "start": "cross-env NODE_ENV=development concurrently \"yarn run server\" \"yarn run client-wait\"",
     "e2e": "cypress run --spec \"e2e/integration/home.ts\"",
     "e2e-wait": "wait-on tcp:4000 && cypress run --spec \"e2e/integration/home.ts\"",
+    "e2e-complete": "cross-env NODE_ENV=development concurrently \"yarn run server\" \"yarn run client-wait\" \"yarn run e2e-complete\" ",
     "test-watch": "jest --watch",
     "test": "jest",
     "test-wait": "wait-on tcp:4000 && yarn test",

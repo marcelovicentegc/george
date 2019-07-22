@@ -33,7 +33,6 @@ Integration test:
     - apt-get update
     - apt-get install redis-server sqlite3 -y
     - service redis-server start
-    - yarn start
   script:
     - yarn e2e-wait
 
