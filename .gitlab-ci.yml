@@ -7,6 +7,10 @@ stages:
 services:
   - redis:latest
 
+cache:
+  paths:
+    - node_modules/
+
 Build:
   image: node:11
   stage: build
@@ -18,9 +22,6 @@ Build:
   artifacts:
     paths:
       - dist/
-  cache:
-    paths:
-      - node_modules/
 
 Integration test:
   stage: e2e-test
