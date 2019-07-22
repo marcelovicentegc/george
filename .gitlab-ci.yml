@@ -18,6 +18,9 @@ Build:
   artifacts:
     paths:
       - dist/
+  cache:
+    paths:
+      - node_modules/
 
 Integration test:
   stage: e2e-test
