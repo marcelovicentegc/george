@@ -108,6 +108,6 @@ workflows:
           yarn: true
           cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
           start: yarn start
-          wait-on: "http://localhost:4000"
+          # wait-on: "http://localhost:4000"
           requires:
             - build
