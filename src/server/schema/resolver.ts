@@ -6,7 +6,7 @@ import User from "../database/entities/User.model";
 import slugify from "../utils/slugify";
 import TriggerLog from "../database/entities/TriggerLog.model";
 
-const resolvers: IResolvers = {
+export const resolvers: IResolvers = {
   Query: {
     getUserIdFromSession: async (_, __, { req }) => {
       const userIdFromSession = req.session.userId;
@@ -151,5 +151,3 @@ const resolvers: IResolvers = {
     }
   }
 };
-
-export default resolvers;

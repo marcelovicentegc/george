@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./main.scss";
 
-const Loading: React.FunctionComponent = () => {
+export const Loading: React.FunctionComponent = () => {
   return (
     <div className="lds-css ng-scope">
       <div className="lds-ripple">
@@ -11,5 +11,3 @@ const Loading: React.FunctionComponent = () => {
     </div>
   );
 };
-
-export default Loading;

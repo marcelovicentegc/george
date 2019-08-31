@@ -12,7 +12,7 @@ interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
 }
 
-const StatusBar: React.FunctionComponent<Props> = props => {
+export const StatusBar: React.FunctionComponent<Props> = props => {
   const [statusMessage, setStatusMessage] = React.useState<string | undefined>(
     undefined
   );
@@ -53,5 +53,3 @@ const StatusBar: React.FunctionComponent<Props> = props => {
     </div>
   );
 };
-
-export default StatusBar;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { GetGroupIdFromUserIdGetGroupIdFromUserId } from "../../../__types__/typeDefs";
-import ComponentsDashboard from "./components/ComponentsDashboard";
+import { ComponentsDashboard } from "./components/ComponentsDashboard";
 import "./main.scss";
 
 interface Props {

@@ -12,7 +12,7 @@ import { createConnection, getConnectionOptions } from "typeorm";
 import Group from "./database/entities/Group.model";
 import User from "./database/entities/User.model";
 import { redis } from "./redis";
-import schema from "./schema/schema";
+import { schema } from "./schema/schema";
 const log = console.log;
 const bgPink = chalk.bgRgb(255, 127, 255);
 const bgBlue = chalk.bgRgb(0, 0, 255);

@@ -41,18 +41,18 @@
 
 11. Set up Nginx as a Reverse Proxy Server: - Open `/etc/nginx/sites-available/example.com` for editing
 
-    - Replace the contents of the `location /` block
+    1. Replace the contents of the `location /` block
 
-      ```nginx
-              location / {
-                  proxy_pass http://localhost:4000;
-                  proxy_http_version 1.1;
-                  proxy_set_header Upgrade $http_upgrade;
-                  proxy_set_header Connection 'upgrade';
-                  proxy_set_header Host $host;
-                  proxy_cache_bypass $http_upgrade;
-              }
-      ```
+    ```nginx
+            location / {
+                proxy_pass http://localhost:4000;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+            }
+    ```
 
 12. Test the webserver by heading to the Raspberry's IP
 13. Install [PM2](http://pm2.keymetrics.io/) (a process manager for Node.js applications): `sudo npm install pm2@latest -g`
@@ -61,8 +61,8 @@
 16. Install dependencies: `yarn install`
 17. Build the application: `yarn build`
 18. Test the application
-    - `yarn launch`
-    - `curl http://localhost:4000`
+    1. `yarn launch`
+    2. `curl http://localhost:4000`
 19. Run the `<project>`'s main application in the background: `NODE_ENV=production pm2 start dist/server/index.js`
 20. Applications that are running under PM2 will be restarted automatically if the application crashes or is killed, but we can take an additional step to get the application to launch on system startup using the `startup` subcommand. This subcommand generates and configures a startup script to launch PM2 and its managed processes on server boots: `pm2 startup systemd`
 
@@ -83,13 +83,11 @@
 
 23. Check the status of systemd unit: `systemctl status pm2-pi`
 24. Managing PM2:
-
-    - Stop an application: `pm2 stop <app_name_or_id>`
-    - Restart an application: `pm2 restart <app_name_or_id>`
-    - List applications currently managed by PM2: `pm2 list`
-    - Get information about a specific application using its `App name`: `pm2 info <app_name>`
-    - The PM2 process monitor can be pulled up with the `monit` subcommand. This displays the application status, CPU, and memory usage: `pm2 monit`
-
+    1. Stop an application: `pm2 stop <app_name_or_id>`
+    2. Restart an application: `pm2 restart <app_name_or_id>`
+    3. List applications currently managed by PM2: `pm2 list`
+    4. Get information about a specific application using its `App name`: `pm2 info <app_name>`
+    5. The PM2 process monitor can be pulled up with the `monit` subcommand. This displays the application status, CPU, and memory usage: `pm2 monit`
 25. Managing the Nginx Process:
     1. To stop the web server: `sudo systemctl stop nginx`
     2. To start the web server: `sudo systemcl start nginx`
@@ -146,9 +144,7 @@
 2. Install Redis: `sudo apt-get install redis-server`
 3. Enable Redis to start on system boot: `sudo systemctl enable redis-server.service`
 4. If you need to make any changes to Redis configuration, head to: `/etc/redis/redis.conf`
-
-   - I.g.: If you need to adjust the max memory limit used by Redis, you can update it by `sudo vim /etc/redis/redis.conf`ing and altering the `maxmemory` line.
-
+   1. I.g.: If you need to adjust the max memory limit used by Redis, you can update it by `sudo vim /etc/redis/redis.conf`ing and altering the `maxmemory` line.
 5. After configuring it, restart it: `sudo systemctl restart redis-server.service`
 6. Test connection:
 

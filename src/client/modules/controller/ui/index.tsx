@@ -10,7 +10,7 @@ import {
   ToggleThingMutation,
   ToggleThingVariables
 } from "../../../__types__/typeDefs";
-import Loading from "../../utils/Loading";
+import { Loading } from "../../utils/Loading";
 import "./main.scss";
 import Button from "antd/lib/button";
 import Table from "antd/lib/table";

@@ -5,7 +5,7 @@ interface Props {
   errorMessage: string | undefined;
 }
 
-const ErrorMessage: React.SFC<Props> = props => {
+export const ErrorMessage: React.SFC<Props> = props => {
   return (
     <div className="error-message-wrapper">
       <div className="error">
@@ -14,5 +14,3 @@ const ErrorMessage: React.SFC<Props> = props => {
     </div>
   );
 };
-
-export default ErrorMessage;

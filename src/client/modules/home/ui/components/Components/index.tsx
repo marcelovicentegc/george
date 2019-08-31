@@ -7,14 +7,14 @@ import {
   GetThingsFromGroupIdQuery,
   GetThingsFromGroupIdVariables
 } from "../../../../../__types__/typeDefs";
-import Separator from "../Separator";
+import { Separator } from "../Separator";
 import "./main.scss";
 
 interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
 }
 
-const Components: React.FunctionComponent<Props> = props => {
+export const Components: React.FunctionComponent<Props> = props => {
   const [help, setHelp] = React.useState(false);
   const helpText =
     "This is the topic which you need to subscribe the related module to.";
@@ -78,5 +78,3 @@ const Components: React.FunctionComponent<Props> = props => {
     </div>
   );
 };
-
-export default Components;

@@ -9,7 +9,7 @@ import {
 import AuthConnector from "../modules/auth/AuthConnector";
 import ControllerConnector from "../modules/controller/ControllerConnector";
 import Nav from "../modules/home/ui/components/Nav";
-import Loading from "../modules/utils/Loading";
+import { Loading } from "../modules/utils/Loading";
 import {
   GetGroupIdFromUserIdQuery,
   GetGroupIdFromUserIdVariables,

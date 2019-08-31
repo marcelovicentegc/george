@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const typeDefs = gql`
+export const typeDefs = gql`
   # https://github.com/apollographql/graphql-tools/issues/764
   type Query {
     getUserIdFromSession: User
@@ -44,5 +44,3 @@ const typeDefs = gql`
     toggleThing(toggle: String!, topic: String!): Boolean!
   }
 `;
-
-export default typeDefs;

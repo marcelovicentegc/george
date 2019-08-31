@@ -3,7 +3,7 @@ import * as React from "react";
 import "./main.scss";
 import { rootStoreContext } from "../../../../../stores/RootStore";
 
-const NewComponentButton: React.FunctionComponent = observer(() => {
+export const NewComponentButton: React.FunctionComponent = observer(() => {
   const { newComponentStore } = React.useContext(rootStoreContext);
   newComponentStore.form;
 
@@ -20,5 +20,3 @@ const NewComponentButton: React.FunctionComponent = observer(() => {
     </div>
   );
 });
-
-export default NewComponentButton;
