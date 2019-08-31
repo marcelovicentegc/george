@@ -11,7 +11,7 @@ interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId | null;
 }
 
-const AuthConnector: React.FunctionComponent<Props> = props => {
+const AuthConnector: React.SFC<Props> = props => {
   return props.user === null ? <Auth /> : <Home groupId={props.groupId} />;
 };
 

@@ -5,7 +5,7 @@ interface Props {
   errorMessage: string | undefined;
 }
 
-const ErrorMessage: React.FunctionComponent<Props> = props => {
+const ErrorMessage: React.SFC<Props> = props => {
   return (
     <div className="error-message-wrapper">
       <div className="error">

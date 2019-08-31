@@ -18,7 +18,7 @@ interface State {
 interface Props {}
 
 export default class Auth extends React.Component<Props, State> {
-  constructor(props: Props) {
+  public constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -29,7 +29,7 @@ export default class Auth extends React.Component<Props, State> {
     };
   }
 
-  render() {
+  public render() {
     return (
       <div className="auth-wrapper">
         <div className="form-wrapper">

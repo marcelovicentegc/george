@@ -4,7 +4,6 @@ import { Mutation } from "react-apollo";
 import useOnClickOutside from "use-onclickoutside";
 import { addThing } from "../../../../../../server/schema/graphql/Mutations.graphql";
 import { getThingsFromGroupId } from "../../../../../../server/schema/graphql/Queries.graphql";
-import NewComponentStoreContext from "../../../../../stores/NewComponentStore.store";
 import {
   AddThingMutation,
   AddThingVariables,
@@ -12,22 +11,25 @@ import {
 } from "../../../../../__types__/typeDefs";
 import ErrorMessage from "../ErrorMessage";
 import "./main.scss";
+import { rootStoreContext } from "../../../../../stores/RootStore";
 
 interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
 }
 
 const NewComponentForm: React.FunctionComponent<Props> = observer(props => {
-  const [space, setSpace] = React.useState();
-  const [component, setComponent] = React.useState();
-  const [errorMessage, setErrorMessage] = React.useState(undefined);
+  const [space, setSpace] = React.useState<string>();
+  const [component, setComponent] = React.useState<string>();
+  const [errorMessage, setErrorMessage] = React.useState<string | undefined>(
+    undefined
+  );
   const [awaiting, setAwaiting] = React.useState(false);
-  const NewComponentStore = React.useContext(NewComponentStoreContext);
+  const { newComponentStore } = React.useContext(rootStoreContext);
   const newComponentForm = React.useRef();
 
-  NewComponentStore.form;
+  newComponentStore.form;
   const hideNewComponentForm = () => {
-    NewComponentStore.form = false;
+    newComponentStore.form = false;
   };
 
   useOnClickOutside(newComponentForm, hideNewComponentForm);

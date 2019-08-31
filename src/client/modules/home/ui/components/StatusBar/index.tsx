@@ -13,7 +13,9 @@ interface Props {
 }
 
 const StatusBar: React.FunctionComponent<Props> = props => {
-  const [statusMessage, setStatusMessage] = React.useState(undefined);
+  const [statusMessage, setStatusMessage] = React.useState<string | undefined>(
+    undefined
+  );
 
   return (
     <div className="status-bar-wrapper">
@@ -40,9 +42,7 @@ const StatusBar: React.FunctionComponent<Props> = props => {
               if (thing.triggerLog !== null) {
                 return thing.triggerLog.map(log => {
                   setStatusMessage(
-                    `${thing.component} on the ${thing.space} turned ${
-                      log.state
-                    } @ ${log.date}`
+                    `${thing.component} on the ${thing.space} turned ${log.state} @ ${log.date}`
                   );
                 });
               }

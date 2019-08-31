@@ -33,15 +33,13 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-class App extends React.Component {
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <Routes />
-      </ApolloProvider>
-    );
-  }
-}
+const App: React.SFC = () => {
+  return (
+    <ApolloProvider client={client}>
+      <Routes />
+    </ApolloProvider>
+  );
+};
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

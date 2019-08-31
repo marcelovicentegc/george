@@ -1,27 +1,27 @@
 import { observer } from "mobx-react-lite";
 import * as React from "react";
-import NewComponentStoreContext from "../../../../../stores/NewComponentStore.store";
 import { GetGroupIdFromUserIdGetGroupIdFromUserId } from "../../../../../__types__/typeDefs";
 import Components from "../Components";
 import NewComponentButton from "../NewComponentButton";
 import NewComponentForm from "../NewComponentForm";
 import StatusBar from "../StatusBar";
 import "./main.scss";
+import { rootStoreContext } from "../../../../../stores/RootStore";
 
 interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
 }
 
 const ComponentsDashboard: React.FunctionComponent<Props> = observer(props => {
-  const NewComponentStore = React.useContext(NewComponentStoreContext);
-  NewComponentStore.form;
+  const { newComponentStore } = React.useContext(rootStoreContext);
+  newComponentStore.form;
   return (
     <>
       <StatusBar groupId={props.groupId} />
       <div className="components-dashboard-wrapper">
         <div className="components-dashboard">
           <NewComponentButton />
-          {NewComponentStore.form ? (
+          {newComponentStore.form ? (
             <NewComponentForm groupId={props.groupId} />
           ) : null}
         </div>

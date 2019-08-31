@@ -1,17 +1,17 @@
 import { observer } from "mobx-react-lite";
 import * as React from "react";
-import NewComponentStoreContext from "../../../../../stores/NewComponentStore.store";
 import "./main.scss";
+import { rootStoreContext } from "../../../../../stores/RootStore";
 
 const NewComponentButton: React.FunctionComponent = observer(() => {
-  const NewComponentStore = React.useContext(NewComponentStoreContext);
-  NewComponentStore.form;
+  const { newComponentStore } = React.useContext(rootStoreContext);
+  newComponentStore.form;
 
   return (
     <div
       className="manage-component-button-wrapper"
       onClick={() => {
-        NewComponentStore.form = true;
+        newComponentStore.form = true;
       }}
     >
       <button className="manage-component-button">

@@ -20,7 +20,7 @@ interface Props extends RouteComponentProps {
 }
 
 const Controller: React.FunctionComponent<Props> = props => {
-  const [thingState, setThingState] = React.useState();
+  const [thingState, setThingState] = React.useState<boolean>();
 
   const handleClick = () => {
     if (thingState === true) {
