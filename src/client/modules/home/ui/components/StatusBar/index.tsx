@@ -36,17 +36,23 @@ export const StatusBar: React.FunctionComponent<Props> = props => {
           {({ data, loading }) => {
             if (loading) return null;
             if (!data || !data.getThingsFromGroupId) {
-              setStatusMessage("There is no recent activity yet.");
+              return (
+                <>{setStatusMessage("There is no recent activity yet.")}</>
+              );
             }
-            return data.getThingsFromGroupId.map(thing => {
-              if (thing.triggerLog !== null) {
-                return thing.triggerLog.map(log => {
-                  setStatusMessage(
-                    `${thing.component} on the ${thing.space} turned ${log.state} @ ${log.date}`
-                  );
-                });
-              }
-            });
+            return (
+              <>
+                {data.getThingsFromGroupId.map(thing => {
+                  thing.triggerLog &&
+                    thing.triggerLog.map(log => {
+                      setStatusMessage(
+                        `${thing.component} on the ${thing.space} turned ${log.state} @ ${log.date}`
+                      );
+                    });
+                })}
+                ;
+              </>
+            );
           }}
         </Query>
       </div>
