@@ -89,11 +89,10 @@ export default class Auth extends React.Component<Props, State> {
                           password: this.state.password
                         }
                       }).then(() => {
-                        this.state.errorMessage !== null
-                          ? this.setState({
-                              awaiting: false
-                            })
-                          : null;
+                        this.state.errorMessage &&
+                          this.setState({
+                            awaiting: false
+                          });
                       });
                     }}
                   >

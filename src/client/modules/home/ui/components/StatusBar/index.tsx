@@ -50,7 +50,6 @@ export const StatusBar: React.FunctionComponent<Props> = props => {
                       );
                     });
                 })}
-                ;
               </>
             );
           }}
