@@ -8,7 +8,6 @@ module.exports = {
   moduleNameMapper: {
     "\\.(scss)$": "identity-obj-proxy"
   },
-  snapshotSerializers: ["enzyme-to-json/serializer"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   verbose: true
 };

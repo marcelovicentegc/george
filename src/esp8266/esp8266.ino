@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 
-const char *ssid = "VIVOFIBRA-BC2C";
-const char *password = "auxPXwWJEk";
+const char *ssid = "my wifi network";
+const char *password = "the password is written on the router";
 
 int relay = D0;
 int led = D1;
