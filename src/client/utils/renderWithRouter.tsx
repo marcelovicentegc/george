@@ -2,18 +2,19 @@ import * as React from "react";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import { MockedProvider } from "@apollo/react-testing";
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 
 export const renderWithRouter = (
   ui: React.ReactElement,
   {
     route = "/",
     history = createMemoryHistory({ initialEntries: [route] })
-  }: { route?: string; history?: MemoryHistory<any> } = {}
+  }: { route?: string; history?: MemoryHistory<any> } = {},
+  mocks?: MockedResponse[]
 ) => {
   return {
     ...render(
-      <MockedProvider>
+      <MockedProvider mocks={mocks} addTypename={false}>
         <Router history={history}>{ui}</Router>
       </MockedProvider>
     ),

@@ -3,7 +3,7 @@ import {
   GetGroupIdFromUserIdGetGroupIdFromUserId,
   GetUserIdFromSessionGetUserIdFromSession
 } from "../../__types__/typeDefs";
-import Home from "../home/ui";
+import { Home } from "../home/ui";
 import { Auth } from "./ui";
 
 interface Props {

@@ -8,9 +8,13 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec: "10.x"
-    displayName: "Install dependencies and build app"
+    displayName: "Install node"
 
   - script: |
       yarn install
       yarn build
-    displayName: "yarn install and build"
+    displayName: "Install dependencies and build app"
+
+  - script: |
+      yarn test-client
+    displayName: "Run unit tests"

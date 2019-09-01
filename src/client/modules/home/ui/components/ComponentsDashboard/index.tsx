@@ -19,8 +19,14 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
     return (
       <>
         <StatusBar groupId={props.groupId} />
-        <div className="components-dashboard-wrapper">
-          <div className="components-dashboard">
+        <div
+          className="components-dashboard-wrapper"
+          data-testid="components-dashboard-wrapper"
+        >
+          <div
+            className="components-dashboard"
+            data-testid="components-dashboard"
+          >
             <NewComponentButton />
             {newComponentStore.form ? (
               <NewComponentForm groupId={props.groupId} />

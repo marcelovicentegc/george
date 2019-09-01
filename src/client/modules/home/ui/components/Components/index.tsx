@@ -20,7 +20,7 @@ export const Components: React.FunctionComponent<Props> = props => {
     "This is the topic which you need to subscribe the related module to.";
 
   return (
-    <div className="components">
+    <div className="components" data-testid="components">
       <Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdVariables>
         query={getThingsFromGroupId}
         variables={{
@@ -35,7 +35,10 @@ export const Components: React.FunctionComponent<Props> = props => {
             data.getThingsFromGroupId.length === 0
           ) {
             return (
-              <div className="component no-component">
+              <div
+                className="component no-component"
+                data-testid="no-component"
+              >
                 <span>You have no components yet</span>
               </div>
             );
@@ -43,7 +46,7 @@ export const Components: React.FunctionComponent<Props> = props => {
           return (
             <>
               {help ? (
-                <div className="help-box">
+                <div className="help-box" data-testid="help-box">
                   <span>{helpText}</span>
                 </div>
               ) : null}
@@ -51,15 +54,26 @@ export const Components: React.FunctionComponent<Props> = props => {
                 return (
                   <React.Fragment key={i}>
                     <Link to={thing.topic}>
-                      <div className="component" key={i}>
-                        <div className="component-space">
+                      <div
+                        className="component"
+                        key={i}
+                        data-testid={`component-${i}`}
+                      >
+                        <div
+                          className="component-space"
+                          data-testid={`component-space-${i}`}
+                        >
                           <span>{thing.space}</span>
                         </div>
-                        <div className="component-itself">
+                        <div
+                          className="component-itself"
+                          data-testid={`component-itself-${i}`}
+                        >
                           <span>{thing.component}</span>
                         </div>
                         <div
                           className="component-topic"
+                          data-testid={`component-topic-${i}`}
                           onMouseEnter={() => setHelp(true)}
                           onMouseLeave={() => setHelp(false)}
                         >

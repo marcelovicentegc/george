@@ -59,7 +59,7 @@ const Controller: React.FunctionComponent<Props> = props => {
     <Query<GetThingFromTopicQuery, GetThingFromTopicVariables>
       query={getThingFromTopic}
       variables={{
-        topic: topic
+        topic
       }}
     >
       {({ data, loading }) => {
@@ -112,7 +112,7 @@ const Controller: React.FunctionComponent<Props> = props => {
                   {
                     query: getThingFromTopic,
                     variables: {
-                      topic: topic
+                      topic
                     }
                   }
                 ]}
@@ -125,7 +125,7 @@ const Controller: React.FunctionComponent<Props> = props => {
                       await mutate({
                         variables: {
                           toggle: JSON.stringify(thingState),
-                          topic: topic
+                          topic
                         }
                       });
                     }}
