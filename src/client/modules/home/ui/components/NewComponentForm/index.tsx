@@ -28,12 +28,18 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
     const { newComponentStore } = React.useContext(rootStoreContext);
     const newComponentForm = React.useRef();
 
-    newComponentStore.form;
     const hideNewComponentForm = () => {
       newComponentStore.form = false;
     };
-
     useOnClickOutside(newComponentForm, hideNewComponentForm);
+
+    const isValid = () => {
+      if (space && component) {
+        return true;
+      } else {
+        return false;
+      }
+    };
 
     return (
       <div
@@ -77,6 +83,7 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                       setErrorMessage(undefined);
                       setSpace(e.target.value);
                     }}
+                    required
                   />
                 </div>
                 <div
@@ -92,6 +99,7 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                       setErrorMessage(undefined);
                       setComponent(e.target.value);
                     }}
+                    required
                   />
                 </div>
                 <div
@@ -100,20 +108,20 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                 >
                   <button
                     onClick={async () => {
-                      setAwaiting(true);
-                      await mutate({
-                        variables: {
-                          space,
-                          component
-                        }
-                      }).then(() => {
-                        if (errorMessage === undefined) {
-                          setAwaiting(false);
-                          hideNewComponentForm();
-                          // Display success message and close this window 3s after displaying that message by altering
-                          // the global state related to this pop up.
-                        }
-                      });
+                      if (isValid() && !awaiting) {
+                        setAwaiting(true);
+                        await mutate({
+                          variables: {
+                            space,
+                            component
+                          }
+                        }).then(() => {
+                          if (errorMessage === undefined) {
+                            setAwaiting(false);
+                            hideNewComponentForm();
+                          }
+                        });
+                      }
                     }}
                     className="submit-button"
                     data-testid="submit-button"

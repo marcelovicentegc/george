@@ -8,13 +8,14 @@ afterEach(cleanup);
 
 describe("<StatusBar /> test case", () => {
   test("Full component rendering/navigation", async () => {
-    const { getByTestId } = renderWithRouter(
+    const { getByTestId, getByText } = renderWithRouter(
       <StatusBar groupId={{ id: "1" }} />
     );
 
     await wait(() => {
       expect(getByTestId("status-bar-wrapper")).toBeInTheDocument();
       expect(getByTestId("status-bar")).toBeInTheDocument();
+      // expect(getByText("There is no recent activiy yet.")).toBeInTheDocument();
     });
   });
 });
