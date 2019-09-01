@@ -11,7 +11,7 @@ cache:
     - node_modules/
 
 Build:
-  image: node:11
+  image: node:latest
   stage: build
   only:
     - master

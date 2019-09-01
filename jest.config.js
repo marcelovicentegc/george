@@ -3,11 +3,10 @@ module.exports = {
   transform: {
     "^.+\\.tsx?$": "ts-jest"
   },
-  testRegex: "(/__tests__/.*|(\\.|/)(test/spec))\\.tsx?$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   moduleNameMapper: {
     "\\.(scss)$": "identity-obj-proxy"
   },
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
-  verbose: true
+  verbose: true,
+  setupFilesAfterEnv: ["./testSetup.ts"]
 };

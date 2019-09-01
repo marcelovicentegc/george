@@ -6,8 +6,6 @@ interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
 }
 
-const ControllerConnector: React.SFC<Props> = props => (
+export const ControllerConnector: React.SFC<Props> = props => (
   <Controller groupId={props.groupId} />
 );
-
-export default ControllerConnector;

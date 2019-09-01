@@ -7,8 +7,25 @@
     "tslint-react"
   ],
   "jsRules": {},
+  "compilerOptions": {
+    "allowUnusedLabels": true,
+    "noImplicitReturns": false
+  },
   "rules": {
-    "prettier": true
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-var-requires": false,
+    "member-ordering": false,
+    "no-console": false,
+    "no-empty-interface": false,
+    "max-classes-per-file": false,
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false,
+    "jsx-boolean-value": [true, "never"],
+    "curly": [false, "ignore-same-line"],
+    "no-shadowed-variable": false,
+    "interface-name": false,
+    "no-unused-expression": false
   },
   "rulesDirectory": []
 }

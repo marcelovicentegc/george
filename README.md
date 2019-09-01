@@ -4,9 +4,9 @@
 [![Build Status](https://dev.azure.com/marcelovicentegc/home-automation-model/_apis/build/status/marcelovicentegc.home-automation-model?branchName=master)](https://dev.azure.com/marcelovicentegc/home-automation-model/_build/latest?definitionId=1&branchName=master)
 [![Pipeline](https://gitlab.com/marcelovicentegc/home-automation-model/badges/master/pipeline.svg)](https://gitlab.com/marcelovicentegc/home-automation-model/)
 
-## Directions
+---
 
-### Development
+## Development directions
 
 1. Clone this project: `git clone https://github.com/marcelovicentegc/home-automation-model`
 2. Install its dependencies: `yarn`
@@ -14,7 +14,9 @@
 4. Make sure `redis` is up and running before starting this project (e.g. `sudo service redis-server start`)
 5. You're good to go. Run: `yarn start`
 
-### Production (Raspberry Pi setup)
+## Production directions
+
+### Raspberry Pi setup
 
 1. Install `ufw`: `sudo apt install ufw`
 2. Set up default Firewall policies by running: `sudo ufw default deny incoming`, followed by `sudo ufw default allow outgoing`
@@ -156,4 +158,4 @@
   127.0.0.1:6379>
 ```
 
----
+### ESP8266 setup

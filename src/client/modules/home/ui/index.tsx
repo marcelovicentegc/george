@@ -9,8 +9,8 @@ interface Props {
 
 const Home: React.FunctionComponent<Props> = props => {
   return (
-    <div className="home-wrapper">
-      <div className="home">
+    <div className="home-wrapper" data-testid="home-wrapper">
+      <div className="home" data-testid="home">
         <ComponentsDashboard groupId={props.groupId} />
       </div>
     </div>

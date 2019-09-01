@@ -6,8 +6,8 @@ import {
   getUserIdFromSession,
   getUserUsernameFromId
 } from "../../server/schema/graphql/Queries.graphql";
-import AuthConnector from "../modules/auth/AuthConnector";
-import ControllerConnector from "../modules/controller/ControllerConnector";
+import { AuthConnector } from "../modules/auth/AuthConnector";
+import { ControllerConnector } from "../modules/controller/ControllerConnector";
 import Nav from "../modules/home/ui/components/Nav";
 import { Loading } from "../modules/utils/Loading";
 import {
@@ -28,7 +28,7 @@ export const Routes = () => {
             if (!data || !data.getUserIdFromSession)
               return (
                 <Route
-                  exact={true}
+                  exact
                   path="/"
                   component={() => <AuthConnector user={null} groupId={null} />}
                 />
@@ -64,7 +64,7 @@ export const Routes = () => {
                         }}
                       </Query>
                       <Route
-                        exact={true}
+                        exact
                         path="/"
                         component={() => (
                           <AuthConnector
@@ -74,7 +74,7 @@ export const Routes = () => {
                         )}
                       />
                       <Route
-                        exact={true}
+                        exact
                         path="/:space/:name"
                         component={() => (
                           <ControllerConnector
