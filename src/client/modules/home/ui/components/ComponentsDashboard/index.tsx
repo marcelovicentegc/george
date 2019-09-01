@@ -28,9 +28,9 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
             data-testid="components-dashboard"
           >
             <NewComponentButton />
-            {newComponentStore.form ? (
+            {newComponentStore.form && (
               <NewComponentForm groupId={props.groupId} />
-            ) : null}
+            )}
           </div>
           <Components groupId={props.groupId} />
         </div>

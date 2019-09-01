@@ -10,11 +10,15 @@ export const NewComponentButton: React.FunctionComponent = observer(() => {
   return (
     <div
       className="manage-component-button-wrapper"
+      data-testid="manage-component-button-wrapper"
       onClick={() => {
         newComponentStore.form = true;
       }}
     >
-      <button className="manage-component-button">
+      <button
+        className="manage-component-button"
+        data-testid="manage-component-button"
+      >
         <span>+</span>
       </button>
     </div>

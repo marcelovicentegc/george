@@ -18,8 +18,8 @@ export const StatusBar: React.FunctionComponent<Props> = props => {
   );
 
   return (
-    <div className="status-bar-wrapper">
-      <div className="status-bar">
+    <div className="status-bar-wrapper" data-testid="status-bar-wrapper">
+      <div className="status-bar" data-testid="status-bar">
         <NoticeBar
           icon={null}
           marqueeProps={{

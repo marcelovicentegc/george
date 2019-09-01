@@ -36,7 +36,10 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
     useOnClickOutside(newComponentForm, hideNewComponentForm);
 
     return (
-      <div className="new-component-form-wrapper">
+      <div
+        className="new-component-form-wrapper"
+        data-testid="new-component-form-wrapper"
+      >
         <Mutation<AddThingMutation, AddThingVariables>
           mutation={addThing}
           onError={error => {
@@ -50,19 +53,21 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
               }
             }
           ]}
-          awaitRefetchQueries={true}
+          awaitRefetchQueries
         >
           {mutate => (
             <>
-              {errorMessage !== undefined ? (
-                <ErrorMessage errorMessage={errorMessage} />
-              ) : null}
+              {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
               <form
                 className="new-component-form"
+                data-testid="new-component-form"
                 onSubmit={e => e.preventDefault()}
                 ref={newComponentForm}
               >
-                <div className="input-wrapper">
+                <div
+                  className="input-wrapper"
+                  data-testid="space-input-wrapper"
+                >
                   <span>Space</span>
                   <input
                     type="text"
@@ -74,7 +79,10 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                     }}
                   />
                 </div>
-                <div className="input-wrapper">
+                <div
+                  className="input-wrapper"
+                  data-testid="component-input-wrapper"
+                >
                   <span>Component</span>
                   <input
                     type="text"
@@ -86,14 +94,17 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                     }}
                   />
                 </div>
-                <div className="submit-button-wrapper">
+                <div
+                  className="submit-button-wrapper"
+                  data-testid="submit-button-wrapper"
+                >
                   <button
                     onClick={async () => {
                       setAwaiting(true);
                       await mutate({
                         variables: {
-                          space: space,
-                          component: component
+                          space,
+                          component
                         }
                       }).then(() => {
                         if (errorMessage === undefined) {
@@ -105,11 +116,14 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                       });
                     }}
                     className="submit-button"
+                    data-testid="submit-button"
                   >
                     {awaiting ? (
-                      <span className="awaiting">Sending</span>
+                      <span className="awaiting" data-testid="sending">
+                        Sending
+                      </span>
                     ) : (
-                      <span>Send</span>
+                      <span data-testid="send">Send</span>
                     )}
                   </button>
                 </div>
