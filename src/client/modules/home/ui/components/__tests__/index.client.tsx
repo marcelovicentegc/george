@@ -1,7 +1,6 @@
 import * as React from "react";
-import { render, getByTestId } from "@testing-library/react";
 import Home from "../..";
-import { renderWithRouter } from "../../../../../__tests__/react-router.client";
+import { renderWithRouter } from "../../../../../utils/renderWithRouter";
 import "@testing-library/jest-dom/extend-expect";
 
 describe("<Home /> test case", () => {

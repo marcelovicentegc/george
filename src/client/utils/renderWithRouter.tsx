@@ -2,6 +2,7 @@ import * as React from "react";
 import { createMemoryHistory, MemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
+import { MockedProvider } from "@apollo/react-testing";
 
 export const renderWithRouter = (
   ui: React.ReactElement,
@@ -11,7 +12,11 @@ export const renderWithRouter = (
   }: { route?: string; history?: MemoryHistory<any> } = {}
 ) => {
   return {
-    ...render(<Router history={history}>{ui}</Router>),
+    ...render(
+      <MockedProvider>
+        <Router history={history}>{ui}</Router>
+      </MockedProvider>
+    ),
     history
   };
 };

@@ -5,8 +5,9 @@ module.exports = {
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   moduleNameMapper: {
-    "\\.(scss)$": "identity-obj-proxy"
+    "\\.(scss)$": "identity-obj-proxy",
+    ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$":
+      "jest-transform-stub"
   },
-  verbose: true,
-  setupFilesAfterEnv: ["./testSetup.ts"]
+  verbose: true
 };
