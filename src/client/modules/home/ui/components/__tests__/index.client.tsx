@@ -9,6 +9,7 @@ describe("<Home /> test case", () => {
       <Home groupId={{ id: "1" }} />
     );
 
-    expect(getByTestId("home-wrapper")).toHaveTextContent("Hello world!");
+    expect(getByTestId("home-wrapper")).toBeInTheDocument();
+    expect(getByTestId("home")).toBeInTheDocument();
   });
 });

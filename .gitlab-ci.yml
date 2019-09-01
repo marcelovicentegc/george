@@ -22,7 +22,7 @@ Build:
     paths:
       - dist/
 
-Run application:
+Run unit tests:
   stage: test
   image: cypress/base:10
   only:
@@ -32,7 +32,7 @@ Run application:
     - apt-get install redis-server sqlite3 -y
     - service redis-server start
   script:
-    - yarn start-with-e2e
+    - yarn test-client
 # Integration test:
 #   stage: test
 #   image:
@@ -41,12 +41,3 @@ Run application:
 #     - master
 #   script:
 #     - yarn e2e-wait
-
-# Unit test:
-#   stage: test
-#   image:
-#     name: node:11
-#   only:
-#     - master
-#   script:
-#     - yarn test-wait
