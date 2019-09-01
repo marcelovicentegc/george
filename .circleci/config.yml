@@ -100,8 +100,8 @@ workflows:
       - build:
           requires:
             - setup
-      - test
-          requires: 
+      - test:
+          requires:
             - build
       # - cypress/run:
       #     yarn: true
