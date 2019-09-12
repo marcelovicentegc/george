@@ -14,6 +14,21 @@ import { Loading } from "../../utils/Loading";
 import "./main.scss";
 import Button from "antd/lib/button";
 import Table from "antd/lib/table";
+import { TableWrapper } from "./components/TableWrapper";
+
+export type DataSource = [
+  {
+    key: string;
+    date: string;
+    state: string;
+  }
+];
+
+export type Column = {
+  title: string;
+  dataIndex: string;
+  key: string;
+};
 
 interface Props extends RouteComponentProps {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
@@ -21,6 +36,8 @@ interface Props extends RouteComponentProps {
 
 const Controller: React.FunctionComponent<Props> = props => {
   const [thingState, setThingState] = React.useState<boolean>();
+  const [awaiting, setAwaiting] = React.useState(false);
+  const [dataSource, setDataSource] = React.useState<DataSource | null>();
 
   const handleClick = () => {
     if (thingState === true) {
@@ -34,15 +51,7 @@ const Controller: React.FunctionComponent<Props> = props => {
 
   let currentThingState: string;
 
-  let dataSource: [
-    {
-      key: string;
-      date: string;
-      state: string;
-    }
-  ];
-
-  const columns = [
+  const columns: Column[] = [
     {
       title: "Date",
       dataIndex: "date",
@@ -68,7 +77,7 @@ const Controller: React.FunctionComponent<Props> = props => {
           props.history.push("/");
         }
 
-        if (data.getThingFromTopic.triggerLog !== null) {
+        if (data.getThingFromTopic.triggerLog) {
           if (data.getThingFromTopic.triggerLog.length === 0) {
             setThingState(false);
           } else {
@@ -83,18 +92,17 @@ const Controller: React.FunctionComponent<Props> = props => {
           }
         }
 
-        data.getThingFromTopic.triggerLog !== null &&
+        data.getThingFromTopic.triggerLog &&
           data.getThingFromTopic.triggerLog.map(log => {
-            if (dataSource === undefined) {
-              return (dataSource = [
+            if (!dataSource) {
+              return setDataSource([
                 {
                   key: log.id,
                   date: log.date,
                   state: log.state
                 }
               ]);
-            }
-            if (dataSource !== undefined) {
+            } else if (dataSource) {
               return dataSource.unshift({
                 key: log.id,
                 date: log.date,
@@ -121,16 +129,19 @@ const Controller: React.FunctionComponent<Props> = props => {
                   <Button
                     type="primary"
                     onClick={async () => {
-                      handleClick();
-                      await mutate({
-                        variables: {
-                          toggle: JSON.stringify(thingState),
-                          topic
-                        }
-                      });
+                      if (!awaiting) {
+                        setAwaiting(true);
+                        handleClick();
+                        await mutate({
+                          variables: {
+                            toggle: JSON.stringify(thingState),
+                            topic
+                          }
+                        }).finally(() => setAwaiting(false));
+                      }
                     }}
                   >
-                    <span>{thingState ? "Off" : "On"}</span>
+                    <span>{awaiting ? "..." : thingState ? "Off" : "On"}</span>
                   </Button>
                 )}
               </Mutation>
@@ -138,12 +149,7 @@ const Controller: React.FunctionComponent<Props> = props => {
             </div>
             <div className="log-wrapper">
               <div className="log">
-                {console.log("dataSource: ", dataSource)}
-                <Table
-                  dataSource={dataSource}
-                  columns={columns}
-                  rowKey={record => record.key}
-                />
+                <TableWrapper dataSource={dataSource} columns={columns} />
               </div>
             </div>
           </div>

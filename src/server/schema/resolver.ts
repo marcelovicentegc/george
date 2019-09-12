@@ -101,8 +101,8 @@ export const resolvers: IResolvers = {
       const spaceSlug = slugify(space);
       const componentSlug = slugify(component);
       const thing = await Thing.create({
-        space: space,
-        component: component,
+        space,
+        component,
         topic: spaceSlug + "/" + componentSlug,
         user: userId,
         triggerLog: []
@@ -136,9 +136,9 @@ export const resolvers: IResolvers = {
         .replace(/\..+/, "");
 
       const triggerLog = await TriggerLog.create({
-        state: state,
-        date: date,
-        thing: thing,
+        state,
+        date,
+        thing,
         thingId: thing.id
       });
 

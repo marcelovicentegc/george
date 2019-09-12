@@ -4,45 +4,7 @@ import { cleanup, wait } from "@testing-library/react";
 import { renderWithRouter } from "../../../../../../utils/renderWithRouter";
 import { Components } from "..";
 import { act } from "react-dom/test-utils";
-import { getThingsFromGroupId } from "../../../../../../../server/schema/graphql/Queries.graphql";
-
-const mocks = [
-  {
-    request: {
-      query: getThingsFromGroupId,
-      variables: {
-        id: "1"
-      }
-    },
-    result: {
-      data: {
-        getThingsFromGroupId: [
-          {
-            id: "1",
-            space: "Living room",
-            component: "Balcony lamp",
-            topic: "living-room/balcony-lamp",
-            triggerLog: [{ date: "", state: "Off", thingId: "1" }]
-          },
-          {
-            id: "2",
-            space: "Ashley's room",
-            component: "TV",
-            topic: "ashleys-room/tv",
-            triggerLog: [{ date: "", state: "On", thingId: "2" }]
-          },
-          {
-            id: "3",
-            space: "John's room",
-            component: "Aquarium's filter",
-            topic: "johns-room/aquariums-filter",
-            triggerLog: [{ date: "", state: "Off", thingId: "3" }]
-          }
-        ]
-      }
-    }
-  }
-];
+import { mockedGetThingsFromGroupId } from "../../../../../../utils/mockedQueries";
 
 afterEach(cleanup);
 
@@ -72,7 +34,7 @@ describe("<Components /> test case", () => {
       {
         route: "/"
       },
-      mocks
+      mockedGetThingsFromGroupId
     );
 
     const items = await findAllByTestId(/component-[0-9]/);
