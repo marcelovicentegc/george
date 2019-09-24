@@ -1,4 +1,4 @@
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import * as React from "react";
 import { GetGroupIdFromUserIdGetGroupIdFromUserId } from "../../../../../__types__/typeDefs";
 import { Components } from "../Components";
@@ -7,6 +7,7 @@ import { NewComponentForm } from "../NewComponentForm";
 import { StatusBar } from "../StatusBar";
 import "./main.scss";
 import { rootStoreContext } from "../../../../../stores/RootStore";
+import { StatusBarErrorBoundary } from "../StatusBarErrorBoundary";
 
 interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
@@ -18,7 +19,9 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
     newComponentStore.form;
     return (
       <>
-        <StatusBar groupId={props.groupId} />
+        <StatusBarErrorBoundary>
+          <StatusBar groupId={props.groupId} />
+        </StatusBarErrorBoundary>
         <div
           className="components-dashboard-wrapper"
           data-testid="components-dashboard-wrapper"

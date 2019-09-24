@@ -1,4 +1,4 @@
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import * as React from "react";
 import "./main.scss";
 import { rootStoreContext } from "../../../../../stores/RootStore";

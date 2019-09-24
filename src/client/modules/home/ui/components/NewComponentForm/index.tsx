@@ -1,4 +1,4 @@
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import useOnClickOutside from "use-onclickoutside";
@@ -116,7 +116,7 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                             component
                           }
                         }).then(() => {
-                          if (errorMessage === undefined) {
+                          if (!errorMessage) {
                             setAwaiting(false);
                             hideNewComponentForm();
                           }
