@@ -100,9 +100,9 @@ workflows:
       - build:
           requires:
             - setup
-      - test:
-          requires:
-            - build
+      # - test:
+      #     requires:
+      #       - build
       # - cypress/run:
       #     yarn: true
       #     cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'

@@ -21,18 +21,17 @@ Build:
   artifacts:
     paths:
       - dist/
-
-Run unit tests:
-  stage: test
-  image: cypress/base:10
-  only:
-    - master
-  before_script:
-    - apt-get update
-    - apt-get install redis-server sqlite3 -y
-    - service redis-server start
-  script:
-    - yarn test-client
+# Run unit tests:
+#   stage: test
+#   image: cypress/base:10
+#   only:
+#     - master
+#   before_script:
+#     - apt-get update
+#     - apt-get install redis-server sqlite3 -y
+#     - service redis-server start
+#   script:
+#     - yarn test-client
 # Integration test:
 #   stage: test
 #   image:
