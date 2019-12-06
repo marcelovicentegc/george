@@ -25,7 +25,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
 
     working_directory: ~/app
     steps:
@@ -40,11 +40,11 @@ jobs:
 
       - run:
           name: Install node dependencies
-          command: yarn install --frozen-lockfile
+          command: npm ci
 
       - run:
           name: Build app
-          command: yarn build
+          command: npm build
 
       - save_cache:
           paths:
@@ -54,7 +54,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     working_directory: ~/app
     steps:
       - checkout
@@ -64,7 +64,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Run unit tests
-          command: yarn test-client
+          command: npm test-client
 
   cypress/run:
     docker:
