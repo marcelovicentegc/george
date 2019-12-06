@@ -64,3 +64,25 @@ export const getThingFromTopic = gql`
     }
   }
 `;
+
+export const getTriggerLog = gql`
+  query GetTriggerLog($id: String!) {
+    getTriggerLog(id: $id) {
+      id
+      state
+      date
+      thingId
+    }
+  }
+`;
+
+export const getThingsWithTriggerLog = gql`
+  query GetThingsWithTriggerLog($id: String!) {
+    getThingsWithTriggerLog(id: $id) {
+      space
+      component
+      state
+      date
+    }
+  }
+`;

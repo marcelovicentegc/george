@@ -1,18 +1,20 @@
-import { NewComponentStore } from ".";
+import { NewComponentStore, HomeStore, ControllerStore } from ".";
 import { createContext } from "react";
-import { ControllerStore } from "./ControllerStore";
 
 export class RootStore {
   public newComponentStore: NewComponentStore;
   public controllerStore: ControllerStore;
+  public homeStore: HomeStore;
 
   public constructor() {
     this.newComponentStore = new NewComponentStore(this);
     this.controllerStore = new ControllerStore(this);
+    this.homeStore = new HomeStore(this);
 
     return {
       newComponentStore: this.newComponentStore,
-      controllerStore: this.controllerStore
+      controllerStore: this.controllerStore,
+      homeStore: this.homeStore
     };
   }
 }

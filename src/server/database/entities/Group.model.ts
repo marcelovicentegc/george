@@ -11,17 +11,25 @@ import User from "./User.model";
 @Entity("group")
 export default class Group extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  public id: string;
 
   @Column()
-  name: string;
+  public name: string;
 
-  @OneToMany(() => User, user => user.group, { nullable: true })
-  users: User[];
+  @OneToMany(
+    () => User,
+    user => user.group,
+    { nullable: true }
+  )
+  public users: User[];
 
-  @OneToMany(() => Thing, thing => thing.user, {
-    nullable: true,
-    cascade: true
-  })
-  things: Thing[];
+  @OneToMany(
+    () => Thing,
+    thing => thing.user,
+    {
+      nullable: true,
+      cascade: true
+    }
+  )
+  public things: Thing[];
 }

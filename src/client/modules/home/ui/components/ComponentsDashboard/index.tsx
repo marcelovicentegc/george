@@ -7,7 +7,7 @@ import { NewComponentForm } from "../NewComponentForm";
 import { StatusBar } from "../StatusBar";
 import "./main.scss";
 import { rootStoreContext } from "../../../../../stores/RootStore";
-import { StatusBarErrorBoundary } from "../StatusBarErrorBoundary";
+// import { StatusBarErrorBoundary } from "../StatusBarErrorBoundary";
 
 interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
@@ -19,9 +19,9 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
     newComponentStore.form;
     return (
       <>
-        <StatusBarErrorBoundary>
-          <StatusBar groupId={props.groupId} />
-        </StatusBarErrorBoundary>
+        {/* <StatusBarErrorBoundary> */}
+        <StatusBar groupId={props.groupId} />
+        {/* </StatusBarErrorBoundary> */}
         <div
           className="components-dashboard-wrapper"
           data-testid="components-dashboard-wrapper"

@@ -11,6 +11,8 @@ import "./main.scss";
 import "antd/lib/button/style/index";
 import "antd/lib/table/style/index";
 import "antd-mobile/lib/notice-bar/style/index";
+import { Provider } from "mobx-react";
+import { rootStore } from "./stores/RootStore";
 
 declare let module: any;
 
@@ -36,7 +38,9 @@ const client = new ApolloClient({
 const App: React.SFC = () => {
   return (
     <ApolloProvider client={client}>
-      <Routes />
+      <Provider {...rootStore}>
+        <Routes />
+      </Provider>
     </ApolloProvider>
   );
 };

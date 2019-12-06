@@ -1,9 +1,9 @@
 import * as React from "react";
-import { getThingsFromGroupId } from "../../../../../../server/schema/graphql/Queries.graphql";
+import { getTriggerLog } from "../../../../../../server/schema/graphql/Queries.graphql";
 import {
-  GetThingsFromGroupIdQuery,
-  GetThingsFromGroupIdVariables,
-  GetGroupIdFromUserIdGetGroupIdFromUserId
+  GetGroupIdFromUserIdGetGroupIdFromUserId,
+  GetThingsWithTriggerLogQuery,
+  GetThingsWithTriggerLogVariables
 } from "../../../../../__types__/typeDefs";
 import { Query } from "react-apollo";
 import { NoticeBar } from "antd-mobile";
@@ -25,15 +25,15 @@ export class StatusBar extends React.Component<Props, State> {
     };
   }
 
-  public shouldComponentUpdate(nextProps: Props, nextState: State) {
-    if (this.state.statusMessage !== nextState.statusMessage) {
-      if (nextState.statusMessage.length > 3) {
-        return false;
-      }
-      return true;
-    } else {
+  public shouldComponentUpdate(_: Props, nextState: State) {
+    if (
+      this.state.statusMessage.length === nextState.statusMessage.length ||
+      (this.state.statusMessage.length !== nextState.statusMessage.length &&
+        nextState.statusMessage.length > 3)
+    )
       return false;
-    }
+
+    return true;
   }
 
   private setMarqueeText = () => {
@@ -58,6 +58,32 @@ export class StatusBar extends React.Component<Props, State> {
     return (
       <div className="status-bar-wrapper" data-testid="status-bar-wrapper">
         <div className="status-bar" data-testid="status-bar">
+          <Query<GetThingsWithTriggerLogQuery, GetThingsWithTriggerLogVariables>
+            query={getTriggerLog}
+            variables={{ id: this.props.groupId.id }}
+          >
+            {({ data, loading }) => {
+              if (loading) this.setState({ statusMessage: ["Loading..."] });
+              if (!data || !data.getThingsWithTriggerLog) {
+                this.setState({
+                  statusMessage: ["There is no recent activity yet."]
+                });
+
+                return null;
+              }
+
+              data.getThingsWithTriggerLog.map(thingWithLog => {
+                this.setState({
+                  statusMessage: [
+                    ...this.state.statusMessage,
+                    `${thingWithLog.component} on the ${thingWithLog.space} turned ${thingWithLog.state} @ ${thingWithLog.date}`
+                  ]
+                });
+              });
+
+              return null;
+            }}
+          </Query>
           <NoticeBar
             icon={null}
             marqueeProps={{
@@ -65,34 +91,6 @@ export class StatusBar extends React.Component<Props, State> {
               text: this.setMarqueeText()
             }}
           />
-          <Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdVariables>
-            query={getThingsFromGroupId}
-            variables={{
-              id: this.props.groupId.id
-            }}
-          >
-            {({ data, loading }) => {
-              if (loading) return null;
-              if (!data || !data.getThingsFromGroupId) {
-                this.setState({
-                  statusMessage: ["There is no recent activity yet."]
-                });
-                return null;
-              }
-              data.getThingsFromGroupId.map(thing => {
-                thing.triggerLog &&
-                  thing.triggerLog.map(log => {
-                    this.setState({
-                      statusMessage: [
-                        ...this.state.statusMessage,
-                        `${thing.component} on the ${thing.space} turned ${log.state} @ ${log.date}`
-                      ]
-                    });
-                  });
-              });
-              return null;
-            }}
-          </Query>
         </div>
       </div>
     );

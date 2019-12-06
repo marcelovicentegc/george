@@ -5,6 +5,7 @@ import Thing from "../database/entities/Thing.model";
 import User from "../database/entities/User.model";
 import slugify from "../utils/slugify";
 import TriggerLog from "../database/entities/TriggerLog.model";
+import { GetThingsWithTriggerLogGetThingsWithTriggerLog } from "../../client/__types__/typeDefs";
 
 export const resolvers: IResolvers = {
   Query: {
@@ -66,6 +67,53 @@ export const resolvers: IResolvers = {
       if (!thing) return new Error("This component doesn't exist.");
 
       return thing;
+    },
+    getTriggerLog: async (_, { id }) => {
+      const group = await Group.findOne(id);
+      if (!group) {
+        throw new Error("This group doesn't exist");
+      }
+
+      const groupId = group.id;
+      const things = await Thing.find({
+        where: { groupId },
+        relations: ["triggerLog"]
+      });
+
+      const triggerLog: TriggerLog[] = [];
+
+      things.map(thing => thing.triggerLog.map(log => triggerLog.push(log)));
+
+      return triggerLog;
+    },
+    getThingsWithTriggerLog: async (_, { id }) => {
+      const group = await Group.findOne(id);
+      if (!group) {
+        throw new Error("This group doesn't exist");
+      }
+
+      const groupId = group.id;
+      const things = await Thing.find({
+        where: { groupId },
+        relations: ["triggerLog"]
+      });
+
+      const thingsWithTriggerLog: GetThingsWithTriggerLogGetThingsWithTriggerLog[] = [];
+
+      things.map(thing =>
+        thing.triggerLog.map(log =>
+          thingsWithTriggerLog.push({
+            date: log.date,
+            state: log.state,
+            space: thing.space,
+            component: thing.component
+          })
+        )
+      );
+
+      console.log(thingsWithTriggerLog);
+
+      return thingsWithTriggerLog;
     }
   },
   Mutation: {

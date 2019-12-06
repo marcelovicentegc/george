@@ -10,17 +10,20 @@ import Thing from "./Thing.model";
 @Entity("triggerLog")
 export default class TriggerLog extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  public id: string;
 
   @Column()
-  state: string;
+  public state: string;
 
   @Column()
-  date: string;
+  public date: string;
 
-  @ManyToOne(() => Thing, thing => thing.triggerLog)
-  thing: Thing;
+  @ManyToOne(
+    () => Thing,
+    thing => thing.triggerLog
+  )
+  public thing: Thing;
 
   @Column()
-  thingId: string;
+  public thingId: string;
 }

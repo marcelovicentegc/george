@@ -3,6 +3,6 @@ import { resolvers } from "./resolver";
 import { typeDefs } from "./typeDefs";
 
 export const schema = makeExecutableSchema({
-  typeDefs: typeDefs,
-  resolvers: resolvers
+  typeDefs,
+  resolvers
 });

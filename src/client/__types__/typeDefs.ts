@@ -184,3 +184,49 @@ export type GetThingFromTopicTriggerLog = {
 
   thingId: string;
 };
+
+export type GetTriggerLogVariables = {
+  id: string;
+};
+
+export type GetTriggerLogQuery = {
+  __typename?: "Query";
+
+  getTriggerLog: Maybe<(Maybe<GetTriggerLogGetTriggerLog>)[]>;
+};
+
+export type GetTriggerLogGetTriggerLog = {
+  __typename?: "TriggerLog";
+
+  id: string;
+
+  state: string;
+
+  date: string;
+
+  thingId: string;
+};
+
+export type GetThingsWithTriggerLogVariables = {
+  id: string;
+};
+
+export type GetThingsWithTriggerLogQuery = {
+  __typename?: "Query";
+
+  getThingsWithTriggerLog: Maybe<
+    (Maybe<GetThingsWithTriggerLogGetThingsWithTriggerLog>)[]
+  >;
+};
+
+export type GetThingsWithTriggerLogGetThingsWithTriggerLog = {
+  __typename?: "ThingWithTriggerLog";
+
+  space: string;
+
+  component: string;
+
+  state: string;
+
+  date: string;
+};

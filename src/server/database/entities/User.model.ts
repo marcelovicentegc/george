@@ -10,14 +10,17 @@ import Group from "./Group.model";
 @Entity("user")
 export default class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  public id: string;
 
   @Column()
-  username: string;
+  public username: string;
 
   @Column()
-  password: string;
+  public password: string;
 
-  @ManyToOne(() => Group, group => group.users)
-  group: Group;
+  @ManyToOne(
+    () => Group,
+    group => group.users
+  )
+  public group: Group;
 }

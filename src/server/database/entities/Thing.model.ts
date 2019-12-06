@@ -13,28 +13,38 @@ import TriggerLog from "./TriggerLog.model";
 @Entity("component")
 export default class Thing extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  public id: string;
 
   @Column()
-  space: string;
+  public space: string;
 
   @Column()
-  component: string;
+  public component: string;
 
   @Column()
-  topic: string;
+  public topic: string;
 
   // @Column("text", { array: true, nullable: true })
   // triggeredAt: string[];
 
-  @OneToMany(() => TriggerLog, triggerLog => triggerLog.thing, {
-    nullable: true
-  })
-  triggerLog: TriggerLog[];
+  @OneToMany(
+    () => TriggerLog,
+    triggerLog => triggerLog.thing,
+    {
+      nullable: true
+    }
+  )
+  public triggerLog: TriggerLog[];
 
-  @ManyToOne(() => User, user => user.group)
-  user: User;
+  @ManyToOne(
+    () => User,
+    user => user.group
+  )
+  public user: User;
 
-  @ManyToOne(() => Group, group => group.things)
-  group: Group;
+  @ManyToOne(
+    () => Group,
+    group => group.things
+  )
+  public group: Group;
 }
