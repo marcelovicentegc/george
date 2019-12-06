@@ -8,7 +8,11 @@ import * as session from "express-session";
 import * as mosca from "mosca";
 import * as path from "path";
 import "reflect-metadata";
-import { createConnection, getConnectionOptions } from "typeorm";
+import {
+  createConnection,
+  getConnectionOptions,
+  ConnectionOptions
+} from "typeorm";
 import Group from "./database/entities/Group.model";
 import User from "./database/entities/User.model";
 import { redis } from "./redis";
@@ -29,9 +33,11 @@ export interface Context {
 
 const startServer = async () => {
   let retries = 5;
+  let connectionOptions: ConnectionOptions;
+
   while (retries) {
     if (process.env.NODE_ENV === "production") {
-      var connectionOptions = await getConnectionOptions();
+      connectionOptions = await getConnectionOptions();
       Object.assign(connectionOptions, {
         entities: ["dist/server/database/**/*.model.js"],
         cli: {
@@ -59,7 +65,7 @@ const startServer = async () => {
         const user = await User.create({
           username: "admin",
           password: hashedPassword,
-          group: group
+          group
         });
 
         await user.save();

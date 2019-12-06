@@ -31,7 +31,7 @@ const Nav: React.FunctionComponent<Props> = props => {
           <Mutation<LogoutUserMutation>
             mutation={logoutUser}
             refetchQueries={[{ query: getUserIdFromSession }]}
-            awaitRefetchQueries={true}
+            awaitRefetchQueries
           >
             {mutate => (
               <span
@@ -53,4 +53,4 @@ const Nav: React.FunctionComponent<Props> = props => {
   );
 };
 
-export default withRouter(Nav);
+export const NavWithRouter = withRouter(Nav);

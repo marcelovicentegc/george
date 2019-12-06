@@ -39,4 +39,4 @@ Build:
 #   only:
 #     - master
 #   script:
-#     - yarn e2e-wait
+#     - yarn e2e:wait

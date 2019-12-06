@@ -15,6 +15,7 @@ import "./main.scss";
 import Button from "antd/lib/button";
 import Table from "antd/lib/table";
 import { TableWrapper } from "./components/TableWrapper";
+import { rootStoreContext } from "../../../stores/RootStore";
 
 export type DataSource = [
   {
@@ -37,7 +38,7 @@ interface Props extends RouteComponentProps {
 const Controller: React.FunctionComponent<Props> = props => {
   const [thingState, setThingState] = React.useState<boolean>();
   const [awaiting, setAwaiting] = React.useState(false);
-  const [dataSource, setDataSource] = React.useState<DataSource | null>();
+  const { controllerStore } = React.useContext(rootStoreContext);
 
   const handleClick = () => {
     if (thingState === true) {
@@ -77,6 +78,8 @@ const Controller: React.FunctionComponent<Props> = props => {
           props.history.push("/");
         }
 
+        controllerStore.setDataSource(null);
+
         if (data.getThingFromTopic.triggerLog) {
           if (data.getThingFromTopic.triggerLog.length === 0) {
             setThingState(false);
@@ -94,16 +97,16 @@ const Controller: React.FunctionComponent<Props> = props => {
 
         data.getThingFromTopic.triggerLog &&
           data.getThingFromTopic.triggerLog.map(log => {
-            if (!dataSource) {
-              return setDataSource([
+            if (!controllerStore.dataSource) {
+              return controllerStore.setDataSource([
                 {
                   key: log.id,
                   date: log.date,
                   state: log.state
                 }
               ]);
-            } else if (dataSource) {
-              return dataSource.unshift({
+            } else if (controllerStore.dataSource) {
+              return controllerStore.dataSource.unshift({
                 key: log.id,
                 date: log.date,
                 state: log.state
@@ -149,7 +152,10 @@ const Controller: React.FunctionComponent<Props> = props => {
             </div>
             <div className="log-wrapper">
               <div className="log">
-                <TableWrapper dataSource={dataSource} columns={columns} />
+                <TableWrapper
+                  dataSource={controllerStore.dataSource}
+                  columns={columns}
+                />
               </div>
             </div>
           </div>

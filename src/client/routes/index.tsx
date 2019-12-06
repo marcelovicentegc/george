@@ -8,7 +8,7 @@ import {
 } from "../../server/schema/graphql/Queries.graphql";
 import { AuthConnector } from "../modules/auth/AuthConnector";
 import { ControllerConnector } from "../modules/controller/ControllerConnector";
-import Nav from "../modules/home/ui/components/Nav";
+import { NavWithRouter } from "../modules/home/ui/components/Nav";
 import { Loading } from "../modules/utils/Loading";
 import {
   GetGroupIdFromUserIdQuery,
@@ -57,7 +57,7 @@ export const Routes = () => {
                           if (loading) return null;
                           if (!data || !data.getUserUsernameFromId) return null;
                           return (
-                            <Nav
+                            <NavWithRouter
                               username={data.getUserUsernameFromId.username}
                             />
                           );

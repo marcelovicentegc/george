@@ -11,7 +11,8 @@ module.exports = {
   },
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist/")
+    path: path.resolve(__dirname, "dist/"),
+    publicPath: "/"
   },
   devtool: "source-map",
   node: { fs: "empty" },
@@ -19,11 +20,6 @@ module.exports = {
     extensions: [".ts", ".tsx", ".mjs", ".js", ".json"]
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery"
-    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "client", "index.html"),
       filename: "index.html"
