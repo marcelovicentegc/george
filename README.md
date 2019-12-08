@@ -7,11 +7,11 @@
 
 ---
 
-## Development directions
+## ⬆️ Development directions
 
 1. Clone this project: `git clone https://github.com/marcelovicentegc/home-automation-model`
 2. Install its dependencies: `yarn`
-3. If you have already have `redis` and `sqlite` installed on your machine, jump to the next step, otherwise, install both before continuing
+3. If you already have `redis` and `sqlite` installed on your machine, jump to the next step, otherwise, install both before continuing
 4. Make sure `redis` is up and running before starting this project (e.g. `sudo service redis-server start`)
 5. You're good to go. Run: `yarn start`
 
@@ -61,10 +61,10 @@
 13. Install [PM2](http://pm2.keymetrics.io/) (a process manager for Node.js applications): `sudo npm install pm2@latest -g`
 14. Clone the git repository: `git clone https://github.com/<user>/<project>.git`
 15. Change directory into `<project>`: `cd <project>`
-16. Install dependencies: `yarn install`
-17. Build the application: `yarn build`
+16. Install dependencies: `npm i`
+17. Build the application: `npm run build`
 18. Test the application
-    1. `yarn launch`
+    1. `npm run launch`
     2. `curl http://localhost:4000`
 19. Run the `<project>`'s main application in the background: `NODE_ENV=production pm2 start dist/server/index.js`
 20. Applications that are running under PM2 will be restarted automatically if the application crashes or is killed, but we can take an additional step to get the application to launch on system startup using the `startup` subcommand. This subcommand generates and configures a startup script to launch PM2 and its managed processes on server boots: `pm2 startup systemd`
