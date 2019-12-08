@@ -8,12 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: |
-          sudo npm install --global --production windows-build-tools
-      - uses: Borales/actions-yarn@v2.0.1
+      - uses: Borales/actions-yarn@v2.1.0
         with:
           cmd: install
-      - uses: Borales/actions-yarn@v2.0.1
+      - uses: Borales/actions-yarn@v2.1.0
         with:
           cmd: build
         env:
