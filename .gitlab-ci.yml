@@ -13,8 +13,6 @@ cache:
 Build:
   image: node:latest
   stage: build
-  only:
-    - master
   script:
     - yarn
     - NODE_ENV=development yarn build
