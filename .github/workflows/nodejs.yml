@@ -4,14 +4,13 @@ on: [push]
 
 jobs:
   build:
-    name: yarn install and build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: marcelovicentegc/actions-yarn@v2.1.0
+      - uses: borales/actions-yarn@v2.0.1
         with:
           cmd: install
-      - uses: marcelovicentegc/actions-yarn@v2.1.0
+      - uses: borales/actions-yarn@v2.0.1
         with:
           cmd: build
         env:
