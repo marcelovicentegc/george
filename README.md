@@ -18,10 +18,10 @@ George doesn't work out of the box! You need a server to run it on your local ne
 ## ⬆️ Development directions
 
 1. Clone this project: `git clone https://github.com/marcelovicentegc/george`
-2. Install its dependencies: `yarn`
+2. Install its dependencies: `npm i`
 3. If you already have `redis` and `sqlite` installed on your machine, jump to the next step, otherwise, install both before continuing
 4. Make sure `redis` is up and running before starting this project (e.g. `sudo service redis-server start`)
-5. You're good to go. Run: `yarn start`
+5. You're good to go. Run: `npm start`
 
 ## Production directions
 

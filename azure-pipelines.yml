@@ -11,8 +11,8 @@ steps:
     displayName: "Install node"
 
   - script: |
-      yarn install
-      yarn build
+      npm i
+      npm run build
     displayName: "Install dependencies and build app"
   # - script: |
   #     yarn test-client

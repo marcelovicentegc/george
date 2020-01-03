@@ -10,12 +10,26 @@ cache:
   paths:
     - node_modules/
 
+Build develop:
+  image: node:latest
+  stage: build
+  except:
+    - master
+  script:
+    - npm ci
+    - NODE_ENV=development npm run build
+  artifacts:
+    paths:
+      - dist/
+
 Build:
   image: node:latest
   stage: build
+  only:
+    - master
   script:
-    - yarn
-    - NODE_ENV=development yarn build
+    - npm ci
+    - NODE_ENV=production npm run build
   artifacts:
     paths:
       - dist/

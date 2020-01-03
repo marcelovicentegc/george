@@ -40,11 +40,11 @@ jobs:
 
       - run:
           name: Install node dependencies
-          command: yarn
+          command: npm i
 
       - run:
           name: Build app
-          command: yarn build
+          command: npm run build
 
       - save_cache:
           paths:
@@ -64,7 +64,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Run unit tests
-          command: yarn test-client
+          command: npm run test-client
 
   cypress/run:
     docker:
