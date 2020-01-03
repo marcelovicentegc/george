@@ -1,15 +1,23 @@
-# 🏠 home-automation-model
+# 💁‍♂ george
 
-[![CircleCI](https://circleci.com/gh/marcelovicentegc/home-automation-model.svg?style=svg)](https://app.circleci.com/github/marcelovicentegc/home-automation-model/pipelines)
-[![Build Status](https://dev.azure.com/marcelovicentegc/home-automation-model/_apis/build/status/marcelovicentegc.home-automation-model?branchName=master)](https://dev.azure.com/marcelovicentegc/home-automation-model/_build/latest?definitionId=1&branchName=master)
-[![Pipeline](https://gitlab.com/marcelovicentegc/home-automation-model/badges/master/pipeline.svg)](https://gitlab.com/marcelovicentegc/home-automation-model/)
-[![Node CI](https://github.com/marcelovicentegc/home-automation-model/workflows/Node%20CI/badge.svg)](https://github.com/marcelovicentegc/home-automation-model/workflows/Node%20CI/badge.svg)
+[![Build Status](https://dev.azure.com/marcelovicentegc/george/_apis/build/status/marcelovicentegc.george?branchName=master)](https://dev.azure.com/marcelovicentegc/george/_build/latest?definitionId=1&branchName=master)
+[![Node CI](https://github.com/marcelovicentegc/george/workflows/Node%20CI/badge.svg)](https://github.com/marcelovicentegc/george/workflows/Node%20CI/badge.svg)
 
 ---
 
+## 🤷‍♂ Who is George?
+
+George is a home automation assistant built to run at your local network. It can aid you on automating your home, offering itself to manage which switches were turned on and off, log that data to a database and give you insights about energy consumption. It can also integrate with Alexa, in case you don't feel like pushing buttons.
+
+George doesn't work out of the box! You need a server to run it on your local network and at least one IoT device.
+
+| George can manage |
+| ----------------- |
+| ESP8266 ✔️        |
+
 ## ⬆️ Development directions
 
-1. Clone this project: `git clone https://github.com/marcelovicentegc/home-automation-model`
+1. Clone this project: `git clone https://github.com/marcelovicentegc/george`
 2. Install its dependencies: `yarn`
 3. If you already have `redis` and `sqlite` installed on your machine, jump to the next step, otherwise, install both before continuing
 4. Make sure `redis` is up and running before starting this project (e.g. `sudo service redis-server start`)
