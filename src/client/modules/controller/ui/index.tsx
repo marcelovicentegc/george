@@ -1,21 +1,20 @@
 import * as React from "react";
+import "./main.scss";
 import { Mutation, Query } from "react-apollo";
 import { RouteComponentProps, withRouter } from "react-router";
 import { toggleThing } from "../../../../server/schema/graphql/Mutations.graphql";
 import { getThingFromTopic } from "../../../../server/schema/graphql/Queries.graphql";
-import {
-  GetGroupIdFromUserIdGetGroupIdFromUserId,
-  GetThingFromTopicQuery,
-  GetThingFromTopicVariables,
-  ToggleThingMutation,
-  ToggleThingVariables,
-} from "../../../__types__/typeDefs";
-import "./main.scss";
 import Button from "antd/lib/button";
-import Table from "antd/lib/table";
 import { TableWrapper } from "./components/TableWrapper";
 import { rootStoreContext } from "../../../stores/RootStore";
 import { Loading } from "../../../components/Loading";
+import {
+  GetGroupIdFromUserIdQueryVariables,
+  GetThingFromTopicQuery,
+  GetThingFromTopicQueryVariables,
+  ToggleThingMutation,
+  ToggleThingMutationVariables,
+} from "../../../gql";
 
 export type DataSource = [
   {
@@ -32,7 +31,7 @@ export type Column = {
 };
 
 interface Props extends RouteComponentProps {
-  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
+  groupId: GetGroupIdFromUserIdQueryVariables;
 }
 
 const Controller: React.FunctionComponent<Props> = (props) => {
@@ -66,7 +65,7 @@ const Controller: React.FunctionComponent<Props> = (props) => {
   ];
 
   return (
-    <Query<GetThingFromTopicQuery, GetThingFromTopicVariables>
+    <Query<GetThingFromTopicQuery, GetThingFromTopicQueryVariables>
       query={getThingFromTopic}
       variables={{
         topic,
@@ -117,7 +116,7 @@ const Controller: React.FunctionComponent<Props> = (props) => {
         return (
           <div className="controller-wrapper">
             <div className="controller">
-              <Mutation<ToggleThingMutation, ToggleThingVariables>
+              <Mutation<ToggleThingMutation, ToggleThingMutationVariables>
                 mutation={toggleThing}
                 refetchQueries={[
                   {

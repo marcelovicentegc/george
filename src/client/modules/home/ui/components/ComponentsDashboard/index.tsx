@@ -1,20 +1,20 @@
-import { observer } from "mobx-react";
 import * as React from "react";
-import { GetGroupIdFromUserIdGetGroupIdFromUserId } from "../../../../../__types__/typeDefs";
+import "./main.scss";
+import { observer } from "mobx-react";
 import { Components } from "../Components";
 import { NewComponentButton } from "../NewComponentButton";
 import { NewComponentForm } from "../NewComponentForm";
 import { StatusBar } from "../StatusBar";
-import "./main.scss";
 import { rootStoreContext } from "../../../../../stores/RootStore";
+import { GetGroupIdFromUserIdQueryVariables } from "../../../../../gql";
 // import { StatusBarErrorBoundary } from "../StatusBarErrorBoundary";
 
 interface Props {
-  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
+  groupId: GetGroupIdFromUserIdQueryVariables;
 }
 
 export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
-  props => {
+  (props) => {
     const { newComponentStore } = React.useContext(rootStoreContext);
     newComponentStore.form;
     return (

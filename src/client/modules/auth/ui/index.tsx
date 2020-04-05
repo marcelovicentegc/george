@@ -3,10 +3,7 @@ import "./main.scss";
 import { Mutation } from "react-apollo";
 import { loginUser } from "../../../../server/schema/graphql/Mutations.graphql";
 import { getUserIdFromSession } from "../../../../server/schema/graphql/Queries.graphql";
-import {
-  LoginUserMutation,
-  LoginUserVariables,
-} from "../../../__types__/typeDefs";
+import { LoginUserMutation, LoginUserMutationVariables } from "../../../gql";
 
 interface State {
   username: string;
@@ -22,10 +19,10 @@ export class Auth extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      username: undefined,
-      password: undefined,
+      username: "",
+      password: "",
       awaiting: false,
-      errorMessage: undefined,
+      errorMessage: "",
     };
   }
 
@@ -36,7 +33,7 @@ export class Auth extends React.Component<Props, State> {
           <div className="form-header">
             <span>Welcome to George</span>
           </div>
-          <Mutation<LoginUserMutation, LoginUserVariables>
+          <Mutation<LoginUserMutation, LoginUserMutationVariables>
             mutation={loginUser}
             onError={(error) => this.setState({ errorMessage: error.message })}
             refetchQueries={[
@@ -59,9 +56,9 @@ export class Auth extends React.Component<Props, State> {
                       });
                     }}
                   />
-                  {this.state.errorMessage !== undefined ? (
+                  {this.state.errorMessage && (
                     <span>{this.state.errorMessage}</span>
-                  ) : null}
+                  )}
                 </div>
                 <div className="input-wrapper">
                   <span>Password</span>
@@ -73,9 +70,9 @@ export class Auth extends React.Component<Props, State> {
                       this.setState({ errorMessage: undefined });
                     }}
                   />
-                  {this.state.errorMessage !== undefined ? (
+                  {this.state.errorMessage && (
                     <span>{this.state.errorMessage}</span>
-                  ) : null}
+                  )}
                 </div>
                 <div className="button-wrapper">
                   <button

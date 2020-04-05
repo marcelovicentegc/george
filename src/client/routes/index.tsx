@@ -7,14 +7,14 @@ import {
   getUserUsernameFromId,
 } from "../../server/schema/graphql/Queries.graphql";
 import { NavWithRouter } from "../modules/home/ui/components/Nav";
-import {
-  GetGroupIdFromUserIdQuery,
-  GetGroupIdFromUserIdVariables,
-  GetUserIdFromSessionQuery,
-  GetUserUsernameFromIdQuery,
-  GetUserUsernameFromIdVariables,
-} from "../__types__/typeDefs";
 import { Loading } from "../components/Loading";
+import {
+  GetUserIdFromSessionQuery,
+  GetGroupIdFromUserIdQuery,
+  GetGroupIdFromUserIdQueryVariables,
+  GetUserUsernameFromIdQuery,
+  GetUserUsernameFromIdQueryVariables,
+} from "../gql";
 
 const AuthConnector = React.lazy(() => import("../modules/auth/AuthConnector"));
 const ControllerConnector = React.lazy(() =>
@@ -31,17 +31,14 @@ export const Routes = () => {
               if (loading) return <Loading />;
               if (!data || !data.getUserIdFromSession)
                 return (
-                  <Route
-                    exact
-                    path="/"
-                    component={() => (
-                      <AuthConnector user={null} groupId={null} />
-                    )}
-                  />
+                  <Route exact path="/" component={() => <AuthConnector />} />
                 );
               const user = data.getUserIdFromSession;
               return (
-                <Query<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdVariables>
+                <Query<
+                  GetGroupIdFromUserIdQuery,
+                  GetGroupIdFromUserIdQueryVariables
+                >
                   query={getGroupIdFromUserId}
                   variables={{ id: data.getUserIdFromSession.id }}
                 >
@@ -52,7 +49,7 @@ export const Routes = () => {
                       <>
                         <Query<
                           GetUserUsernameFromIdQuery,
-                          GetUserUsernameFromIdVariables
+                          GetUserUsernameFromIdQueryVariables
                         >
                           query={getUserUsernameFromId}
                           variables={{

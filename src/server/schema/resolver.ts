@@ -5,8 +5,7 @@ import Thing from "../database/entities/Thing.model";
 import User from "../database/entities/User.model";
 import { slugify } from "../utils";
 import TriggerLog from "../database/entities/TriggerLog.model";
-import { GetThingsWithTriggerLogGetThingsWithTriggerLog } from "../../client/__types__/typeDefs";
-
+import { Thing as GqlThing } from "../../client/gql";
 export const resolvers: IResolvers = {
   Query: {
     getUserIdFromSession: async (_, __, { req }) => {
@@ -100,7 +99,14 @@ export const resolvers: IResolvers = {
         relations: ["triggerLog"],
       });
 
-      const thingsWithTriggerLog: GetThingsWithTriggerLogGetThingsWithTriggerLog[] = [];
+      interface CustomThing {
+        date: string;
+        state: string;
+        space: string;
+        component: string;
+      }
+
+      const thingsWithTriggerLog: CustomThing[] = [];
 
       things.map((thing) =>
         thing.triggerLog.map((log) =>

@@ -4,21 +4,21 @@ import { Mutation } from "react-apollo";
 import useOnClickOutside from "use-onclickoutside";
 import { addThing } from "../../../../../../server/schema/graphql/Mutations.graphql";
 import { getThingsFromGroupId } from "../../../../../../server/schema/graphql/Queries.graphql";
-import {
-  AddThingMutation,
-  AddThingVariables,
-  GetGroupIdFromUserIdGetGroupIdFromUserId
-} from "../../../../../__types__/typeDefs";
 import { ErrorMessage } from "../ErrorMessage";
 import "./main.scss";
 import { rootStoreContext } from "../../../../../stores/RootStore";
+import {
+  GetGroupIdFromUserIdQueryVariables,
+  AddThingMutation,
+  AddThingMutationVariables,
+} from "../../../../../gql";
 
 interface Props {
-  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
+  groupId: GetGroupIdFromUserIdQueryVariables;
 }
 
 export const NewComponentForm: React.FunctionComponent<Props> = observer(
-  props => {
+  (props) => {
     const [space, setSpace] = React.useState<string>();
     const [component, setComponent] = React.useState<string>();
     const [errorMessage, setErrorMessage] = React.useState<string | undefined>(
@@ -46,28 +46,28 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
         className="new-component-form-wrapper"
         data-testid="new-component-form-wrapper"
       >
-        <Mutation<AddThingMutation, AddThingVariables>
+        <Mutation<AddThingMutation, AddThingMutationVariables>
           mutation={addThing}
-          onError={error => {
+          onError={(error) => {
             setErrorMessage(error.message);
           }}
           refetchQueries={[
             {
               query: getThingsFromGroupId,
               variables: {
-                id: props.groupId.id
-              }
-            }
+                id: props.groupId.id,
+              },
+            },
           ]}
           awaitRefetchQueries
         >
-          {mutate => (
+          {(mutate) => (
             <>
               {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
               <form
                 className="new-component-form"
                 data-testid="new-component-form"
-                onSubmit={e => e.preventDefault()}
+                onSubmit={(e) => e.preventDefault()}
                 ref={newComponentForm}
               >
                 <div
@@ -79,7 +79,7 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                     type="text"
                     name="space"
                     placeholder="I.g. living room"
-                    onChange={e => {
+                    onChange={(e) => {
                       setErrorMessage(undefined);
                       setSpace(e.target.value);
                     }}
@@ -95,7 +95,7 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                     type="text"
                     name="component"
                     placeholder="I.g. balcony lamp"
-                    onChange={e => {
+                    onChange={(e) => {
                       setErrorMessage(undefined);
                       setComponent(e.target.value);
                     }}
@@ -113,8 +113,8 @@ export const NewComponentForm: React.FunctionComponent<Props> = observer(
                         await mutate({
                           variables: {
                             space,
-                            component
-                          }
+                            component,
+                          },
                         }).then(() => {
                           if (!errorMessage) {
                             setAwaiting(false);

@@ -1,15 +1,15 @@
 import * as React from "react";
 import { getTriggerLog } from "../../../../../../server/schema/graphql/Queries.graphql";
-import {
-  GetGroupIdFromUserIdGetGroupIdFromUserId,
-  GetThingsWithTriggerLogQuery,
-  GetThingsWithTriggerLogVariables
-} from "../../../../../__types__/typeDefs";
 import { Query } from "react-apollo";
 import { NoticeBar } from "antd-mobile";
+import {
+  GetGroupIdFromUserIdQueryVariables,
+  GetThingsWithTriggerLogQuery,
+  GetThingsWithTriggerLogQueryVariables,
+} from "../../../../../gql";
 
 interface Props {
-  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
+  groupId: GetGroupIdFromUserIdQueryVariables;
 }
 
 interface State {
@@ -21,7 +21,7 @@ export class StatusBar extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      statusMessage: []
+      statusMessage: [],
     };
   }
 
@@ -58,26 +58,32 @@ export class StatusBar extends React.Component<Props, State> {
     return (
       <div className="status-bar-wrapper" data-testid="status-bar-wrapper">
         <div className="status-bar" data-testid="status-bar">
-          <Query<GetThingsWithTriggerLogQuery, GetThingsWithTriggerLogVariables>
+          <Query<
+            GetThingsWithTriggerLogQuery,
+            GetThingsWithTriggerLogQueryVariables
+          >
             query={getTriggerLog}
             variables={{ id: this.props.groupId.id }}
           >
             {({ data, loading }) => {
               if (loading) this.setState({ statusMessage: ["Loading..."] });
+
+              console.log("data: ", data);
+
               if (!data || !data.getThingsWithTriggerLog) {
                 this.setState({
-                  statusMessage: ["There is no recent activity yet."]
+                  statusMessage: ["There is no recent activity yet."],
                 });
 
                 return null;
               }
 
-              data.getThingsWithTriggerLog.map(thingWithLog => {
+              data.getThingsWithTriggerLog.map((thingWithLog) => {
                 this.setState({
                   statusMessage: [
                     ...this.state.statusMessage,
-                    `${thingWithLog.component} on the ${thingWithLog.space} turned ${thingWithLog.state} @ ${thingWithLog.date}`
-                  ]
+                    `${thingWithLog.component} on the ${thingWithLog.space} turned ${thingWithLog.state} @ ${thingWithLog.date}`,
+                  ],
                 });
               });
 
@@ -88,7 +94,7 @@ export class StatusBar extends React.Component<Props, State> {
             icon={null}
             marqueeProps={{
               loop: true,
-              text: this.setMarqueeText()
+              text: this.setMarqueeText(),
             }}
           />
         </div>

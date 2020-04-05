@@ -2,9 +2,11 @@ overwrite: true
 schema: "http://127.0.0.1:4000/api"
 documents: ./src/**/*.graphql.{ts, tsx}
 generates:
-  ./src/client/__types__/typeDefs.ts:
+  ./src/client/gql/index.tsx:
     config:
       noNamespaces: true
+      withHooks: true
     plugins:
-      - typescript-common
-      - typescript-client
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

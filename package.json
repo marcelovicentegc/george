@@ -8,7 +8,7 @@
     "build": "rimraf dist && webpack --config webpack.config.js && tsc --p tsconfig.server.json ",
     "client": "webpack-dev-server --progress",
     "client:wait": "wait-on tcp:4000 && npm run client",
-    "gen": "gql-gen --config codegen.yml",
+    "gen": "graphql-codegen --config codegen.yml",
     "server": "nodemon",
     "e2e": "cypress run --spec \"e2e/integration/home.js\"",
     "e2e:wait": "wait-on tcp:4000 && cypress run --spec \"e2e/integration/home.js\"",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@apollo/react-testing": "^3.1.3",
+    "@graphql-codegen/cli": "^1.13.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@types/apollo-upload-client": "^8.1.3",
@@ -49,8 +50,6 @@
     "css-loader": "^3.2.1",
     "cypress": "^3.7.0",
     "file-loader": "^5.0.2",
-    "graphql-codegen-typescript-client": "^0.18.2",
-    "graphql-codegen-typescript-common": "^0.18.2",
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
@@ -81,6 +80,9 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@graphql-codegen/typescript": "^1.13.1",
+    "@graphql-codegen/typescript-operations": "^1.13.1",
+    "@graphql-codegen/typescript-react-apollo": "^1.13.1",
     "@types/node-fetch": "^2.5.4",
     "antd": "^3.26.0",
     "antd-mobile": "^2.3.1",
@@ -101,6 +103,7 @@
     "fast-json-stable-stringify": "^2.0.0",
     "graphql": "^14.5.8",
     "graphql-code-generator": "^0.18.2",
+    "graphql-toolkit": "^0.7.5",
     "ioredis": "^4.14.1",
     "johnny-five": "^1.3.1",
     "mobx": "^5.15.0",

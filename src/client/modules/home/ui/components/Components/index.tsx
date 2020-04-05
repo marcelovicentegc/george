@@ -2,29 +2,29 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 import { getThingsFromGroupId } from "../../../../../../server/schema/graphql/Queries.graphql";
-import {
-  GetGroupIdFromUserIdGetGroupIdFromUserId,
-  GetThingsFromGroupIdQuery,
-  GetThingsFromGroupIdVariables
-} from "../../../../../__types__/typeDefs";
 import { Separator } from "../Separator";
 import "./main.scss";
+import {
+  GetGroupIdFromUserIdQueryVariables,
+  GetThingsFromGroupIdQuery,
+  GetThingsFromGroupIdQueryVariables,
+} from "../../../../../gql";
 
 interface Props {
-  groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
+  groupId: GetGroupIdFromUserIdQueryVariables;
 }
 
-export const Components: React.FunctionComponent<Props> = props => {
+export const Components: React.FunctionComponent<Props> = (props) => {
   const [help, setHelp] = React.useState(false);
   const helpText =
     "This is the topic which you need to subscribe the related module to.";
 
   return (
     <div className="components" data-testid="components">
-      <Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdVariables>
+      <Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>
         query={getThingsFromGroupId}
         variables={{
-          id: props.groupId.id
+          id: props.groupId.id,
         }}
       >
         {({ data, loading }) => {

@@ -4,15 +4,15 @@ import { RouteComponentProps, withRouter } from "react-router";
 import useOnClickOutside from "use-onclickoutside";
 import { logoutUser } from "../../../../../../server/schema/graphql/Mutations.graphql";
 import { getUserIdFromSession } from "../../../../../../server/schema/graphql/Queries.graphql";
-import { LogoutUserMutation } from "../../../../../__types__/typeDefs";
 import "./main.scss";
 import { Link } from "react-router-dom";
+import { LogoutUserMutation } from "../../../../../gql";
 
 interface Props extends RouteComponentProps {
   username: string;
 }
 
-const Nav: React.FunctionComponent<Props> = props => {
+const Nav: React.FunctionComponent<Props> = (props) => {
   const [dropDown, setDropDown] = React.useState(false);
   const dropDownMenu = React.useRef();
   const hideDropDown = () => {
@@ -26,14 +26,14 @@ const Nav: React.FunctionComponent<Props> = props => {
         <span>home</span>
       </Link>
       <span onClick={() => setDropDown(true)}>{props.username}</span>
-      {dropDown ? (
+      {dropDown && (
         <div className="nav-dropdown-menu" ref={dropDownMenu}>
           <Mutation<LogoutUserMutation>
             mutation={logoutUser}
             refetchQueries={[{ query: getUserIdFromSession }]}
             awaitRefetchQueries
           >
-            {mutate => (
+            {(mutate) => (
               <span
                 onClick={async () => {
                   await mutate().then(() => {
@@ -48,7 +48,7 @@ const Nav: React.FunctionComponent<Props> = props => {
             )}
           </Mutation>
         </div>
-      ) : null}
+      )}
     </nav>
   );
 };
