@@ -3,7 +3,7 @@ import { IResolvers } from "graphql-tools";
 import Group from "../database/entities/Group.model";
 import Thing from "../database/entities/Thing.model";
 import User from "../database/entities/User.model";
-import slugify from "../utils/slugify";
+import { slugify } from "../utils";
 import TriggerLog from "../database/entities/TriggerLog.model";
 import { GetThingsWithTriggerLogGetThingsWithTriggerLog } from "../../client/__types__/typeDefs";
 
@@ -31,7 +31,7 @@ export const resolvers: IResolvers = {
       const userId = req.session.id;
       const user = await User.findOne({
         where: { userId },
-        relations: ["group"]
+        relations: ["group"],
       });
       const groupId = user.group;
       return groupId;
@@ -39,7 +39,7 @@ export const resolvers: IResolvers = {
     getGroupIdFromUserId: async (_, { id }) => {
       const user = await User.findOne({
         where: { id },
-        relations: ["group"]
+        relations: ["group"],
       });
       const groupId = user.group;
       return groupId;
@@ -53,7 +53,7 @@ export const resolvers: IResolvers = {
       const groupId = group.id;
       const things = await Thing.find({
         where: { groupId },
-        relations: ["triggerLog"]
+        relations: ["triggerLog"],
       });
 
       return things;
@@ -61,7 +61,7 @@ export const resolvers: IResolvers = {
     getThingFromTopic: async (_, { topic }) => {
       const thing = await Thing.findOne({
         where: { topic },
-        relations: ["triggerLog"]
+        relations: ["triggerLog"],
       });
 
       if (!thing) return new Error("This component doesn't exist.");
@@ -77,12 +77,14 @@ export const resolvers: IResolvers = {
       const groupId = group.id;
       const things = await Thing.find({
         where: { groupId },
-        relations: ["triggerLog"]
+        relations: ["triggerLog"],
       });
 
       const triggerLog: TriggerLog[] = [];
 
-      things.map(thing => thing.triggerLog.map(log => triggerLog.push(log)));
+      things.map((thing) =>
+        thing.triggerLog.map((log) => triggerLog.push(log))
+      );
 
       return triggerLog;
     },
@@ -95,18 +97,18 @@ export const resolvers: IResolvers = {
       const groupId = group.id;
       const things = await Thing.find({
         where: { groupId },
-        relations: ["triggerLog"]
+        relations: ["triggerLog"],
       });
 
       const thingsWithTriggerLog: GetThingsWithTriggerLogGetThingsWithTriggerLog[] = [];
 
-      things.map(thing =>
-        thing.triggerLog.map(log =>
+      things.map((thing) =>
+        thing.triggerLog.map((log) =>
           thingsWithTriggerLog.push({
             date: log.date,
             state: log.state,
             space: thing.space,
-            component: thing.component
+            component: thing.component,
           })
         )
       );
@@ -114,12 +116,12 @@ export const resolvers: IResolvers = {
       console.log(thingsWithTriggerLog);
 
       return thingsWithTriggerLog;
-    }
+    },
   },
   Mutation: {
     loginUser: async (_, { username, password }, { req }) => {
       const user = await User.findOne({
-        where: { username }
+        where: { username },
       });
 
       if (!user) {
@@ -135,7 +137,7 @@ export const resolvers: IResolvers = {
       return user;
     },
     logoutUser: async (_, __, { req, res }) => {
-      await new Promise(res => req.session.destroy(() => res()));
+      await new Promise((res) => req.session.destroy(() => res()));
       res.clearCookie("cookie.sid");
       return true;
     },
@@ -153,12 +155,12 @@ export const resolvers: IResolvers = {
         component,
         topic: spaceSlug + "/" + componentSlug,
         user: userId,
-        triggerLog: []
+        triggerLog: [],
       });
 
       const group = await Group.findOne({
         where: { userId },
-        relations: ["things"]
+        relations: ["things"],
       });
 
       if (!group) {
@@ -166,7 +168,7 @@ export const resolvers: IResolvers = {
       }
 
       await thing.save();
-      await group.things.push(thing);
+      group.things.push(thing);
       await group.save();
       return true;
     },
@@ -175,7 +177,7 @@ export const resolvers: IResolvers = {
 
       const thing = await Thing.findOne({
         where: { topic },
-        relations: ["triggerLog"]
+        relations: ["triggerLog"],
       });
 
       const date = new Date()
@@ -187,15 +189,15 @@ export const resolvers: IResolvers = {
         state,
         date,
         thing,
-        thingId: thing.id
+        thingId: thing.id,
       });
 
       await triggerLog.save();
-      await thing.triggerLog.push(triggerLog);
+      thing.triggerLog.push(triggerLog);
       await thing.save();
       // mqttClient.publish(topic, toggle);
 
       return true;
-    }
-  }
+    },
+  },
 };

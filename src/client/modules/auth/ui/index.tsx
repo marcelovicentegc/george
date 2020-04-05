@@ -1,12 +1,12 @@
 import * as React from "react";
+import "./main.scss";
 import { Mutation } from "react-apollo";
 import { loginUser } from "../../../../server/schema/graphql/Mutations.graphql";
 import { getUserIdFromSession } from "../../../../server/schema/graphql/Queries.graphql";
 import {
   LoginUserMutation,
-  LoginUserVariables
+  LoginUserVariables,
 } from "../../../__types__/typeDefs";
-import "./main.scss";
 
 interface State {
   username: string;
@@ -25,7 +25,7 @@ export class Auth extends React.Component<Props, State> {
       username: undefined,
       password: undefined,
       awaiting: false,
-      errorMessage: undefined
+      errorMessage: undefined,
     };
   }
 
@@ -34,28 +34,28 @@ export class Auth extends React.Component<Props, State> {
       <div className="auth-wrapper">
         <div className="form-wrapper">
           <div className="form-header">
-            <span>Dear smarthome 🏠</span>
+            <span>Welcome to George</span>
           </div>
           <Mutation<LoginUserMutation, LoginUserVariables>
             mutation={loginUser}
-            onError={error => this.setState({ errorMessage: error.message })}
+            onError={(error) => this.setState({ errorMessage: error.message })}
             refetchQueries={[
               {
-                query: getUserIdFromSession
-              }
+                query: getUserIdFromSession,
+              },
             ]}
           >
-            {mutate => (
-              <form onSubmit={e => e.preventDefault()}>
+            {(mutate) => (
+              <form onSubmit={(e) => e.preventDefault()}>
                 <div className="input-wrapper">
                   <span>Username</span>
                   <input
                     type="text"
                     name="username"
-                    onChange={e => {
+                    onChange={(e) => {
                       this.setState({ username: e.target.value });
                       this.setState({
-                        errorMessage: undefined
+                        errorMessage: undefined,
                       });
                     }}
                   />
@@ -68,7 +68,7 @@ export class Auth extends React.Component<Props, State> {
                   <input
                     type="password"
                     name="password"
-                    onChange={e => {
+                    onChange={(e) => {
                       this.setState({ password: e.target.value });
                       this.setState({ errorMessage: undefined });
                     }}
@@ -81,17 +81,17 @@ export class Auth extends React.Component<Props, State> {
                   <button
                     onClick={async () => {
                       this.setState({
-                        awaiting: true
+                        awaiting: true,
                       });
                       await mutate({
                         variables: {
                           username: this.state.username,
-                          password: this.state.password
-                        }
+                          password: this.state.password,
+                        },
                       }).then(() => {
                         this.state.errorMessage &&
                           this.setState({
-                            awaiting: false
+                            awaiting: false,
                           });
                       });
                     }}

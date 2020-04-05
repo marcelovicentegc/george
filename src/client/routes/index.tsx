@@ -4,91 +4,99 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   getGroupIdFromUserId,
   getUserIdFromSession,
-  getUserUsernameFromId
+  getUserUsernameFromId,
 } from "../../server/schema/graphql/Queries.graphql";
-import { AuthConnector } from "../modules/auth/AuthConnector";
-import { ControllerConnector } from "../modules/controller/ControllerConnector";
 import { NavWithRouter } from "../modules/home/ui/components/Nav";
-import { Loading } from "../modules/utils/Loading";
 import {
   GetGroupIdFromUserIdQuery,
   GetGroupIdFromUserIdVariables,
   GetUserIdFromSessionQuery,
   GetUserUsernameFromIdQuery,
-  GetUserUsernameFromIdVariables
+  GetUserUsernameFromIdVariables,
 } from "../__types__/typeDefs";
+import { Loading } from "../components/Loading";
+
+const AuthConnector = React.lazy(() => import("../modules/auth/AuthConnector"));
+const ControllerConnector = React.lazy(() =>
+  import("../modules/controller/ControllerConnector")
+);
 
 export const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Query<GetUserIdFromSessionQuery> query={getUserIdFromSession}>
-          {({ data, loading }) => {
-            if (loading) return <Loading />;
-            if (!data || !data.getUserIdFromSession)
+        <React.Suspense fallback={<Loading />}>
+          <Query<GetUserIdFromSessionQuery> query={getUserIdFromSession}>
+            {({ data, loading }) => {
+              if (loading) return <Loading />;
+              if (!data || !data.getUserIdFromSession)
+                return (
+                  <Route
+                    exact
+                    path="/"
+                    component={() => (
+                      <AuthConnector user={null} groupId={null} />
+                    )}
+                  />
+                );
+              const user = data.getUserIdFromSession;
               return (
-                <Route
-                  exact
-                  path="/"
-                  component={() => <AuthConnector user={null} groupId={null} />}
-                />
-              );
-            const user = data.getUserIdFromSession;
-            return (
-              <Query<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdVariables>
-                query={getGroupIdFromUserId}
-                variables={{ id: data.getUserIdFromSession.id }}
-              >
-                {({ data, loading }) => {
-                  if (loading) return null;
-                  if (!data || !data.getGroupIdFromUserId) return null;
-                  return (
-                    <>
-                      <Query<
-                        GetUserUsernameFromIdQuery,
-                        GetUserUsernameFromIdVariables
-                      >
-                        query={getUserUsernameFromId}
-                        variables={{
-                          id: user.id
-                        }}
-                      >
-                        {({ data, loading }) => {
-                          if (loading) return null;
-                          if (!data || !data.getUserUsernameFromId) return null;
-                          return (
-                            <NavWithRouter
-                              username={data.getUserUsernameFromId.username}
+                <Query<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdVariables>
+                  query={getGroupIdFromUserId}
+                  variables={{ id: data.getUserIdFromSession.id }}
+                >
+                  {({ data, loading }) => {
+                    if (loading) return null;
+                    if (!data || !data.getGroupIdFromUserId) return null;
+                    return (
+                      <>
+                        <Query<
+                          GetUserUsernameFromIdQuery,
+                          GetUserUsernameFromIdVariables
+                        >
+                          query={getUserUsernameFromId}
+                          variables={{
+                            id: user.id,
+                          }}
+                        >
+                          {({ data, loading }) => {
+                            if (loading) return null;
+                            if (!data || !data.getUserUsernameFromId)
+                              return null;
+                            return (
+                              <NavWithRouter
+                                username={data.getUserUsernameFromId.username}
+                              />
+                            );
+                          }}
+                        </Query>
+                        <Route
+                          exact
+                          path="/"
+                          component={() => (
+                            <AuthConnector
+                              user={user}
+                              groupId={data.getGroupIdFromUserId}
                             />
-                          );
-                        }}
-                      </Query>
-                      <Route
-                        exact
-                        path="/"
-                        component={() => (
-                          <AuthConnector
-                            user={user}
-                            groupId={data.getGroupIdFromUserId}
-                          />
-                        )}
-                      />
-                      <Route
-                        exact
-                        path="/:space/:name"
-                        component={() => (
-                          <ControllerConnector
-                            groupId={data.getGroupIdFromUserId}
-                          />
-                        )}
-                      />
-                    </>
-                  );
-                }}
-              </Query>
-            );
-          }}
-        </Query>
+                          )}
+                        />
+                        <Route
+                          exact
+                          path="/:space/:name"
+                          component={() => (
+                            <ControllerConnector
+                              groupId={data.getGroupIdFromUserId}
+                            />
+                          )}
+                        />
+                      </>
+                    );
+                  }}
+                </Query>
+              );
+            }}
+          </Query>
+        </React.Suspense>
       </Switch>
     </BrowserRouter>
   );

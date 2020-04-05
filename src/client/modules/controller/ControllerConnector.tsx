@@ -1,11 +1,14 @@
 import * as React from "react";
 import { GetGroupIdFromUserIdGetGroupIdFromUserId } from "../../__types__/typeDefs";
-import Controller from "./ui/index";
+
+const Controller = React.lazy(() => import("./ui"));
 
 interface Props {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
 }
 
-export const ControllerConnector: React.SFC<Props> = props => (
+const ControllerConnector: React.SFC<Props> = (props) => (
   <Controller groupId={props.groupId} />
 );
+
+export { ControllerConnector as default };

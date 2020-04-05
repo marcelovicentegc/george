@@ -1,4 +1,4 @@
-const slugify = (text: string) => {
+export const slugify = (text: string) => {
   return text
     .toString()
     .replace(/\s+/g, "-") // Replace spaces with -
@@ -8,5 +8,3 @@ const slugify = (text: string) => {
     .replace(/-+$/, "") // Trim - from end of text
     .toLowerCase();
 };
-
-export default slugify;

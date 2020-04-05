@@ -8,14 +8,14 @@ import {
   GetThingFromTopicQuery,
   GetThingFromTopicVariables,
   ToggleThingMutation,
-  ToggleThingVariables
+  ToggleThingVariables,
 } from "../../../__types__/typeDefs";
-import { Loading } from "../../utils/Loading";
 import "./main.scss";
 import Button from "antd/lib/button";
 import Table from "antd/lib/table";
 import { TableWrapper } from "./components/TableWrapper";
 import { rootStoreContext } from "../../../stores/RootStore";
+import { Loading } from "../../../components/Loading";
 
 export type DataSource = [
   {
@@ -35,7 +35,7 @@ interface Props extends RouteComponentProps {
   groupId: GetGroupIdFromUserIdGetGroupIdFromUserId;
 }
 
-const Controller: React.FunctionComponent<Props> = props => {
+const Controller: React.FunctionComponent<Props> = (props) => {
   const [thingState, setThingState] = React.useState<boolean>();
   const [awaiting, setAwaiting] = React.useState(false);
   const { controllerStore } = React.useContext(rootStoreContext);
@@ -56,20 +56,20 @@ const Controller: React.FunctionComponent<Props> = props => {
     {
       title: "Date",
       dataIndex: "date",
-      key: "date"
+      key: "date",
     },
     {
       title: "State",
       dataIndex: "state",
-      key: "state"
-    }
+      key: "state",
+    },
   ];
 
   return (
     <Query<GetThingFromTopicQuery, GetThingFromTopicVariables>
       query={getThingFromTopic}
       variables={{
-        topic
+        topic,
       }}
     >
       {({ data, loading }) => {
@@ -96,20 +96,20 @@ const Controller: React.FunctionComponent<Props> = props => {
         }
 
         data.getThingFromTopic.triggerLog &&
-          data.getThingFromTopic.triggerLog.map(log => {
+          data.getThingFromTopic.triggerLog.map((log) => {
             if (!controllerStore.dataSource) {
               return controllerStore.setDataSource([
                 {
                   key: log.id,
                   date: log.date,
-                  state: log.state
-                }
+                  state: log.state,
+                },
               ]);
             } else if (controllerStore.dataSource) {
               return controllerStore.dataSource.unshift({
                 key: log.id,
                 date: log.date,
-                state: log.state
+                state: log.state,
               });
             }
           });
@@ -123,12 +123,12 @@ const Controller: React.FunctionComponent<Props> = props => {
                   {
                     query: getThingFromTopic,
                     variables: {
-                      topic
-                    }
-                  }
+                      topic,
+                    },
+                  },
                 ]}
               >
-                {mutate => (
+                {(mutate) => (
                   <Button
                     type="primary"
                     onClick={async () => {
@@ -138,8 +138,8 @@ const Controller: React.FunctionComponent<Props> = props => {
                         await mutate({
                           variables: {
                             toggle: JSON.stringify(thingState),
-                            topic
-                          }
+                            topic,
+                          },
                         }).finally(() => setAwaiting(false));
                       }
                     }}

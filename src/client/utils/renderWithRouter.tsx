@@ -8,7 +8,7 @@ export const renderWithRouter = (
   ui: React.ReactElement,
   {
     route = "/",
-    history = createMemoryHistory({ initialEntries: [route] })
+    history = createMemoryHistory({ initialEntries: [route] }),
   }: { route?: string; history?: MemoryHistory<any> } = {},
   mocks?: MockedResponse[]
 ) => {
@@ -18,6 +18,25 @@ export const renderWithRouter = (
         <Router history={history}>{ui}</Router>
       </MockedProvider>
     ),
-    history
+    history,
   };
+};
+
+export const withApolloProvider = (
+  ui: React.ReactElement,
+  { mocks }: { mocks?: MockedResponse[] }
+) => (
+  <MockedProvider mocks={mocks} addTypename={false}>
+    {ui}
+  </MockedProvider>
+);
+
+export const withRouter = (
+  ui: React.ReactElement,
+  {
+    route = "/",
+    history = createMemoryHistory({ initialEntries: [route] }),
+  }: { route?: string; history?: MemoryHistory<any> } = {}
+) => {
+  <Router history={history}>{ui}</Router>;
 };
