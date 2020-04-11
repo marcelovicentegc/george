@@ -5,10 +5,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn
 } from "typeorm";
-import Thing from "./Thing.model";
+import { Thing } from "./Thing.model";
 
 @Entity("triggerLog")
-export default class TriggerLog extends BaseEntity {
+export class TriggerLog extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
@@ -18,10 +18,7 @@ export default class TriggerLog extends BaseEntity {
   @Column()
   public date: string;
 
-  @ManyToOne(
-    () => Thing,
-    thing => thing.triggerLog
-  )
+  @ManyToOne(() => Thing, thing => thing.triggerLog)
   public thing: Thing;
 
   @Column()

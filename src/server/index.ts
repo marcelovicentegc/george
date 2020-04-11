@@ -1,4 +1,3 @@
-import { ApolloServer } from "apollo-server-express";
 import * as bcrypt from "bcrypt";
 import * as bodyParser from "body-parser";
 import * as connectRedis from "connect-redis";
@@ -12,8 +11,9 @@ import {
   getConnectionOptions,
   ConnectionOptions
 } from "typeorm";
-import Group from "./database/entities/Group.model";
-import User from "./database/entities/User.model";
+import { ApolloServer } from "apollo-server-express";
+import { Group } from "./database/entities/Group.model";
+import { User } from "./database/entities/User.model";
 import { redis } from "./redis";
 import { schema } from "./schema/schema";
 

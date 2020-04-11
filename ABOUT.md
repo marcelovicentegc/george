@@ -1,4 +1,4 @@
-# 🏠 About home-automation-model
+# 🏠 About George
 
 ## Application architecture
 

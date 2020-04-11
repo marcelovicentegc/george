@@ -5,10 +5,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn
 } from "typeorm";
-import Group from "./Group.model";
+import { Group } from "./Group.model";
 
 @Entity("user")
-export default class User extends BaseEntity {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
@@ -18,9 +18,6 @@ export default class User extends BaseEntity {
   @Column()
   public password: string;
 
-  @ManyToOne(
-    () => Group,
-    group => group.users
-  )
+  @ManyToOne(() => Group, group => group.users)
   public group: Group;
 }

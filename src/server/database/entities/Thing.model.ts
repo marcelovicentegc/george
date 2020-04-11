@@ -6,12 +6,12 @@ import {
   OneToMany,
   PrimaryGeneratedColumn
 } from "typeorm";
-import Group from "./Group.model";
-import User from "./User.model";
-import TriggerLog from "./TriggerLog.model";
+import { Group } from "./Group.model";
+import { User } from "./User.model";
+import { TriggerLog } from "./TriggerLog.model";
 
 @Entity("component")
-export default class Thing extends BaseEntity {
+export class Thing extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
@@ -27,24 +27,14 @@ export default class Thing extends BaseEntity {
   // @Column("text", { array: true, nullable: true })
   // triggeredAt: string[];
 
-  @OneToMany(
-    () => TriggerLog,
-    triggerLog => triggerLog.thing,
-    {
-      nullable: true
-    }
-  )
+  @OneToMany(() => TriggerLog, triggerLog => triggerLog.thing, {
+    nullable: true
+  })
   public triggerLog: TriggerLog[];
 
-  @ManyToOne(
-    () => User,
-    user => user.group
-  )
+  @ManyToOne(() => User, user => user.group)
   public user: User;
 
-  @ManyToOne(
-    () => Group,
-    group => group.things
-  )
+  @ManyToOne(() => Group, group => group.things)
   public group: Group;
 }

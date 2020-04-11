@@ -1,8 +1,8 @@
 import { makeExecutableSchema } from "graphql-tools";
-import { resolvers } from "./resolver";
+import { auth, users, groups, things } from "./resolvers";
 import { typeDefs } from "./typeDefs";
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers
+  resolvers: [auth, users, groups, things]
 });
