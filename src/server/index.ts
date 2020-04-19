@@ -9,13 +9,20 @@ import "reflect-metadata";
 import {
   createConnection,
   getConnectionOptions,
-  ConnectionOptions
+  ConnectionOptions,
 } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import { Group } from "./database/entities/Group.model";
 import { User } from "./database/entities/User.model";
 import { redis } from "./redis";
-import { schema } from "./schema/schema";
+import { schema } from "./schema";
+import {
+  serverPort,
+  isProduction,
+  brokerPort,
+  clientPort,
+  redisSecret,
+} from "./config";
 
 const log = console.log;
 
@@ -33,14 +40,14 @@ const startServer = async () => {
   let connectionOptions: ConnectionOptions;
 
   while (retries) {
-    if (process.env.NODE_ENV === "production") {
+    if (isProduction) {
       connectionOptions = await getConnectionOptions();
       Object.assign(connectionOptions, {
         entities: ["dist/server/database/**/*.model.js"],
         cli: {
-          entitiesDir: "dist/server/database/entities"
+          entitiesDir: "dist/server/database/entities",
         },
-        dropSchema: false
+        dropSchema: false,
       });
     }
 
@@ -49,11 +56,11 @@ const startServer = async () => {
         log("Connected to sqlite database");
       });
 
-      if (process.env.NODE_ENV === "development") {
+      if (!isProduction) {
         const group = await Group.create({
           name: "Default",
           users: [],
-          things: []
+          things: [],
         });
         await group.save();
         log("Created default group");
@@ -62,13 +69,13 @@ const startServer = async () => {
         const user = await User.create({
           username: "admin",
           password: hashedPassword,
-          group
+          group,
         });
 
         await user.save();
         log("Created default user");
 
-        await group.users.push(user);
+        group.users.push(user);
         await group.save();
         log("Linked default group to default user");
       }
@@ -78,13 +85,13 @@ const startServer = async () => {
       console.log(err);
       retries -= 1;
       console.log(`${retries} retries left`);
-      await new Promise(res => setTimeout(res, 5000));
+      await new Promise((res) => setTimeout(res, 5000));
     }
   }
 
   const server = new ApolloServer({
     schema,
-    context: ({ req, res }: Context) => ({ req, res })
+    context: ({ req, res }: Context) => ({ req, res }),
   });
 
   const app = express();
@@ -95,39 +102,40 @@ const startServer = async () => {
   app.use(
     session({
       store: new RedisStore({
-        client: redis as any
+        client: redis as any,
       }),
-      secret: "shhhhhhhhhhhhhh",
+      secret: redisSecret,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
     })
   );
   server.applyMiddleware({
     app,
     path: "/api",
     cors: {
-      origin: ["http://localhost:3000"],
-      credentials: true
-    }
+      origin: [`http://localhost:${clientPort}`],
+      credentials: true,
+    },
   });
 
   const broker = new mosca.Server({
-    port: 1883
+    port: brokerPort,
   });
 
   broker.on("ready", () => {
-    log("Broker is ready on port 1883");
+    log(`Broker is ready on port ${brokerPort}`);
   });
 
-  if (process.env.NODE_ENV === "production") {
+  if (isProduction) {
     app.use(express.static(path.resolve("./dist")));
-    app.get("*", (req, res) => {
+    app.get("*", (_, res) => {
       res.sendFile(path.resolve("./dist/index.html"));
     });
   }
 
-  app.listen(4000, () => {
-    log("Server is ready for requests on port 4000");
+  app.listen(serverPort, () => {
+    log(`Server is ready for requests on port ${serverPort}`);
   });
 };
+
 startServer();

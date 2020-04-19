@@ -1,6 +1,8 @@
+const clientPort = process.env.CLIENT_PORT || 3000;
+
 describe("home-automation-model test suit", () => {
   it("visits the home page", () => {
-    cy.visit("http://localhost:3000/");
+    cy.visit(`http://localhost:${clientPort}/`);
     cy.wait(20000);
     cy.get(".auth-wrapper");
     cy.get(".form-wrapper");

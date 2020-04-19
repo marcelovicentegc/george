@@ -3,30 +3,36 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
+const clientPort = process.env.CLIENT_PORT || 3000;
+
 module.exports = {
   context: __dirname,
   mode: "development",
   entry: {
-    client: "./src/client/index.tsx"
+    client: "./src/client/index.tsx",
   },
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist/"),
-    publicPath: "/"
+    publicPath: "/",
   },
   devtool: "source-map",
   node: { fs: "empty" },
   resolve: {
-    extensions: [".ts", ".tsx", ".mjs", ".js", ".json"]
+    extensions: [".ts", ".tsx", ".mjs", ".js", ".json"],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "client", "index.html"),
-      filename: "index.html"
+      filename: "index.html",
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    // new webpack.DefinePlugin({
+    //   "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+    //   "process.env.CLIENT_PORT": JSON.stringify(process.env.CLIENT_PORT),
+    // }),
   ],
   module: {
     rules: [
@@ -34,50 +40,50 @@ module.exports = {
         test: /\.tsx?$/,
         loader: "ts-loader",
         options: {
-          configFile: "tsconfig.json"
+          configFile: "tsconfig.json",
         },
-        exclude: [/node_modules/]
+        exclude: [/node_modules/],
       },
       {
         enforce: "pre",
         test: /\.js$/,
         loader: "source-map-loader",
-        exclude: [/node_modules/]
+        exclude: [/node_modules/],
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.less$/,
         use: [
           {
-            loader: "style-loader"
+            loader: "style-loader",
           },
           {
-            loader: "css-loader"
+            loader: "css-loader",
           },
           {
             loader: "less-loader",
             options: {
-              javascriptEnabled: true
-            }
-          }
-        ]
+              javascriptEnabled: true,
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jp(e*)g|gif|svg)$/,
         loader: "file-loader",
         options: {
           name: "[name].[ext]",
-          outputPath: "/"
-        }
-      }
-    ]
+          outputPath: "/",
+        },
+      },
+    ],
   },
   optimization: {
     minimizer: [
@@ -87,7 +93,7 @@ module.exports = {
         uglifyOptions: {
           mangle: true,
           output: {
-            comments: false
+            comments: false,
           },
           compress: {
             warnings: false, // Suppress uglification warnings
@@ -102,19 +108,19 @@ module.exports = {
             dead_code: true,
             evaluate: true,
             if_return: true,
-            join_vars: true
-          }
+            join_vars: true,
+          },
         },
-        exclude: [/\.min\.js$/gi]
-      })
-    ]
+        exclude: [/\.min\.js$/gi],
+      }),
+    ],
   },
   devServer: {
     publicPath: "/",
     contentBase: "./dist",
     watchContentBase: true,
     compress: true,
-    port: 3000,
+    port: clientPort,
     hot: true,
     inline: true,
     open: process.env.NODE_ENV !== "production" ? true : false,
@@ -122,7 +128,7 @@ module.exports = {
     historyApiFallback: true,
     allowedHosts: ["127.0.0.0", "localhost"],
     stats: {
-      colors: true
-    }
-  }
+      colors: true,
+    },
+  },
 };

@@ -13,6 +13,7 @@ import { ApolloProvider } from "react-apollo";
 import { Routes } from "./routes/index";
 import { Provider } from "mobx-react";
 import { rootStore } from "./stores/RootStore";
+import { serverPort } from "./config";
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -26,7 +27,7 @@ const client = new ApolloClient({
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
     createUploadLink({
-      uri: "http://127.0.0.1:4000/api",
+      uri: `http://127.0.0.1:${serverPort}/api`,
       credentials: "include",
     }),
   ]),
