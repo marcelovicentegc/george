@@ -18,8 +18,9 @@ George doesn't work out of the box! You need a server to run it on your local ne
 2. Install its dependencies: `npm i`
 3. If you already have `redis` and `sqlite` installed on your machine, jump to the next step, otherwise, install both before continuing
 4. Make sure `redis` is up and running before starting this project (e.g. `sudo service redis-server start` or `sudo systemctl start redis`)
-5. You're good to go. Run: `npm start`
-6. A default user will be created every time upon start. It has `admin` as username and password.
+5. By default, the MQTT broker runs on port 1883, the server runs on port 4000, and the client on the port 3000. Check the [configuration guide](/docs/CONFIGURATION.md) if you want to change some configuration.
+6. You're good to go. Run: `npm start`
+7. A default user will be created every time upon start. It has `admin` as username and password.
 
 For pull requests, check the [contribution guide](docs/CONTRIBUTING.md)
 
