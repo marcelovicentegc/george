@@ -112,6 +112,7 @@
     "graphql": "^14.5.8",
     "graphql-code-generator": "^0.18.2",
     "graphql-toolkit": "^0.7.5",
+    "grommet": "^2.13.0",
     "ioredis": "^4.14.1",
     "johnny-five": "^1.3.1",
     "mobx": "^5.15.0",
@@ -127,6 +128,7 @@
     "reflect-metadata": "^0.1.13",
     "remove": "^0.1.5",
     "sqlite3": "^4.1.1",
+    "styled-components": "^5.1.0",
     "tslint": "^5.20.1",
     "typeorm": "^0.2.21",
     "use-onclickoutside": "^0.3.1"
