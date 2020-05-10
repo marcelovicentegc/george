@@ -11,7 +11,7 @@ handle_action () {
     echo -e "done $1.\n"
 }
 
-handle_action "uptading the O.S" "sudo apt update" 
+handle_action "uptading the O.S" "sudo apt update" "sudo apt upgrade"
 handle_action "installing mosquitto" "sudo apt-get install -y mosquitto mosquitto-clients"
 handle_action "enabling mosquitto on system boot" "sudo systemctl enable mosquitto.service"
 handle_action "installing redis" "sudo apt-get install -y redis-server"
@@ -22,5 +22,6 @@ handle_action "configuring ufw" "sudo ufw default deny incoming" "sudo ufw defau
 handle_action "enabling ufw on system boot" "sudo ufw enable"
 handle_action "installing nginx" "sudo apt-get install -y nginx"
 handle_action "adding nginx on ufw's allowed set" "sudo ufw allow Nginx HTTP"
+handle_action "installing node" "curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -" "sudo apt-get install -y nodejs"
 handle_action "installing pm2" "sudo npm install -y pm2@latest -g"
 
