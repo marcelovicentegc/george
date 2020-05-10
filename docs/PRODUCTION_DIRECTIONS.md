@@ -22,7 +22,7 @@ and enables these programs to start on the system's boot:
 
 It also adds Nginx to the UFW's list of allowed ports, as well as configures the UFW to allow outgoing requests from the machine which it is being installed.
 
-This script doesn't do everything, you will still want to [test Mosquitto](./#testing-the-mqtt-broker-📞), [test Redis](./#testing-redis-connection), and [configure Nginx, clone the repo and configure PM2](./#installing-nginx-🖥).
+This script doesn't do everything, you will still want to [test Mosquitto](./PRODUCTION_DIRECTIONS.md#testing-the-mqtt-broker-), [test Redis](./PRODUCTION_DIRECTIONS.md#testing-redis-connection-), and [configure Nginx, clone the repo and configure PM2](./PRODUCTION_DIRECTIONS.md#installing-nginx-).
 
 ### The hard way setup 🏋
 
