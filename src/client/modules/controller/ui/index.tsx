@@ -4,8 +4,8 @@ import { Mutation, Query } from "react-apollo";
 import { RouteComponentProps, withRouter } from "react-router";
 import { toggleThing } from "../../../../server/schema/graphql/Mutations.graphql";
 import { getThingFromTopic } from "../../../../server/schema/graphql/Queries.graphql";
-import Button from "antd/lib/button";
 import { TableWrapper } from "./components/TableWrapper";
+import { Button } from "@fluentui/react-northstar";
 import { rootStoreContext } from "../../../stores/RootStore";
 import { Loading } from "../../../components/Loading";
 import {
@@ -129,7 +129,6 @@ const Controller: React.FunctionComponent<Props> = (props) => {
               >
                 {(mutate) => (
                   <Button
-                    type="primary"
                     onClick={async () => {
                       if (!awaiting) {
                         setAwaiting(true);
@@ -143,7 +142,7 @@ const Controller: React.FunctionComponent<Props> = (props) => {
                       }
                     }}
                   >
-                    <span>{awaiting ? "..." : thingState ? "Off" : "On"}</span>
+                    {awaiting ? "..." : thingState ? "Off" : "On"}
                   </Button>
                 )}
               </Mutation>

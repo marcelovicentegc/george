@@ -1,9 +1,9 @@
 import * as React from "react";
-import { render } from "react-dom";
 import "./main.scss";
 import "antd/lib/button/style/index";
 import "antd/lib/table/style/index";
 import "antd-mobile/lib/notice-bar/style/index";
+import { render } from "react-dom";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
@@ -11,9 +11,10 @@ import { onError } from "apollo-link-error";
 import { createUploadLink } from "apollo-upload-client";
 import { ApolloProvider } from "react-apollo";
 import { Routes } from "./routes/index";
-import { Provider } from "mobx-react";
+import { Provider as MobxProvider } from "mobx-react";
 import { rootStore } from "./stores/RootStore";
 import { serverPort } from "./config";
+import { Provider as ThemeProvider, themes } from "@fluentui/react-northstar";
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -37,9 +38,11 @@ const client = new ApolloClient({
 const App: React.SFC = () => {
   return (
     <ApolloProvider client={client}>
-      <Provider {...rootStore}>
-        <Routes />
-      </Provider>
+      <MobxProvider {...rootStore}>
+        <ThemeProvider theme={themes.teams}>
+          <Routes />
+        </ThemeProvider>
+      </MobxProvider>
     </ApolloProvider>
   );
 };

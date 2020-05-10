@@ -1,9 +1,17 @@
 import * as React from "react";
-import "./main.scss";
+import * as s from "./main.scss";
 import { Mutation } from "react-apollo";
 import { loginUser } from "../../../../server/schema/graphql/Mutations.graphql";
 import { getUserIdFromSession } from "../../../../server/schema/graphql/Queries.graphql";
 import { LoginUserMutation, LoginUserMutationVariables } from "../../../gql";
+import {
+  Card,
+  CardBody,
+  Form,
+  Button,
+  Text,
+  CardHeader,
+} from "@fluentui/react-northstar";
 
 interface State {
   username: string;
@@ -28,11 +36,8 @@ export class Auth extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div className="auth-wrapper">
-        <div className="form-wrapper">
-          <div className="form-header">
-            <span>Welcome to George</span>
-          </div>
+      <div className={s.auth}>
+        <div className={s.cardWrapper}>
           <Mutation<LoginUserMutation, LoginUserMutationVariables>
             mutation={loginUser}
             onError={(error) => this.setState({ errorMessage: error.message })}
@@ -43,40 +48,49 @@ export class Auth extends React.Component<Props, State> {
             ]}
           >
             {(mutate) => (
-              <form onSubmit={(e) => e.preventDefault()}>
-                <div className="input-wrapper">
-                  <span>Username</span>
-                  <input
-                    type="text"
-                    name="username"
-                    onChange={(e) => {
-                      this.setState({ username: e.target.value });
-                      this.setState({
-                        errorMessage: undefined,
-                      });
-                    }}
-                  />
-                  {this.state.errorMessage && (
-                    <span>{this.state.errorMessage}</span>
-                  )}
-                </div>
-                <div className="input-wrapper">
-                  <span>Password</span>
-                  <input
-                    type="password"
-                    name="password"
-                    onChange={(e) => {
-                      this.setState({ password: e.target.value });
-                      this.setState({ errorMessage: undefined });
-                    }}
-                  />
-                  {this.state.errorMessage && (
-                    <span>{this.state.errorMessage}</span>
-                  )}
-                </div>
-                <div className="button-wrapper">
-                  <button
-                    onClick={async () => {
+              <Card className={s.card}>
+                <CardHeader>
+                  <Text weight="bold">Login</Text>
+                </CardHeader>
+                <CardBody>
+                  <Form
+                    fields={[
+                      {
+                        label: "Username",
+                        name: "username",
+                        id: "username",
+                        key: "username",
+                        required: true,
+                        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                          this.setState({ username: e.target.value });
+                          this.setState({
+                            errorMessage: undefined,
+                          });
+                        },
+                      },
+                      {
+                        label: "Password",
+                        name: "password",
+                        id: "password",
+                        key: "password",
+                        type: "password",
+                        required: true,
+                        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                          this.setState({ password: e.target.value });
+                          this.setState({ errorMessage: undefined });
+                        },
+                      },
+                      {
+                        control: {
+                          as: Button,
+                          content: this.state.awaiting
+                            ? "Signing in"
+                            : "Sign in",
+                          key: "submit",
+                        },
+                      },
+                    ]}
+                    onSubmit={async () => {
                       this.setState({
                         awaiting: true,
                       });
@@ -92,15 +106,12 @@ export class Auth extends React.Component<Props, State> {
                           });
                       });
                     }}
-                  >
-                    {this.state.awaiting ? (
-                      <span>Signing in</span>
-                    ) : (
-                      <span>Sign in</span>
-                    )}
-                  </button>
-                </div>
-              </form>
+                  />
+                  {this.state.errorMessage && (
+                    <span>{this.state.errorMessage}</span>
+                  )}
+                </CardBody>
+              </Card>
             )}
           </Mutation>
         </div>

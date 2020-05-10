@@ -29,10 +29,10 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    // new webpack.DefinePlugin({
-    //   "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-    //   "process.env.CLIENT_PORT": JSON.stringify(process.env.CLIENT_PORT),
-    // }),
+    new webpack.DefinePlugin({
+      "process.env.SERVER_PORT": JSON.stringify(process.env.SERVER_PORT),
+      "process.env.GEORGE_ALIAS": JSON.stringify(process.env.GEORGE_ALIAS),
+    }),
   ],
   module: {
     rules: [
@@ -56,8 +56,22 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        exclude: /node_modules/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                mode: "local",
+                localIdentName: "[name]__[local]___[hash:base64:5]",
+              },
+            },
+          },
+          "sass-loader",
+        ],
       },
+      // antd needs it
       {
         test: /\.less$/,
         use: [
@@ -78,10 +92,6 @@ module.exports = {
       {
         test: /\.(png|jp(e*)g|gif|svg)$/,
         loader: "file-loader",
-        options: {
-          name: "[name].[ext]",
-          outputPath: "/",
-        },
       },
     ],
   },

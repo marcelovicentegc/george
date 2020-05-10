@@ -1,12 +1,11 @@
 import * as React from "react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   getGroupIdFromUserId,
   getUserIdFromSession,
   getUserUsernameFromId,
 } from "../../server/schema/graphql/Queries.graphql";
-import { NavWithRouter } from "../modules/home/ui/components/Nav";
 import { Loading } from "../components/Loading";
 import {
   GetUserIdFromSessionQuery,
@@ -15,13 +14,14 @@ import {
   GetUserUsernameFromIdQuery,
   GetUserUsernameFromIdQueryVariables,
 } from "../gql";
+import { Header } from "../modules/system/Header";
 
 const AuthConnector = React.lazy(() => import("../modules/auth/AuthConnector"));
 const ControllerConnector = React.lazy(() =>
   import("../modules/controller/ControllerConnector")
 );
 
-export const Routes = () => {
+export const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -29,11 +29,14 @@ export const Routes = () => {
           <Query<GetUserIdFromSessionQuery> query={getUserIdFromSession}>
             {({ data, loading }) => {
               if (loading) return <Loading />;
+
               if (!data || !data.getUserIdFromSession)
                 return (
                   <Route exact path="/" component={() => <AuthConnector />} />
                 );
+
               const user = data.getUserIdFromSession;
+
               return (
                 <Query<
                   GetGroupIdFromUserIdQuery,
@@ -43,8 +46,10 @@ export const Routes = () => {
                   variables={{ id: data.getUserIdFromSession.id }}
                 >
                   {({ data, loading }) => {
-                    if (loading) return null;
+                    if (loading) return <Loading />;
+
                     if (!data || !data.getGroupIdFromUserId) return null;
+
                     return (
                       <>
                         <Query<
@@ -57,14 +62,12 @@ export const Routes = () => {
                           }}
                         >
                           {({ data, loading }) => {
-                            if (loading) return null;
+                            if (loading) return <Loading />;
+
                             if (!data || !data.getUserUsernameFromId)
                               return null;
-                            return (
-                              <NavWithRouter
-                                username={data.getUserUsernameFromId.username}
-                              />
-                            );
+
+                            return <Header />;
                           }}
                         </Query>
                         <Route

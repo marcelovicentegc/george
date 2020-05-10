@@ -1,0 +1,19 @@
+header.header {
+  position: sticky;
+  padding: 20px 20px 10px;
+  top: 0px;
+  background: rgba(221, 221, 221, 0.533);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.133);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+
+  .h1 {
+    margin: 0;
+  }
+
+  .menu {
+    margin-top: 0.5rem;
+    background: none;
+    border: none;
+  }
+}

@@ -88,6 +88,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@fluentui/react-northstar": "^0.48.0",
     "@graphql-codegen/typescript": "^1.13.1",
     "@graphql-codegen/typescript-operations": "^1.13.1",
     "@graphql-codegen/typescript-react-apollo": "^1.13.1",
@@ -112,11 +113,11 @@
     "graphql": "^14.5.8",
     "graphql-code-generator": "^0.18.2",
     "graphql-toolkit": "^0.7.5",
-    "grommet": "^2.13.0",
     "ioredis": "^4.14.1",
     "johnny-five": "^1.3.1",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
+    "mobx-react-router": "^4.1.0",
     "mosca": "^2.8.3",
     "mqtt": "^3.0.0",
     "pg": "^7.14.0",
