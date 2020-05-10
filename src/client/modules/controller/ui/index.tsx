@@ -1,8 +1,7 @@
 import * as React from "react";
 import "./main.scss";
 import { Mutation, Query } from "react-apollo";
-import { toggleThing } from "../../../../server/schema/graphql/Mutations.graphql";
-import { getThingFromTopic } from "../../../../server/schema/graphql/Queries.graphql";
+import { toggleThing, getThingFromTopic } from "../../../../gql";
 import { TableWrapper } from "./components/TableWrapper";
 import { Button } from "@fluentui/react-northstar";
 import { rootStoreContext } from "../../../stores/RootStore";
@@ -13,7 +12,7 @@ import {
   GetThingFromTopicQueryVariables,
   ToggleThingMutation,
   ToggleThingMutationVariables,
-} from "../../../gql";
+} from "../../../@types/gql";
 
 export type DataSource = [
   {

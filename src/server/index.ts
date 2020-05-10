@@ -23,17 +23,9 @@ import {
   clientPort,
   redisSecret,
 } from "./config";
+import { Context } from "./utils";
 
 const log = console.log;
-
-export interface Context {
-  req: {
-    session: {
-      userId: string | undefined;
-    };
-  };
-  res: {};
-}
 
 const startServer = async () => {
   let retries = 5;

@@ -1,9 +1,7 @@
 import * as React from "react";
 import * as s from "./main.scss";
 import { Query } from "react-apollo";
-import { Link } from "react-router-dom";
-import { getThingsFromGroupId } from "../../../../../../server/schema/graphql/Queries.graphql";
-import { Separator } from "../Separator";
+import { getThingsFromGroupId } from "../../../../../../gql/Queries.graphql";
 import {
   Table,
   TableRowProps,
@@ -13,7 +11,7 @@ import {
   GetGroupIdFromUserIdQueryVariables,
   GetThingsFromGroupIdQuery,
   GetThingsFromGroupIdQueryVariables,
-} from "../../../../../gql";
+} from "../../../../../@types/gql";
 import { rootStoreContext } from "../../../../../stores/RootStore";
 
 interface Props {

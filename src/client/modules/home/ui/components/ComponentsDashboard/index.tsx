@@ -6,11 +6,11 @@ import {
   GetGroupIdFromUserIdQueryVariables,
   AddThingMutation,
   AddThingMutationVariables,
-} from "../../../../../gql";
+} from "../../../../../@types/gql";
 import { Button, Dialog, Form } from "@fluentui/react-northstar";
 import { Mutation } from "react-apollo";
-import { addThing } from "../../../../../../server/schema/graphql/Mutations.graphql";
-import { getThingsFromGroupId } from "../../../../../../server/schema/graphql/Queries.graphql";
+import { addThing } from "../../../../../../gql/Mutations.graphql";
+import { getThingsFromGroupId } from "../../../../../../gql/Queries.graphql";
 import { ErrorMessage } from "../ErrorMessage";
 
 interface Props {

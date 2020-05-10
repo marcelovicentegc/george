@@ -8,3 +8,12 @@ export const slugify = (text: string) => {
     .replace(/-+$/, "") // Trim - from end of text
     .toLowerCase();
 };
+
+export interface Context {
+  req: {
+    session: {
+      userId: string | undefined;
+    };
+  };
+  res: {};
+}

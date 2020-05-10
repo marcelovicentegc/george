@@ -1,4 +1,4 @@
-import { getThingsFromGroupId } from "../../server/schema/graphql/Queries.graphql";
+import { getThingsFromGroupId } from "../../gql/Queries.graphql";
 import { format } from "date-fns";
 
 export const mockedGetThingsFromGroupId = [
@@ -6,8 +6,8 @@ export const mockedGetThingsFromGroupId = [
     request: {
       query: getThingsFromGroupId,
       variables: {
-        id: "1"
-      }
+        id: "1",
+      },
     },
     result: {
       data: {
@@ -21,9 +21,9 @@ export const mockedGetThingsFromGroupId = [
               {
                 date: format(new Date(2020, 1, 1), "mm-dd-yyyy hh:mm:ss"),
                 state: "Off",
-                thingId: "1"
-              }
-            ]
+                thingId: "1",
+              },
+            ],
           },
           {
             id: "2",
@@ -34,9 +34,9 @@ export const mockedGetThingsFromGroupId = [
               {
                 date: format(new Date(2020, 1, 1), "mm-dd-yyyy hh:mm:ss"),
                 state: "On",
-                thingId: "2"
-              }
-            ]
+                thingId: "2",
+              },
+            ],
           },
           {
             id: "3",
@@ -47,12 +47,12 @@ export const mockedGetThingsFromGroupId = [
               {
                 date: format(new Date(2020, 1, 1), "mm-dd-yyyy hh:mm:ss"),
                 state: "Off",
-                thingId: "3"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  }
+                thingId: "3",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
 ];

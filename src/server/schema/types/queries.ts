@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export const queries = gql`
   type Query {
     getUserIdFromSession: User
-    getUserUsernameFromId(id: String!): User
+    getUsername(id: String): String
     getGroupIdFromUserIdFromSession: Group
     getGroupIdFromUserId(id: String!): Group
     getThingsFromGroupId(id: String!): [Thing]

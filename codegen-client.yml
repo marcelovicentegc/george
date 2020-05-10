@@ -1,8 +1,8 @@
 overwrite: true
 schema: "http://127.0.0.1:4000/api"
-documents: ./src/**/*.graphql.{ts, tsx}
+documents: ./src/gql/tags/*.graphql.{ts, tsx}
 generates:
-  ./src/client/gql/index.tsx:
+  ./src/client/@types/gql.tsx:
     config:
       noNamespaces: true
       withHooks: true

@@ -8,11 +8,9 @@ export const getUserIdFromSession = gql`
   }
 `;
 
-export const getUserUsernameFromId = gql`
-  query GetUserUsernameFromId($id: String!) {
-    getUserUsernameFromId(id: $id) {
-      username
-    }
+export const getUsername = gql`
+  query GetUsername($id: String) {
+    getUsername(id: $id)
   }
 `;
 

@@ -4,16 +4,16 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import {
   getGroupIdFromUserId,
   getUserIdFromSession,
-  getUserUsernameFromId,
-} from "../../server/schema/graphql/Queries.graphql";
+  getUsername,
+} from "../../gql/Queries.graphql";
 import { Loading } from "../modules/system/Loading";
 import {
   GetUserIdFromSessionQuery,
   GetGroupIdFromUserIdQuery,
   GetGroupIdFromUserIdQueryVariables,
-  GetUserUsernameFromIdQuery,
-  GetUserUsernameFromIdQueryVariables,
-} from "../gql";
+  GetUsernameQuery,
+  GetUsernameQueryVariables,
+} from "../@types/gql";
 import { Header } from "../modules/system/Header";
 import { BASE_ROUTES } from "../utils/routes";
 import { rootStore } from "../stores/RootStore";
@@ -29,12 +29,13 @@ export const Routes: React.FC = () => {
           {({ data, loading }) => {
             if (loading) return <Loading />;
 
-            if (!data || !data.getUserIdFromSession)
+            if (!data || !data.getUserIdFromSession) {
               return (
-                <Redirect to={BASE_ROUTES.HOME} from={"*"}>
+                <Redirect to={BASE_ROUTES.HOME}>
                   <Auth />
                 </Redirect>
               );
+            }
 
             const user = data.getUserIdFromSession;
 
@@ -49,15 +50,14 @@ export const Routes: React.FC = () => {
                 {({ data, loading }) => {
                   if (loading) return <Loading />;
 
+                  console.log("data2: ", data);
+
                   if (!data || !data.getGroupIdFromUserId) return null;
 
                   return (
                     <>
-                      <Query<
-                        GetUserUsernameFromIdQuery,
-                        GetUserUsernameFromIdQueryVariables
-                      >
-                        query={getUserUsernameFromId}
+                      <Query<GetUsernameQuery, GetUsernameQueryVariables>
+                        query={getUsername}
                         variables={{
                           id: user.id,
                         }}
@@ -65,7 +65,9 @@ export const Routes: React.FC = () => {
                         {({ data, loading }) => {
                           if (loading) return <Loading />;
 
-                          if (!data || !data.getUserUsernameFromId) return null;
+                          console.log("data3: ", data);
+
+                          if (!data || !data.getUsername) return null;
 
                           return <Header />;
                         }}
