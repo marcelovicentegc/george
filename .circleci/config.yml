@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Run setup.sh
-          command: ./setup.sh
+          command: sudo sh setup.sh
 
   build:
     docker:
