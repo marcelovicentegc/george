@@ -1,6 +1,6 @@
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
-import { QueryResolvers } from "../../@types/gql";
+import { QueryResolvers } from "../../gql";
 
 const queries: QueryResolvers = {
   getGroupIdFromUserIdFromSession: async (_, __, { req }) => {

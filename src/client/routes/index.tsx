@@ -13,7 +13,7 @@ import {
   GetGroupIdFromUserIdQueryVariables,
   GetUsernameQuery,
   GetUsernameQueryVariables,
-} from "../@types/gql";
+} from "../gql";
 import { Header } from "../modules/system/Header";
 import { BASE_ROUTES } from "../utils/routes";
 import { rootStore } from "../stores/RootStore";
@@ -31,9 +31,10 @@ export const Routes: React.FC = () => {
 
             if (!data || !data.getUserIdFromSession) {
               return (
-                <Redirect to={BASE_ROUTES.HOME}>
+                <>
+                  <Redirect to={BASE_ROUTES.HOME} />
                   <Auth />
-                </Redirect>
+                </>
               );
             }
 
@@ -50,8 +51,6 @@ export const Routes: React.FC = () => {
                 {({ data, loading }) => {
                   if (loading) return <Loading />;
 
-                  console.log("data2: ", data);
-
                   if (!data || !data.getGroupIdFromUserId) return null;
 
                   return (
@@ -64,8 +63,6 @@ export const Routes: React.FC = () => {
                       >
                         {({ data, loading }) => {
                           if (loading) return <Loading />;
-
-                          console.log("data3: ", data);
 
                           if (!data || !data.getUsername) return null;
 

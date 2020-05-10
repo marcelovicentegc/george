@@ -3,8 +3,8 @@ import { Group } from "../../database/entities/Group.model";
 import { Thing } from "../../database/entities/Thing.model";
 import { slugify, Context } from "../../utils";
 import { TriggerLog } from "../../database/entities/TriggerLog.model";
-import { ThingWithTriggerLog } from "../../@types/gql";
-import { QueryResolvers, MutationResolvers } from "../../@types/gql";
+import { ThingWithTriggerLog } from "../../gql";
+import { QueryResolvers, MutationResolvers } from "../../gql";
 import { User } from "../../database/entities/User.model";
 
 const queries: QueryResolvers = {

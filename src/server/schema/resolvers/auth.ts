@@ -1,7 +1,7 @@
 import * as bcrypt from "bcrypt";
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
-import { MutationResolvers } from "../../@types/gql";
+import { MutationResolvers } from "../../gql";
 
 const mutations: MutationResolvers = {
   loginUser: async (_, { username, password }, { req }) => {

@@ -11,7 +11,7 @@ import {
   GetGroupIdFromUserIdQueryVariables,
   GetThingsFromGroupIdQuery,
   GetThingsFromGroupIdQueryVariables,
-} from "../../../../../@types/gql";
+} from "../../../../../gql";
 import { rootStoreContext } from "../../../../../stores/RootStore";
 
 interface Props {

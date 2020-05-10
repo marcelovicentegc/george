@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as s from "./main.scss";
-import { GetGroupIdFromUserIdQueryVariables } from "../../../@types/gql";
+import { GetGroupIdFromUserIdQueryVariables } from "../../../gql";
 import { ComponentsDashboard } from "./components/ComponentsDashboard";
 
 interface Props {

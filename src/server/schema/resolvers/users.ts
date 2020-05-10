@@ -1,7 +1,7 @@
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
 import { Context } from "../../utils";
-import { QueryResolvers } from "../../@types/gql";
+import { QueryResolvers } from "../../gql";
 
 const queries: QueryResolvers = {
   getUserIdFromSession: async (_, __, { req }: Context) => {

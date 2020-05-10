@@ -12,7 +12,7 @@ import {
   GetThingFromTopicQueryVariables,
   ToggleThingMutation,
   ToggleThingMutationVariables,
-} from "../../../@types/gql";
+} from "../../../gql";
 
 export type DataSource = [
   {

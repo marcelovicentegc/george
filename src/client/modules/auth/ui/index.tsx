@@ -2,10 +2,7 @@ import * as React from "react";
 import * as s from "./main.scss";
 import { Mutation } from "react-apollo";
 import { loginUser, getUserIdFromSession } from "../../../../gql";
-import {
-  LoginUserMutation,
-  LoginUserMutationVariables,
-} from "../../../@types/gql";
+import { LoginUserMutation, LoginUserMutationVariables } from "../../../gql";
 import {
   Card,
   CardBody,

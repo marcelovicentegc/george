@@ -10,7 +10,7 @@
   left: 0;
   bottom: 0;
   top: 0;
-  background: linear-gradient(map-get($blue, 1), map-get($blue, 2));
+  background: linear-gradient(map-get($purple, 1), map-get($blue, 2));
 
   .cardWrapper {
     display: flex;
