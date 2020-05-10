@@ -6,7 +6,7 @@ import {
   getUserIdFromSession,
   getUserUsernameFromId,
 } from "../../server/schema/graphql/Queries.graphql";
-import { Loading } from "../components/Loading";
+import { Loading } from "../modules/system/Loading";
 import {
   GetUserIdFromSessionQuery,
   GetGroupIdFromUserIdQuery,

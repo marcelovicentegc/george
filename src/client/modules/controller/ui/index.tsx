@@ -7,7 +7,7 @@ import { getThingFromTopic } from "../../../../server/schema/graphql/Queries.gra
 import { TableWrapper } from "./components/TableWrapper";
 import { Button } from "@fluentui/react-northstar";
 import { rootStoreContext } from "../../../stores/RootStore";
-import { Loading } from "../../../components/Loading";
+import { Loading } from "../../system/Loading";
 import {
   GetGroupIdFromUserIdQueryVariables,
   GetThingFromTopicQuery,
