@@ -6,22 +6,14 @@ orbs:
 jobs:
   setup:
     docker:
-      - image: circleci/redis:latest
+      - image: cimg/base:2020.01
 
     working_directory: ~/app
     steps:
       - checkout
       - run:
-          name: Install redis-server
-          command: apt update && apt install redis-server -y
-
-      - run:
-          name: Start redis-server
-          command: service redis-server start
-
-      - run:
-          name: Install sqlite
-          command: apt install sqlite3 -y
+          name: Run setup.sh
+          command: ./setup.sh
 
   build:
     docker:
