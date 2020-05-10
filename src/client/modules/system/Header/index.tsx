@@ -4,8 +4,9 @@ import { Menu, Header as H1 } from "@fluentui/react-northstar";
 import { rootStoreContext } from "../../../stores/RootStore";
 import { BASE_ROUTES } from "../../../utils/routes";
 import { georgeAlias } from "../../../config";
+import { observer } from "mobx-react";
 
-export const Header: React.FC = () => {
+export const Header: React.FC = observer(() => {
   const { routerStore } = React.useContext(rootStoreContext);
 
   return (
@@ -40,4 +41,4 @@ export const Header: React.FC = () => {
       />
     </header>
   );
-};
+});

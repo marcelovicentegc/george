@@ -22,7 +22,7 @@ interface State {
 
 interface Props {}
 
-export class Auth extends React.Component<Props, State> {
+class Auth extends React.Component<Props, State> {
   public constructor(props: Props) {
     super(props);
 
@@ -119,3 +119,5 @@ export class Auth extends React.Component<Props, State> {
     );
   }
 }
+
+export { Auth as default };

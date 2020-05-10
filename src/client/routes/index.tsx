@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Query } from "react-apollo";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import {
   getGroupIdFromUserId,
   getUserIdFromSession,
@@ -15,89 +15,87 @@ import {
   GetUserUsernameFromIdQueryVariables,
 } from "../gql";
 import { Header } from "../modules/system/Header";
-
-const AuthConnector = React.lazy(() => import("../modules/auth/AuthConnector"));
-const ControllerConnector = React.lazy(() =>
-  import("../modules/controller/ControllerConnector")
-);
+import { BASE_ROUTES } from "../utils/routes";
+import { rootStore } from "../stores/RootStore";
+const Auth = React.lazy(() => import("../modules/auth/ui"));
+const Home = React.lazy(() => import("../modules/home/ui"));
+const Controller = React.lazy(() => import("../modules/controller/ui"));
 
 export const Routes: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <React.Suspense fallback={<Loading />}>
-          <Query<GetUserIdFromSessionQuery> query={getUserIdFromSession}>
-            {({ data, loading }) => {
-              if (loading) return <Loading />;
+    <Router history={rootStore.history}>
+      <React.Suspense fallback={<Loading />}>
+        <Query<GetUserIdFromSessionQuery> query={getUserIdFromSession}>
+          {({ data, loading }) => {
+            if (loading) return <Loading />;
 
-              if (!data || !data.getUserIdFromSession)
-                return (
-                  <Route exact path="/" component={() => <AuthConnector />} />
-                );
-
-              const user = data.getUserIdFromSession;
-
+            if (!data || !data.getUserIdFromSession)
               return (
-                <Query<
-                  GetGroupIdFromUserIdQuery,
-                  GetGroupIdFromUserIdQueryVariables
-                >
-                  query={getGroupIdFromUserId}
-                  variables={{ id: data.getUserIdFromSession.id }}
-                >
-                  {({ data, loading }) => {
-                    if (loading) return <Loading />;
-
-                    if (!data || !data.getGroupIdFromUserId) return null;
-
-                    return (
-                      <>
-                        <Query<
-                          GetUserUsernameFromIdQuery,
-                          GetUserUsernameFromIdQueryVariables
-                        >
-                          query={getUserUsernameFromId}
-                          variables={{
-                            id: user.id,
-                          }}
-                        >
-                          {({ data, loading }) => {
-                            if (loading) return <Loading />;
-
-                            if (!data || !data.getUserUsernameFromId)
-                              return null;
-
-                            return <Header />;
-                          }}
-                        </Query>
-                        <Route
-                          exact
-                          path="/"
-                          component={() => (
-                            <AuthConnector
-                              user={user}
-                              groupId={data.getGroupIdFromUserId}
-                            />
-                          )}
-                        />
-                        <Route
-                          exact
-                          path="/:space/:name"
-                          component={() => (
-                            <ControllerConnector
-                              groupId={data.getGroupIdFromUserId}
-                            />
-                          )}
-                        />
-                      </>
-                    );
-                  }}
-                </Query>
+                <Redirect to={BASE_ROUTES.HOME} from={"*"}>
+                  <Auth />
+                </Redirect>
               );
-            }}
-          </Query>
-        </React.Suspense>
-      </Switch>
-    </BrowserRouter>
+
+            const user = data.getUserIdFromSession;
+
+            return (
+              <Query<
+                GetGroupIdFromUserIdQuery,
+                GetGroupIdFromUserIdQueryVariables
+              >
+                query={getGroupIdFromUserId}
+                variables={{ id: data.getUserIdFromSession.id }}
+              >
+                {({ data, loading }) => {
+                  if (loading) return <Loading />;
+
+                  if (!data || !data.getGroupIdFromUserId) return null;
+
+                  return (
+                    <>
+                      <Query<
+                        GetUserUsernameFromIdQuery,
+                        GetUserUsernameFromIdQueryVariables
+                      >
+                        query={getUserUsernameFromId}
+                        variables={{
+                          id: user.id,
+                        }}
+                      >
+                        {({ data, loading }) => {
+                          if (loading) return <Loading />;
+
+                          if (!data || !data.getUserUsernameFromId) return null;
+
+                          return <Header />;
+                        }}
+                      </Query>
+                      <Switch>
+                        <Route exact path="/">
+                          <Home groupId={data.getGroupIdFromUserId} />
+                        </Route>
+                        <Route exact path={BASE_ROUTES.PROFILE}>
+                          <div>
+                            <h1>PROFILE</h1>
+                          </div>
+                        </Route>
+                        <Route exact path={BASE_ROUTES.SETTINGS}>
+                          <div>
+                            <h1>SETTINGS</h1>
+                          </div>
+                        </Route>
+                        <Route exact path="/:space/:name">
+                          <Controller groupId={data.getGroupIdFromUserId} />
+                        </Route>
+                      </Switch>
+                    </>
+                  );
+                }}
+              </Query>
+            );
+          }}
+        </Query>
+      </React.Suspense>
+    </Router>
   );
 };

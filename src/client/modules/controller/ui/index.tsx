@@ -1,7 +1,6 @@
 import * as React from "react";
 import "./main.scss";
 import { Mutation, Query } from "react-apollo";
-import { RouteComponentProps, withRouter } from "react-router";
 import { toggleThing } from "../../../../server/schema/graphql/Mutations.graphql";
 import { getThingFromTopic } from "../../../../server/schema/graphql/Queries.graphql";
 import { TableWrapper } from "./components/TableWrapper";
@@ -30,14 +29,14 @@ export type Column = {
   key: string;
 };
 
-interface Props extends RouteComponentProps {
+interface Props {
   groupId: GetGroupIdFromUserIdQueryVariables;
 }
 
 const Controller: React.FunctionComponent<Props> = (props) => {
   const [thingState, setThingState] = React.useState<boolean>();
   const [awaiting, setAwaiting] = React.useState(false);
-  const { controllerStore } = React.useContext(rootStoreContext);
+  const { controllerStore, routerStore } = React.useContext(rootStoreContext);
 
   const handleClick = () => {
     if (thingState === true) {
@@ -47,7 +46,7 @@ const Controller: React.FunctionComponent<Props> = (props) => {
     }
   };
 
-  const topic = props.location.pathname.slice(1);
+  const topic = routerStore.location.pathname.slice(1);
 
   let currentThingState: string;
 
@@ -74,7 +73,7 @@ const Controller: React.FunctionComponent<Props> = (props) => {
       {({ data, loading }) => {
         if (loading) return <Loading />;
         if (!data || !data.getThingFromTopic) {
-          props.history.push("/");
+          routerStore.history.push("/");
         }
 
         controllerStore.setDataSource(null);
@@ -163,4 +162,4 @@ const Controller: React.FunctionComponent<Props> = (props) => {
   );
 };
 
-export default withRouter(Controller);
+export { Controller as default };

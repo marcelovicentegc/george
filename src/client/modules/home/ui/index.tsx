@@ -7,7 +7,7 @@ interface Props {
   groupId: GetGroupIdFromUserIdQueryVariables;
 }
 
-export const Home: React.FunctionComponent<Props> = (props) => {
+const Home: React.FunctionComponent<Props> = (props) => {
   return (
     <div className={s.homeWrapper} data-testid="homeWrapper">
       <div className={s.home} data-testid="home">
@@ -16,3 +16,5 @@ export const Home: React.FunctionComponent<Props> = (props) => {
     </div>
   );
 };
+
+export { Home as default };
