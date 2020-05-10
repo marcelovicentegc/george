@@ -1,24 +1,24 @@
 import * as React from "react";
 import * as s from "./main.scss";
 import { Query } from "react-apollo";
-import { getThingsFromGroupId } from "../../../../../../gql/Queries.graphql";
+import { getThings } from "../../../../../../gql/Queries.graphql";
 import {
   Table,
   TableRowProps,
   ShorthandCollection,
 } from "@fluentui/react-northstar";
 import {
-  GetGroupIdFromUserIdQueryVariables,
-  GetThingsFromGroupIdQuery,
-  GetThingsFromGroupIdQueryVariables,
+  GetGroupIdQueryVariables,
+  GetThingsQuery,
+  GetThingsQueryVariables,
 } from "../../../../../gql";
 import { rootStoreContext } from "../../../../../stores/RootStore";
 
 interface Props {
-  groupId: GetGroupIdFromUserIdQueryVariables;
+  groupId: string;
 }
 
-export const Components: React.FunctionComponent<Props> = (props) => {
+export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
   const { routerStore } = React.useContext(rootStoreContext);
   const [help, setHelp] = React.useState(false);
   const helpText =
@@ -30,19 +30,15 @@ export const Components: React.FunctionComponent<Props> = (props) => {
 
   return (
     <div className={s.components} data-testid="components">
-      <Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>
-        query={getThingsFromGroupId}
+      <Query<GetThingsQuery, GetThingsQueryVariables>
+        query={getThings}
         variables={{
-          id: props.groupId.id,
+          groupId,
         }}
       >
         {({ data, loading }) => {
           if (loading) return <span>loading...</span>;
-          if (
-            !data ||
-            !data.getThingsFromGroupId ||
-            data.getThingsFromGroupId.length === 0
-          ) {
+          if (!data || !data.getThings || data.getThings.length === 0) {
             return (
               <div
                 className="component no-component"
@@ -56,7 +52,7 @@ export const Components: React.FunctionComponent<Props> = (props) => {
           const rows: ShorthandCollection<
             TableRowProps,
             never
-          > = data.getThingsFromGroupId.map((thing, i) => {
+          > = data.getThings.map((thing, i) => {
             return {
               key: i,
               items: [thing.space, thing.component, thing.topic],

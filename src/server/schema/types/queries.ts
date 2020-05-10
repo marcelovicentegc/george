@@ -2,13 +2,12 @@ import gql from "graphql-tag";
 
 export const queries = gql`
   type Query {
-    getUserIdFromSession: User
-    getUsername(id: String): String
-    getGroupIdFromUserIdFromSession: Group
-    getGroupIdFromUserId(id: String!): Group
-    getThingsFromGroupId(id: String!): [Thing]
-    getThingFromTopic(topic: String!): Thing
-    getTriggerLog(id: String!): [TriggerLog]
+    getUserId: String
+    getUsername(userId: String): String
+    getGroupId(userId: String): Group
+    getThings(groupId: String!): [Thing]
+    getThing(topic: String!): Thing
+    getTriggerLog(groupId: String!): [TriggerLog]
     getThingsWithTriggerLog(id: String!): [ThingWithTriggerLog]
   }
 `;

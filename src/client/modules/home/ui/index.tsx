@@ -1,10 +1,9 @@
 import * as React from "react";
 import * as s from "./main.scss";
-import { GetGroupIdFromUserIdQueryVariables } from "../../../gql";
 import { ComponentsDashboard } from "./components/ComponentsDashboard";
 
 interface Props {
-  groupId: GetGroupIdFromUserIdQueryVariables;
+  groupId: string;
 }
 
 const Home: React.FunctionComponent<Props> = (props) => {

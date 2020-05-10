@@ -3,18 +3,17 @@ import * as s from "./main.scss";
 import { observer } from "mobx-react";
 import { Components } from "../Components";
 import {
-  GetGroupIdFromUserIdQueryVariables,
   AddThingMutation,
   AddThingMutationVariables,
 } from "../../../../../gql";
 import { Button, Dialog, Form } from "@fluentui/react-northstar";
 import { Mutation } from "react-apollo";
 import { addThing } from "../../../../../../gql/Mutations.graphql";
-import { getThingsFromGroupId } from "../../../../../../gql/Queries.graphql";
+import { getThings } from "../../../../../../gql/Queries.graphql";
 import { ErrorMessage } from "../ErrorMessage";
 
 interface Props {
-  groupId: GetGroupIdFromUserIdQueryVariables;
+  groupId: string;
 }
 
 export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
@@ -45,9 +44,9 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
               }}
               refetchQueries={[
                 {
-                  query: getThingsFromGroupId,
+                  query: getThings,
                   variables: {
-                    id: groupId.id,
+                    id: groupId,
                   },
                 },
               ]}

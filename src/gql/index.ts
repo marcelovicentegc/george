@@ -7,10 +7,9 @@ export {
 export {
   getUsername,
   getGroupIdFromUserId,
-  getGroupIdFromUserIdFromSession,
-  getThingFromTopic,
-  getThingsFromGroupId,
+  getThing,
+  getThings,
   getThingsWithTriggerLog,
   getTriggerLog,
-  getUserIdFromSession,
+  getUserId,
 } from "./Queries.graphql";

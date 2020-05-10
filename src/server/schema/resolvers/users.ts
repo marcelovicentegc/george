@@ -4,22 +4,22 @@ import { Context } from "../../utils";
 import { QueryResolvers } from "../../gql";
 
 const queries: QueryResolvers = {
-  getUserIdFromSession: async (_, __, { req }: Context) => {
+  getUserId: async (_, __, { req }: Context) => {
     const userIdFromSession = req.session.userId;
 
     if (userIdFromSession === undefined) return null;
 
-    const userId = await User.findOne(userIdFromSession);
+    const user = await User.findOne(userIdFromSession);
 
-    if (!userId) return null;
+    if (!user) return null;
 
-    return userId;
+    return user.id;
   },
-  getUsername: async (_, { id }, { req }: Context): Promise<string> => {
+  getUsername: async (_, { userId }, { req }: Context): Promise<string> => {
     let username: string;
 
-    if (id) {
-      username = (await User.findOne(id)).username;
+    if (userId) {
+      username = (await User.findOne(userId)).username;
     } else {
       const user = req.session.userId;
 

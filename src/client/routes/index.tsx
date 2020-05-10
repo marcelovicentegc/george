@@ -3,14 +3,14 @@ import { Query } from "react-apollo";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import {
   getGroupIdFromUserId,
-  getUserIdFromSession,
+  getUserId,
   getUsername,
 } from "../../gql/Queries.graphql";
 import { Loading } from "../modules/system/Loading";
 import {
-  GetUserIdFromSessionQuery,
-  GetGroupIdFromUserIdQuery,
-  GetGroupIdFromUserIdQueryVariables,
+  GetUserIdQuery,
+  GetGroupIdQuery,
+  GetGroupIdQueryVariables,
   GetUsernameQuery,
   GetUsernameQueryVariables,
 } from "../gql";
@@ -25,11 +25,11 @@ export const Routes: React.FC = () => {
   return (
     <Router history={rootStore.history}>
       <React.Suspense fallback={<Loading />}>
-        <Query<GetUserIdFromSessionQuery> query={getUserIdFromSession}>
+        <Query<GetUserIdQuery> query={getUserId}>
           {({ data, loading }) => {
             if (loading) return <Loading />;
 
-            if (!data || !data.getUserIdFromSession) {
+            if (!data || !data.getUserId) {
               return (
                 <>
                   <Redirect to={BASE_ROUTES.HOME} />
@@ -38,27 +38,26 @@ export const Routes: React.FC = () => {
               );
             }
 
-            const user = data.getUserIdFromSession;
+            const userId = data.getUserId;
 
             return (
-              <Query<
-                GetGroupIdFromUserIdQuery,
-                GetGroupIdFromUserIdQueryVariables
-              >
+              <Query<GetGroupIdQuery, GetGroupIdQueryVariables>
                 query={getGroupIdFromUserId}
-                variables={{ id: data.getUserIdFromSession.id }}
+                variables={{ userId }}
               >
                 {({ data, loading }) => {
                   if (loading) return <Loading />;
 
-                  if (!data || !data.getGroupIdFromUserId) return null;
+                  if (!data || !data.getGroupId) return null;
+
+                  const groupId = data.getGroupId.id;
 
                   return (
                     <>
                       <Query<GetUsernameQuery, GetUsernameQueryVariables>
                         query={getUsername}
                         variables={{
-                          id: user.id,
+                          userId,
                         }}
                       >
                         {({ data, loading }) => {
@@ -71,7 +70,7 @@ export const Routes: React.FC = () => {
                       </Query>
                       <Switch>
                         <Route exact path="/">
-                          <Home groupId={data.getGroupIdFromUserId} />
+                          <Home groupId={groupId} />
                         </Route>
                         <Route exact path={BASE_ROUTES.PROFILE}>
                           <div>
@@ -84,7 +83,7 @@ export const Routes: React.FC = () => {
                           </div>
                         </Route>
                         <Route exact path="/:space/:name">
-                          <Controller groupId={data.getGroupIdFromUserId} />
+                          <Controller />
                         </Route>
                       </Switch>
                     </>

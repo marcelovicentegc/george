@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as s from "./main.scss";
 import { Mutation } from "react-apollo";
-import { loginUser, getUserIdFromSession } from "../../../../gql";
+import { loginUser, getUserId } from "../../../../gql";
 import { LoginUserMutation, LoginUserMutationVariables } from "../../../gql";
 import {
   Card,
@@ -42,7 +42,7 @@ class Auth extends React.Component<Props, State> {
             onError={(error) => this.setState({ errorMessage: error.message })}
             refetchQueries={[
               {
-                query: getUserIdFromSession,
+                query: getUserId,
               },
             ]}
           >

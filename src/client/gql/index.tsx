@@ -51,39 +51,38 @@ export type MutationToggleThingArgs = {
 
 export type Query = {
    __typename?: 'Query';
-  getUserIdFromSession?: Maybe<User>;
+  getUserId?: Maybe<Scalars['String']>;
   getUsername?: Maybe<Scalars['String']>;
-  getGroupIdFromUserIdFromSession?: Maybe<Group>;
-  getGroupIdFromUserId?: Maybe<Group>;
-  getThingsFromGroupId?: Maybe<Array<Maybe<Thing>>>;
-  getThingFromTopic?: Maybe<Thing>;
+  getGroupId?: Maybe<Group>;
+  getThings?: Maybe<Array<Maybe<Thing>>>;
+  getThing?: Maybe<Thing>;
   getTriggerLog?: Maybe<Array<Maybe<TriggerLog>>>;
   getThingsWithTriggerLog?: Maybe<Array<Maybe<ThingWithTriggerLog>>>;
 };
 
 
 export type QueryGetUsernameArgs = {
-  id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 
-export type QueryGetGroupIdFromUserIdArgs = {
-  id: Scalars['String'];
+export type QueryGetGroupIdArgs = {
+  userId?: Maybe<Scalars['String']>;
 };
 
 
-export type QueryGetThingsFromGroupIdArgs = {
-  id: Scalars['String'];
+export type QueryGetThingsArgs = {
+  groupId: Scalars['String'];
 };
 
 
-export type QueryGetThingFromTopicArgs = {
+export type QueryGetThingArgs = {
   topic: Scalars['String'];
 };
 
 
 export type QueryGetTriggerLogArgs = {
-  id: Scalars['String'];
+  groupId: Scalars['String'];
 };
 
 
@@ -167,19 +166,16 @@ export type ToggleThingMutation = (
   & Pick<Mutation, 'toggleThing'>
 );
 
-export type GetUserIdFromSessionQueryVariables = {};
+export type GetUserIdQueryVariables = {};
 
 
-export type GetUserIdFromSessionQuery = (
+export type GetUserIdQuery = (
   { __typename?: 'Query' }
-  & { getUserIdFromSession?: Maybe<(
-    { __typename?: 'User' }
-    & Pick<User, 'id'>
-  )> }
+  & Pick<Query, 'getUserId'>
 );
 
 export type GetUsernameQueryVariables = {
-  id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 
@@ -188,38 +184,27 @@ export type GetUsernameQuery = (
   & Pick<Query, 'getUsername'>
 );
 
-export type GetGroupIdFromUserIdFromSessionQueryVariables = {};
+export type GetGroupIdQueryVariables = {
+  userId?: Maybe<Scalars['String']>;
+};
 
 
-export type GetGroupIdFromUserIdFromSessionQuery = (
+export type GetGroupIdQuery = (
   { __typename?: 'Query' }
-  & { getGroupIdFromUserIdFromSession?: Maybe<(
+  & { getGroupId?: Maybe<(
     { __typename?: 'Group' }
     & Pick<Group, 'id'>
   )> }
 );
 
-export type GetGroupIdFromUserIdQueryVariables = {
-  id: Scalars['String'];
+export type GetThingsQueryVariables = {
+  groupId: Scalars['String'];
 };
 
 
-export type GetGroupIdFromUserIdQuery = (
+export type GetThingsQuery = (
   { __typename?: 'Query' }
-  & { getGroupIdFromUserId?: Maybe<(
-    { __typename?: 'Group' }
-    & Pick<Group, 'id'>
-  )> }
-);
-
-export type GetThingsFromGroupIdQueryVariables = {
-  id: Scalars['String'];
-};
-
-
-export type GetThingsFromGroupIdQuery = (
-  { __typename?: 'Query' }
-  & { getThingsFromGroupId?: Maybe<Array<Maybe<(
+  & { getThings?: Maybe<Array<Maybe<(
     { __typename?: 'Thing' }
     & Pick<Thing, 'id' | 'space' | 'component' | 'topic'>
     & { triggerLog?: Maybe<Array<Maybe<(
@@ -229,14 +214,14 @@ export type GetThingsFromGroupIdQuery = (
   )>>> }
 );
 
-export type GetThingFromTopicQueryVariables = {
+export type GetThingQueryVariables = {
   topic: Scalars['String'];
 };
 
 
-export type GetThingFromTopicQuery = (
+export type GetThingQuery = (
   { __typename?: 'Query' }
-  & { getThingFromTopic?: Maybe<(
+  & { getThing?: Maybe<(
     { __typename?: 'Thing' }
     & Pick<Thing, 'id' | 'space' | 'component' | 'topic'>
     & { triggerLog?: Maybe<Array<Maybe<(
@@ -247,7 +232,7 @@ export type GetThingFromTopicQuery = (
 );
 
 export type GetTriggerLogQueryVariables = {
-  id: Scalars['String'];
+  groupId: Scalars['String'];
 };
 
 
@@ -465,58 +450,56 @@ export function useToggleThingMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type ToggleThingMutationHookResult = ReturnType<typeof useToggleThingMutation>;
 export type ToggleThingMutationResult = ApolloReactCommon.MutationResult<ToggleThingMutation>;
 export type ToggleThingMutationOptions = ApolloReactCommon.BaseMutationOptions<ToggleThingMutation, ToggleThingMutationVariables>;
-export const GetUserIdFromSessionDocument = gql`
-    query GetUserIdFromSession {
-  getUserIdFromSession {
-    id
-  }
+export const GetUserIdDocument = gql`
+    query GetUserId {
+  getUserId
 }
     `;
-export type GetUserIdFromSessionComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables>, 'query'>;
+export type GetUserIdComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetUserIdQuery, GetUserIdQueryVariables>, 'query'>;
 
-    export const GetUserIdFromSessionComponent = (props: GetUserIdFromSessionComponentProps) => (
-      <ApolloReactComponents.Query<GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables> query={GetUserIdFromSessionDocument} {...props} />
+    export const GetUserIdComponent = (props: GetUserIdComponentProps) => (
+      <ApolloReactComponents.Query<GetUserIdQuery, GetUserIdQueryVariables> query={GetUserIdDocument} {...props} />
     );
     
-export type GetUserIdFromSessionProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables> & TChildProps;
-export function withGetUserIdFromSession<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+export type GetUserIdProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetUserIdQuery, GetUserIdQueryVariables> & TChildProps;
+export function withGetUserId<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  GetUserIdFromSessionQuery,
-  GetUserIdFromSessionQueryVariables,
-  GetUserIdFromSessionProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables, GetUserIdFromSessionProps<TChildProps>>(GetUserIdFromSessionDocument, {
-      alias: 'getUserIdFromSession',
+  GetUserIdQuery,
+  GetUserIdQueryVariables,
+  GetUserIdProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetUserIdQuery, GetUserIdQueryVariables, GetUserIdProps<TChildProps>>(GetUserIdDocument, {
+      alias: 'getUserId',
       ...operationOptions
     });
 };
 
 /**
- * __useGetUserIdFromSessionQuery__
+ * __useGetUserIdQuery__
  *
- * To run a query within a React component, call `useGetUserIdFromSessionQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserIdFromSessionQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useGetUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUserIdFromSessionQuery({
+ * const { data, loading, error } = useGetUserIdQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetUserIdFromSessionQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables>(GetUserIdFromSessionDocument, baseOptions);
+export function useGetUserIdQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUserIdQuery, GetUserIdQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUserIdQuery, GetUserIdQueryVariables>(GetUserIdDocument, baseOptions);
       }
-export function useGetUserIdFromSessionLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables>(GetUserIdFromSessionDocument, baseOptions);
+export function useGetUserIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUserIdQuery, GetUserIdQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUserIdQuery, GetUserIdQueryVariables>(GetUserIdDocument, baseOptions);
         }
-export type GetUserIdFromSessionQueryHookResult = ReturnType<typeof useGetUserIdFromSessionQuery>;
-export type GetUserIdFromSessionLazyQueryHookResult = ReturnType<typeof useGetUserIdFromSessionLazyQuery>;
-export type GetUserIdFromSessionQueryResult = ApolloReactCommon.QueryResult<GetUserIdFromSessionQuery, GetUserIdFromSessionQueryVariables>;
+export type GetUserIdQueryHookResult = ReturnType<typeof useGetUserIdQuery>;
+export type GetUserIdLazyQueryHookResult = ReturnType<typeof useGetUserIdLazyQuery>;
+export type GetUserIdQueryResult = ApolloReactCommon.QueryResult<GetUserIdQuery, GetUserIdQueryVariables>;
 export const GetUsernameDocument = gql`
-    query GetUsername($id: String) {
-  getUsername(id: $id)
+    query GetUsername($userId: String) {
+  getUsername(userId: $userId)
 }
     `;
 export type GetUsernameComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetUsernameQuery, GetUsernameQueryVariables>, 'query'>;
@@ -549,7 +532,7 @@ export function withGetUsername<TProps, TChildProps = {}>(operationOptions?: Apo
  * @example
  * const { data, loading, error } = useGetUsernameQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      userId: // value for 'userId'
  *   },
  * });
  */
@@ -562,108 +545,59 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
-export const GetGroupIdFromUserIdFromSessionDocument = gql`
-    query GetGroupIdFromUserIdFromSession {
-  getGroupIdFromUserIdFromSession {
+export const GetGroupIdDocument = gql`
+    query GetGroupId($userId: String) {
+  getGroupId(userId: $userId) {
     id
   }
 }
     `;
-export type GetGroupIdFromUserIdFromSessionComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables>, 'query'>;
+export type GetGroupIdComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetGroupIdQuery, GetGroupIdQueryVariables>, 'query'>;
 
-    export const GetGroupIdFromUserIdFromSessionComponent = (props: GetGroupIdFromUserIdFromSessionComponentProps) => (
-      <ApolloReactComponents.Query<GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables> query={GetGroupIdFromUserIdFromSessionDocument} {...props} />
+    export const GetGroupIdComponent = (props: GetGroupIdComponentProps) => (
+      <ApolloReactComponents.Query<GetGroupIdQuery, GetGroupIdQueryVariables> query={GetGroupIdDocument} {...props} />
     );
     
-export type GetGroupIdFromUserIdFromSessionProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables> & TChildProps;
-export function withGetGroupIdFromUserIdFromSession<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+export type GetGroupIdProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetGroupIdQuery, GetGroupIdQueryVariables> & TChildProps;
+export function withGetGroupId<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  GetGroupIdFromUserIdFromSessionQuery,
-  GetGroupIdFromUserIdFromSessionQueryVariables,
-  GetGroupIdFromUserIdFromSessionProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables, GetGroupIdFromUserIdFromSessionProps<TChildProps>>(GetGroupIdFromUserIdFromSessionDocument, {
-      alias: 'getGroupIdFromUserIdFromSession',
+  GetGroupIdQuery,
+  GetGroupIdQueryVariables,
+  GetGroupIdProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetGroupIdQuery, GetGroupIdQueryVariables, GetGroupIdProps<TChildProps>>(GetGroupIdDocument, {
+      alias: 'getGroupId',
       ...operationOptions
     });
 };
 
 /**
- * __useGetGroupIdFromUserIdFromSessionQuery__
+ * __useGetGroupIdQuery__
  *
- * To run a query within a React component, call `useGetGroupIdFromUserIdFromSessionQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetGroupIdFromUserIdFromSessionQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useGetGroupIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGroupIdQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetGroupIdFromUserIdFromSessionQuery({
+ * const { data, loading, error } = useGetGroupIdQuery({
  *   variables: {
+ *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useGetGroupIdFromUserIdFromSessionQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables>(GetGroupIdFromUserIdFromSessionDocument, baseOptions);
+export function useGetGroupIdQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetGroupIdQuery, GetGroupIdQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetGroupIdQuery, GetGroupIdQueryVariables>(GetGroupIdDocument, baseOptions);
       }
-export function useGetGroupIdFromUserIdFromSessionLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables>(GetGroupIdFromUserIdFromSessionDocument, baseOptions);
+export function useGetGroupIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetGroupIdQuery, GetGroupIdQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetGroupIdQuery, GetGroupIdQueryVariables>(GetGroupIdDocument, baseOptions);
         }
-export type GetGroupIdFromUserIdFromSessionQueryHookResult = ReturnType<typeof useGetGroupIdFromUserIdFromSessionQuery>;
-export type GetGroupIdFromUserIdFromSessionLazyQueryHookResult = ReturnType<typeof useGetGroupIdFromUserIdFromSessionLazyQuery>;
-export type GetGroupIdFromUserIdFromSessionQueryResult = ApolloReactCommon.QueryResult<GetGroupIdFromUserIdFromSessionQuery, GetGroupIdFromUserIdFromSessionQueryVariables>;
-export const GetGroupIdFromUserIdDocument = gql`
-    query GetGroupIdFromUserId($id: String!) {
-  getGroupIdFromUserId(id: $id) {
-    id
-  }
-}
-    `;
-export type GetGroupIdFromUserIdComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables>, 'query'> & ({ variables: GetGroupIdFromUserIdQueryVariables; skip?: boolean; } | { skip: boolean; });
-
-    export const GetGroupIdFromUserIdComponent = (props: GetGroupIdFromUserIdComponentProps) => (
-      <ApolloReactComponents.Query<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables> query={GetGroupIdFromUserIdDocument} {...props} />
-    );
-    
-export type GetGroupIdFromUserIdProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables> & TChildProps;
-export function withGetGroupIdFromUserId<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  GetGroupIdFromUserIdQuery,
-  GetGroupIdFromUserIdQueryVariables,
-  GetGroupIdFromUserIdProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables, GetGroupIdFromUserIdProps<TChildProps>>(GetGroupIdFromUserIdDocument, {
-      alias: 'getGroupIdFromUserId',
-      ...operationOptions
-    });
-};
-
-/**
- * __useGetGroupIdFromUserIdQuery__
- *
- * To run a query within a React component, call `useGetGroupIdFromUserIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetGroupIdFromUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetGroupIdFromUserIdQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetGroupIdFromUserIdQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables>(GetGroupIdFromUserIdDocument, baseOptions);
-      }
-export function useGetGroupIdFromUserIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables>(GetGroupIdFromUserIdDocument, baseOptions);
-        }
-export type GetGroupIdFromUserIdQueryHookResult = ReturnType<typeof useGetGroupIdFromUserIdQuery>;
-export type GetGroupIdFromUserIdLazyQueryHookResult = ReturnType<typeof useGetGroupIdFromUserIdLazyQuery>;
-export type GetGroupIdFromUserIdQueryResult = ApolloReactCommon.QueryResult<GetGroupIdFromUserIdQuery, GetGroupIdFromUserIdQueryVariables>;
-export const GetThingsFromGroupIdDocument = gql`
-    query GetThingsFromGroupId($id: String!) {
-  getThingsFromGroupId(id: $id) {
+export type GetGroupIdQueryHookResult = ReturnType<typeof useGetGroupIdQuery>;
+export type GetGroupIdLazyQueryHookResult = ReturnType<typeof useGetGroupIdLazyQuery>;
+export type GetGroupIdQueryResult = ApolloReactCommon.QueryResult<GetGroupIdQuery, GetGroupIdQueryVariables>;
+export const GetThingsDocument = gql`
+    query GetThings($groupId: String!) {
+  getThings(groupId: $groupId) {
     id
     space
     component
@@ -676,52 +610,52 @@ export const GetThingsFromGroupIdDocument = gql`
   }
 }
     `;
-export type GetThingsFromGroupIdComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>, 'query'> & ({ variables: GetThingsFromGroupIdQueryVariables; skip?: boolean; } | { skip: boolean; });
+export type GetThingsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetThingsQuery, GetThingsQueryVariables>, 'query'> & ({ variables: GetThingsQueryVariables; skip?: boolean; } | { skip: boolean; });
 
-    export const GetThingsFromGroupIdComponent = (props: GetThingsFromGroupIdComponentProps) => (
-      <ApolloReactComponents.Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables> query={GetThingsFromGroupIdDocument} {...props} />
+    export const GetThingsComponent = (props: GetThingsComponentProps) => (
+      <ApolloReactComponents.Query<GetThingsQuery, GetThingsQueryVariables> query={GetThingsDocument} {...props} />
     );
     
-export type GetThingsFromGroupIdProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables> & TChildProps;
-export function withGetThingsFromGroupId<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+export type GetThingsProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetThingsQuery, GetThingsQueryVariables> & TChildProps;
+export function withGetThings<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  GetThingsFromGroupIdQuery,
-  GetThingsFromGroupIdQueryVariables,
-  GetThingsFromGroupIdProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables, GetThingsFromGroupIdProps<TChildProps>>(GetThingsFromGroupIdDocument, {
-      alias: 'getThingsFromGroupId',
+  GetThingsQuery,
+  GetThingsQueryVariables,
+  GetThingsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetThingsQuery, GetThingsQueryVariables, GetThingsProps<TChildProps>>(GetThingsDocument, {
+      alias: 'getThings',
       ...operationOptions
     });
 };
 
 /**
- * __useGetThingsFromGroupIdQuery__
+ * __useGetThingsQuery__
  *
- * To run a query within a React component, call `useGetThingsFromGroupIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetThingsFromGroupIdQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useGetThingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetThingsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetThingsFromGroupIdQuery({
+ * const { data, loading, error } = useGetThingsQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      groupId: // value for 'groupId'
  *   },
  * });
  */
-export function useGetThingsFromGroupIdQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>(GetThingsFromGroupIdDocument, baseOptions);
+export function useGetThingsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetThingsQuery, GetThingsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetThingsQuery, GetThingsQueryVariables>(GetThingsDocument, baseOptions);
       }
-export function useGetThingsFromGroupIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>(GetThingsFromGroupIdDocument, baseOptions);
+export function useGetThingsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetThingsQuery, GetThingsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetThingsQuery, GetThingsQueryVariables>(GetThingsDocument, baseOptions);
         }
-export type GetThingsFromGroupIdQueryHookResult = ReturnType<typeof useGetThingsFromGroupIdQuery>;
-export type GetThingsFromGroupIdLazyQueryHookResult = ReturnType<typeof useGetThingsFromGroupIdLazyQuery>;
-export type GetThingsFromGroupIdQueryResult = ApolloReactCommon.QueryResult<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>;
-export const GetThingFromTopicDocument = gql`
-    query GetThingFromTopic($topic: String!) {
-  getThingFromTopic(topic: $topic) {
+export type GetThingsQueryHookResult = ReturnType<typeof useGetThingsQuery>;
+export type GetThingsLazyQueryHookResult = ReturnType<typeof useGetThingsLazyQuery>;
+export type GetThingsQueryResult = ApolloReactCommon.QueryResult<GetThingsQuery, GetThingsQueryVariables>;
+export const GetThingDocument = gql`
+    query GetThing($topic: String!) {
+  getThing(topic: $topic) {
     id
     space
     component
@@ -735,52 +669,52 @@ export const GetThingFromTopicDocument = gql`
   }
 }
     `;
-export type GetThingFromTopicComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetThingFromTopicQuery, GetThingFromTopicQueryVariables>, 'query'> & ({ variables: GetThingFromTopicQueryVariables; skip?: boolean; } | { skip: boolean; });
+export type GetThingComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetThingQuery, GetThingQueryVariables>, 'query'> & ({ variables: GetThingQueryVariables; skip?: boolean; } | { skip: boolean; });
 
-    export const GetThingFromTopicComponent = (props: GetThingFromTopicComponentProps) => (
-      <ApolloReactComponents.Query<GetThingFromTopicQuery, GetThingFromTopicQueryVariables> query={GetThingFromTopicDocument} {...props} />
+    export const GetThingComponent = (props: GetThingComponentProps) => (
+      <ApolloReactComponents.Query<GetThingQuery, GetThingQueryVariables> query={GetThingDocument} {...props} />
     );
     
-export type GetThingFromTopicProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetThingFromTopicQuery, GetThingFromTopicQueryVariables> & TChildProps;
-export function withGetThingFromTopic<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+export type GetThingProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetThingQuery, GetThingQueryVariables> & TChildProps;
+export function withGetThing<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  GetThingFromTopicQuery,
-  GetThingFromTopicQueryVariables,
-  GetThingFromTopicProps<TChildProps>>) {
-    return ApolloReactHoc.withQuery<TProps, GetThingFromTopicQuery, GetThingFromTopicQueryVariables, GetThingFromTopicProps<TChildProps>>(GetThingFromTopicDocument, {
-      alias: 'getThingFromTopic',
+  GetThingQuery,
+  GetThingQueryVariables,
+  GetThingProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetThingQuery, GetThingQueryVariables, GetThingProps<TChildProps>>(GetThingDocument, {
+      alias: 'getThing',
       ...operationOptions
     });
 };
 
 /**
- * __useGetThingFromTopicQuery__
+ * __useGetThingQuery__
  *
- * To run a query within a React component, call `useGetThingFromTopicQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetThingFromTopicQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useGetThingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetThingQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetThingFromTopicQuery({
+ * const { data, loading, error } = useGetThingQuery({
  *   variables: {
  *      topic: // value for 'topic'
  *   },
  * });
  */
-export function useGetThingFromTopicQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetThingFromTopicQuery, GetThingFromTopicQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetThingFromTopicQuery, GetThingFromTopicQueryVariables>(GetThingFromTopicDocument, baseOptions);
+export function useGetThingQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetThingQuery, GetThingQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetThingQuery, GetThingQueryVariables>(GetThingDocument, baseOptions);
       }
-export function useGetThingFromTopicLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetThingFromTopicQuery, GetThingFromTopicQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetThingFromTopicQuery, GetThingFromTopicQueryVariables>(GetThingFromTopicDocument, baseOptions);
+export function useGetThingLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetThingQuery, GetThingQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetThingQuery, GetThingQueryVariables>(GetThingDocument, baseOptions);
         }
-export type GetThingFromTopicQueryHookResult = ReturnType<typeof useGetThingFromTopicQuery>;
-export type GetThingFromTopicLazyQueryHookResult = ReturnType<typeof useGetThingFromTopicLazyQuery>;
-export type GetThingFromTopicQueryResult = ApolloReactCommon.QueryResult<GetThingFromTopicQuery, GetThingFromTopicQueryVariables>;
+export type GetThingQueryHookResult = ReturnType<typeof useGetThingQuery>;
+export type GetThingLazyQueryHookResult = ReturnType<typeof useGetThingLazyQuery>;
+export type GetThingQueryResult = ApolloReactCommon.QueryResult<GetThingQuery, GetThingQueryVariables>;
 export const GetTriggerLogDocument = gql`
-    query GetTriggerLog($id: String!) {
-  getTriggerLog(id: $id) {
+    query GetTriggerLog($groupId: String!) {
+  getTriggerLog(groupId: $groupId) {
     id
     state
     date
@@ -818,7 +752,7 @@ export function withGetTriggerLog<TProps, TChildProps = {}>(operationOptions?: A
  * @example
  * const { data, loading, error } = useGetTriggerLogQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      groupId: // value for 'groupId'
  *   },
  * });
  */

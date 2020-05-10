@@ -1,17 +1,17 @@
-import { getThingsFromGroupId } from "../../gql/Queries.graphql";
+import { getThings } from "../../gql/Queries.graphql";
 import { format } from "date-fns";
 
-export const mockedGetThingsFromGroupId = [
+export const mockedGetThings = [
   {
     request: {
-      query: getThingsFromGroupId,
+      query: getThings,
       variables: {
         id: "1",
       },
     },
     result: {
       data: {
-        getThingsFromGroupId: [
+        getThings: [
           {
             id: "1",
             space: "Living room",

@@ -10,12 +10,9 @@ afterEach(cleanup);
 
 describe("<Components /> test case", () => {
   test("Renders loading feedback and no components", async () => {
-    const { container } = renderWithRouter(
-      <Components groupId={{ id: "1" }} />,
-      {
-        route: "/"
-      }
-    );
+    const { container } = renderWithRouter(<Components groupId={"1"} />, {
+      route: "/",
+    });
 
     act(() => {
       expect(container.innerHTML).toMatch("loading...");
@@ -30,9 +27,9 @@ describe("<Components /> test case", () => {
 
   test("Renders component with mocked data", async () => {
     const { container, getByText, findAllByTestId } = renderWithRouter(
-      <Components groupId={{ id: "1" }} />,
+      <Components groupId={"1"} />,
       {
-        route: "/"
+        route: "/",
       },
       mockedGetThingsFromGroupId
     );

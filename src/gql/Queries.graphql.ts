@@ -1,38 +1,28 @@
 import gql from "graphql-tag";
 
-export const getUserIdFromSession = gql`
-  query GetUserIdFromSession {
-    getUserIdFromSession {
-      id
-    }
+export const getUserId = gql`
+  query GetUserId {
+    getUserId
   }
 `;
 
 export const getUsername = gql`
-  query GetUsername($id: String) {
-    getUsername(id: $id)
-  }
-`;
-
-export const getGroupIdFromUserIdFromSession = gql`
-  query GetGroupIdFromUserIdFromSession {
-    getGroupIdFromUserIdFromSession {
-      id
-    }
+  query GetUsername($userId: String) {
+    getUsername(userId: $userId)
   }
 `;
 
 export const getGroupIdFromUserId = gql`
-  query GetGroupIdFromUserId($id: String!) {
-    getGroupIdFromUserId(id: $id) {
+  query GetGroupId($userId: String) {
+    getGroupId(userId: $userId) {
       id
     }
   }
 `;
 
-export const getThingsFromGroupId = gql`
-  query GetThingsFromGroupId($id: String!) {
-    getThingsFromGroupId(id: $id) {
+export const getThings = gql`
+  query GetThings($groupId: String!) {
+    getThings(groupId: $groupId) {
       id
       space
       component
@@ -46,9 +36,9 @@ export const getThingsFromGroupId = gql`
   }
 `;
 
-export const getThingFromTopic = gql`
-  query GetThingFromTopic($topic: String!) {
-    getThingFromTopic(topic: $topic) {
+export const getThing = gql`
+  query GetThing($topic: String!) {
+    getThing(topic: $topic) {
       id
       space
       component
@@ -64,8 +54,8 @@ export const getThingFromTopic = gql`
 `;
 
 export const getTriggerLog = gql`
-  query GetTriggerLog($id: String!) {
-    getTriggerLog(id: $id) {
+  query GetTriggerLog($groupId: String!) {
+    getTriggerLog(groupId: $groupId) {
       id
       state
       date

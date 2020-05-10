@@ -1,15 +1,14 @@
 import * as React from "react";
 import "./main.scss";
 import { Mutation, Query } from "react-apollo";
-import { toggleThing, getThingFromTopic } from "../../../../gql";
+import { toggleThing, getThing } from "../../../../gql";
 import { TableWrapper } from "./components/TableWrapper";
 import { Button } from "@fluentui/react-northstar";
 import { rootStoreContext } from "../../../stores/RootStore";
 import { Loading } from "../../system/Loading";
 import {
-  GetGroupIdFromUserIdQueryVariables,
-  GetThingFromTopicQuery,
-  GetThingFromTopicQueryVariables,
+  GetThingQuery,
+  GetThingQueryVariables,
   ToggleThingMutation,
   ToggleThingMutationVariables,
 } from "../../../gql";
@@ -28,11 +27,7 @@ export type Column = {
   key: string;
 };
 
-interface Props {
-  groupId: GetGroupIdFromUserIdQueryVariables;
-}
-
-const Controller: React.FunctionComponent<Props> = (props) => {
+const Controller: React.FunctionComponent = () => {
   const [thingState, setThingState] = React.useState<boolean>();
   const [awaiting, setAwaiting] = React.useState(false);
   const { controllerStore, routerStore } = React.useContext(rootStoreContext);
@@ -63,28 +58,27 @@ const Controller: React.FunctionComponent<Props> = (props) => {
   ];
 
   return (
-    <Query<GetThingFromTopicQuery, GetThingFromTopicQueryVariables>
-      query={getThingFromTopic}
+    <Query<GetThingQuery, GetThingQueryVariables>
+      query={getThing}
       variables={{
         topic,
       }}
     >
       {({ data, loading }) => {
         if (loading) return <Loading />;
-        if (!data || !data.getThingFromTopic) {
+        if (!data || !data.getThing) {
           routerStore.history.push("/");
         }
 
         controllerStore.setDataSource(null);
 
-        if (data.getThingFromTopic.triggerLog) {
-          if (data.getThingFromTopic.triggerLog.length === 0) {
+        if (data.getThing.triggerLog) {
+          if (data.getThing.triggerLog.length === 0) {
             setThingState(false);
           } else {
             currentThingState =
-              data.getThingFromTopic.triggerLog[
-                data.getThingFromTopic.triggerLog.length - 1
-              ].state;
+              data.getThing.triggerLog[data.getThing.triggerLog.length - 1]
+                .state;
 
             currentThingState === "off"
               ? setThingState(true)
@@ -92,8 +86,8 @@ const Controller: React.FunctionComponent<Props> = (props) => {
           }
         }
 
-        data.getThingFromTopic.triggerLog &&
-          data.getThingFromTopic.triggerLog.map((log) => {
+        data.getThing.triggerLog &&
+          data.getThing.triggerLog.map((log) => {
             if (!controllerStore.dataSource) {
               return controllerStore.setDataSource([
                 {
@@ -118,7 +112,7 @@ const Controller: React.FunctionComponent<Props> = (props) => {
                 mutation={toggleThing}
                 refetchQueries={[
                   {
-                    query: getThingFromTopic,
+                    query: getThing,
                     variables: {
                       topic,
                     },
@@ -144,7 +138,7 @@ const Controller: React.FunctionComponent<Props> = (props) => {
                   </Button>
                 )}
               </Mutation>
-              <span>{data.getThingFromTopic.topic}</span>
+              <span>{data.getThing.topic}</span>
             </div>
             <div className="log-wrapper">
               <div className="log">

@@ -8,13 +8,13 @@ import { QueryResolvers, MutationResolvers } from "../../gql";
 import { User } from "../../database/entities/User.model";
 
 const queries: QueryResolvers = {
-  getThingsFromGroupId: async (_, { id }) => {
-    const group = await Group.findOne(id);
+  getThings: async (_, { groupId }) => {
+    const group = await Group.findOne(groupId);
+
     if (!group) {
       throw new Error("This group doesn't exist");
     }
 
-    const groupId = group.id;
     const things = await Thing.find({
       where: { groupId },
       relations: ["triggerLog"],
@@ -22,23 +22,21 @@ const queries: QueryResolvers = {
 
     return things;
   },
-  getThingFromTopic: async (_, { topic }) => {
+  getThing: async (_, { topic }) => {
     const thing = await Thing.findOne({
       where: { topic },
       relations: ["triggerLog"],
     });
-
     // if (!thing) return new Error("This component doesn't exist.");
-
     return thing;
   },
-  getTriggerLog: async (_, { id }) => {
-    const group = await Group.findOne(id);
+  getTriggerLog: async (_, { groupId }) => {
+    const group = await Group.findOne(groupId);
+
     if (!group) {
       throw new Error("This group doesn't exist");
     }
 
-    const groupId = group.id;
     const things = await Thing.find({
       where: { groupId },
       relations: ["triggerLog"],
@@ -52,11 +50,13 @@ const queries: QueryResolvers = {
   },
   getThingsWithTriggerLog: async (_, { id }) => {
     const group = await Group.findOne(id);
+
     if (!group) {
       throw new Error("This group doesn't exist");
     }
 
     const groupId = group.id;
+
     const things = await Thing.find({
       where: { groupId },
       relations: ["triggerLog"],
@@ -78,8 +78,6 @@ const queries: QueryResolvers = {
       )
     );
 
-    console.log(thingsWithTriggerLog);
-
     return thingsWithTriggerLog;
   },
 };
@@ -100,6 +98,7 @@ const mutations: MutationResolvers = {
 
     const spaceSlug = slugify(space);
     const componentSlug = slugify(component);
+
     const thing = Thing.create({
       space,
       component,
@@ -120,6 +119,7 @@ const mutations: MutationResolvers = {
     await thing.save();
     group.things.push(thing);
     await group.save();
+
     return true;
   },
   toggleThing: async (_, { toggle, topic }) => {
@@ -145,6 +145,7 @@ const mutations: MutationResolvers = {
     await triggerLog.save();
     thing.triggerLog.push(triggerLog);
     await thing.save();
+
     // mqttClient.publish(topic, toggle);
 
     return true;

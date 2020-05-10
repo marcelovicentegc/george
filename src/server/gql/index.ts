@@ -46,39 +46,38 @@ export type MutationToggleThingArgs = {
 
 export type Query = {
    __typename?: 'Query';
-  getUserIdFromSession?: Maybe<User>;
+  getUserId?: Maybe<Scalars['String']>;
   getUsername?: Maybe<Scalars['String']>;
-  getGroupIdFromUserIdFromSession?: Maybe<Group>;
-  getGroupIdFromUserId?: Maybe<Group>;
-  getThingsFromGroupId?: Maybe<Array<Maybe<Thing>>>;
-  getThingFromTopic?: Maybe<Thing>;
+  getGroupId?: Maybe<Group>;
+  getThings?: Maybe<Array<Maybe<Thing>>>;
+  getThing?: Maybe<Thing>;
   getTriggerLog?: Maybe<Array<Maybe<TriggerLog>>>;
   getThingsWithTriggerLog?: Maybe<Array<Maybe<ThingWithTriggerLog>>>;
 };
 
 
 export type QueryGetUsernameArgs = {
-  id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 
-export type QueryGetGroupIdFromUserIdArgs = {
-  id: Scalars['String'];
+export type QueryGetGroupIdArgs = {
+  userId?: Maybe<Scalars['String']>;
 };
 
 
-export type QueryGetThingsFromGroupIdArgs = {
-  id: Scalars['String'];
+export type QueryGetThingsArgs = {
+  groupId: Scalars['String'];
 };
 
 
-export type QueryGetThingFromTopicArgs = {
+export type QueryGetThingArgs = {
   topic: Scalars['String'];
 };
 
 
 export type QueryGetTriggerLogArgs = {
-  id: Scalars['String'];
+  groupId: Scalars['String'];
 };
 
 
@@ -192,10 +191,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
-  User: ResolverTypeWrapper<User>,
-  ID: ResolverTypeWrapper<Scalars['ID']>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Group: ResolverTypeWrapper<Group>,
+  User: ResolverTypeWrapper<User>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
   Thing: ResolverTypeWrapper<Thing>,
   TriggerLog: ResolverTypeWrapper<TriggerLog>,
   ThingWithTriggerLog: ResolverTypeWrapper<ThingWithTriggerLog>,
@@ -206,10 +205,10 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {},
-  User: User,
-  ID: Scalars['ID'],
   String: Scalars['String'],
   Group: Group,
+  User: User,
+  ID: Scalars['ID'],
   Thing: Thing,
   TriggerLog: TriggerLog,
   ThingWithTriggerLog: ThingWithTriggerLog,
@@ -233,13 +232,12 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getUserIdFromSession?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  getUserId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   getUsername?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetUsernameArgs, never>>,
-  getGroupIdFromUserIdFromSession?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType>,
-  getGroupIdFromUserId?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupIdFromUserIdArgs, 'id'>>,
-  getThingsFromGroupId?: Resolver<Maybe<Array<Maybe<ResolversTypes['Thing']>>>, ParentType, ContextType, RequireFields<QueryGetThingsFromGroupIdArgs, 'id'>>,
-  getThingFromTopic?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType, RequireFields<QueryGetThingFromTopicArgs, 'topic'>>,
-  getTriggerLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['TriggerLog']>>>, ParentType, ContextType, RequireFields<QueryGetTriggerLogArgs, 'id'>>,
+  getGroupId?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupIdArgs, never>>,
+  getThings?: Resolver<Maybe<Array<Maybe<ResolversTypes['Thing']>>>, ParentType, ContextType, RequireFields<QueryGetThingsArgs, 'groupId'>>,
+  getThing?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType, RequireFields<QueryGetThingArgs, 'topic'>>,
+  getTriggerLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['TriggerLog']>>>, ParentType, ContextType, RequireFields<QueryGetTriggerLogArgs, 'groupId'>>,
   getThingsWithTriggerLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingWithTriggerLog']>>>, ParentType, ContextType, RequireFields<QueryGetThingsWithTriggerLogArgs, 'id'>>,
 };
 
