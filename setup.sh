@@ -1,5 +1,3 @@
-#!/bin/sh
-
 function handle_action() {
     echo -e "$1...\n"
     
