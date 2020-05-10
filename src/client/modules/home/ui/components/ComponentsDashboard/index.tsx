@@ -2,7 +2,6 @@ import * as React from "react";
 import * as s from "./main.scss";
 import { observer } from "mobx-react";
 import { Components } from "../Components";
-import { rootStoreContext } from "../../../../../stores/RootStore";
 import {
   GetGroupIdFromUserIdQueryVariables,
   AddThingMutation,
@@ -20,7 +19,6 @@ interface Props {
 
 export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
   ({ groupId }) => {
-    const { newComponentStore } = React.useContext(rootStoreContext);
     const [space, setSpace] = React.useState<string>();
     const [component, setComponent] = React.useState<string>();
     const [errorMessage, setErrorMessage] = React.useState<string | undefined>(
@@ -40,25 +38,42 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
       <>
         <div className={s.dashboardWrapper} data-testid="dashboardWrapper">
           <div className={s.dashboard} data-testid="dashboard">
-            <Dialog
-              cancelButton="Cancel"
-              content={
-                <Mutation<AddThingMutation, AddThingMutationVariables>
-                  mutation={addThing}
-                  onError={(error) => {
-                    setErrorMessage(error.message);
+            <Mutation<AddThingMutation, AddThingMutationVariables>
+              mutation={addThing}
+              onError={(error) => {
+                setErrorMessage(error.message);
+              }}
+              refetchQueries={[
+                {
+                  query: getThingsFromGroupId,
+                  variables: {
+                    id: groupId.id,
+                  },
+                },
+              ]}
+              awaitRefetchQueries
+            >
+              {(mutate) => (
+                <Dialog
+                  className={s.dialog}
+                  cancelButton="Cancel"
+                  confirmButton={awaiting ? "Submitting" : "Submit"}
+                  onConfirm={async () => {
+                    if (isValid() && !awaiting) {
+                      setAwaiting(true);
+                      await mutate({
+                        variables: {
+                          space,
+                          component,
+                        },
+                      }).then(() => {
+                        if (!errorMessage) {
+                          setAwaiting(false);
+                        }
+                      });
+                    }
                   }}
-                  refetchQueries={[
-                    {
-                      query: getThingsFromGroupId,
-                      variables: {
-                        id: groupId.id,
-                      },
-                    },
-                  ]}
-                  awaitRefetchQueries
-                >
-                  {(mutate) => (
+                  content={
                     <>
                       {errorMessage && (
                         <ErrorMessage errorMessage={errorMessage} />
@@ -90,38 +105,15 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
                               setComponent(e.target.value);
                             },
                           },
-                          {
-                            control: {
-                              as: Button,
-                              content: awaiting ? "Submitting" : "Submit",
-                              key: "submit",
-                              loader: awaiting,
-                            },
-                          },
                         ]}
-                        onSubmit={async () => {
-                          if (isValid() && !awaiting) {
-                            setAwaiting(true);
-                            await mutate({
-                              variables: {
-                                space,
-                                component,
-                              },
-                            }).then(() => {
-                              if (!errorMessage) {
-                                setAwaiting(false);
-                              }
-                            });
-                          }
-                        }}
                       />
                     </>
-                  )}
-                </Mutation>
-              }
-              header="Add component"
-              trigger={<Button circular content="+" />}
-            />
+                  }
+                  header="Add component"
+                  trigger={<Button circular content="+" />}
+                />
+              )}
+            </Mutation>
           </div>
           <Components groupId={groupId} />
         </div>

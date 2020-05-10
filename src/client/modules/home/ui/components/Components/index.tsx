@@ -1,26 +1,37 @@
 import * as React from "react";
+import * as s from "./main.scss";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 import { getThingsFromGroupId } from "../../../../../../server/schema/graphql/Queries.graphql";
 import { Separator } from "../Separator";
-import "./main.scss";
+import {
+  Table,
+  TableRowProps,
+  ShorthandCollection,
+} from "@fluentui/react-northstar";
 import {
   GetGroupIdFromUserIdQueryVariables,
   GetThingsFromGroupIdQuery,
   GetThingsFromGroupIdQueryVariables,
 } from "../../../../../gql";
+import { rootStoreContext } from "../../../../../stores/RootStore";
 
 interface Props {
   groupId: GetGroupIdFromUserIdQueryVariables;
 }
 
 export const Components: React.FunctionComponent<Props> = (props) => {
+  const { routerStore } = React.useContext(rootStoreContext);
   const [help, setHelp] = React.useState(false);
   const helpText =
     "This is the topic which you need to subscribe the related module to.";
 
+  const header = {
+    items: ["Space", "Thing", "Topic"],
+  };
+
   return (
-    <div className="components" data-testid="components">
+    <div className={s.components} data-testid="components">
       <Query<GetThingsFromGroupIdQuery, GetThingsFromGroupIdQueryVariables>
         query={getThingsFromGroupId}
         variables={{
@@ -43,48 +54,26 @@ export const Components: React.FunctionComponent<Props> = (props) => {
               </div>
             );
           }
+
+          const rows: ShorthandCollection<
+            TableRowProps,
+            never
+          > = data.getThingsFromGroupId.map((thing, i) => {
+            return {
+              key: i,
+              items: [thing.space, thing.component, thing.topic],
+              onClick: () => routerStore.push(thing.topic),
+            };
+          });
+
           return (
             <>
-              {help ? (
+              {help && (
                 <div className="help-box" data-testid="help-box">
                   <span>{helpText}</span>
                 </div>
-              ) : null}
-              {data.getThingsFromGroupId.map((thing, i) => {
-                return (
-                  <React.Fragment key={i}>
-                    <Link to={thing.topic}>
-                      <div
-                        className="component"
-                        key={i}
-                        data-testid={`component-${i}`}
-                      >
-                        <div
-                          className="component-space"
-                          data-testid={`component-space-${i}`}
-                        >
-                          <span>{thing.space}</span>
-                        </div>
-                        <div
-                          className="component-itself"
-                          data-testid={`component-itself-${i}`}
-                        >
-                          <span>{thing.component}</span>
-                        </div>
-                        <div
-                          className="component-topic"
-                          data-testid={`component-topic-${i}`}
-                          onMouseEnter={() => setHelp(true)}
-                          onMouseLeave={() => setHelp(false)}
-                        >
-                          <span>{thing.topic}</span>
-                        </div>
-                      </div>
-                    </Link>
-                    <Separator />
-                  </React.Fragment>
-                );
-              })}
+              )}
+              <Table header={header} rows={rows} aria-label="Static table" />
             </>
           );
         }}
