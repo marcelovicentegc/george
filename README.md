@@ -22,6 +22,6 @@ George doesn't work out of the box! You need a server to run it on your local ne
 
 For pull requests, check the [contribution guide](docs/CONTRIBUTING.md)
 
-If you want to deploy it on your own server, check the [production instructions](docs/PRODUCTION_DIRECTIONS.md). These instructions apply to Debian-based O.Ss, secifically, Raspberry Pies. If you pretend to run George in production on another O.S. or device, you are on your own, although it shouldn't be a problem to get everything needed to get George up and running in any O.S. or device. Production directions for other platforms are welcome!
+To put George in production on, check the [production instructions](docs/PRODUCTION_DIRECTIONS.md). These instructions apply to Debian-based O.Ss, secifically, Raspberry Pies. If you pretend to run George in production on another O.S. or device, you are on your own, although it shouldn't be a problem to set up everything needed to get George up and running in any O.S. or device. PRs with production directions for other platforms are welcome 😄!
 
 [![Become a patron](./assets/patron.png)](https://www.patreon.com/bePatron?u=34051560)

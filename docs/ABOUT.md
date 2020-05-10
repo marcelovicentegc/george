@@ -94,7 +94,7 @@ MQTT is a machine-to-machine (M2M) data transfer protocol. MQTT was created with
 
 MQTT is a publish/subscribe (PubSub) protocol that allows edge-of-network devices to publish to a broker. Clients connect to this broker, which then mediates communication between the two devices. **Each device can subscribe, or register, to particular topics**. When another client publishes a message on a subscribed topic, the broker forwards the message to any client that has subscribed.
 
-MQQT is bidrectional, and maintains stateful session awareness. If an edge-of-network device loses connectivity, all subscribed clients will be notified with the "Last Will and Testament" feature of the MQTT server so that any authorized client in the system can publish a new value back to the edge-of-network device, maintening bidirectional connectivity.
+MQTT is bidrectional, and maintains stateful session awareness. If an edge-of-network device loses connectivity, all subscribed clients will be notified with the "Last Will and Testament" feature of the MQTT server so that any authorized client in the system can publish a new value back to the edge-of-network device, maintening bidirectional connectivity.
 
 Sources: [Getting started with Node.js and MQTT](https://blog.risingstack.com/getting-started-with-nodejs-and-mqtt/), [ESP8266 and Node-RED with MQTT (Publish and Subscribe)](https://randomnerdtutorials.com/esp8266-and-node-red-with-mqtt/), [CloudMQTT](https://www.cloudmqtt.com/), [Setting up private MQTT broker using Mosca in Node.js](https://medium.com/@alifabdullah/setting-up-private-mqtt-broker-using-mosca-in-node-js-c61a3c74f952)
 
