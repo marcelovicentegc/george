@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   getGroupIdFromUserId,

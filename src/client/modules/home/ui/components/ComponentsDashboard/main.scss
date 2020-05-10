@@ -1,10 +1,10 @@
-.components-dashboard-wrapper {
+.dashboardWrapper {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 76px);
   width: 100%;
 
-  .components-dashboard {
+  .dashboard {
     display: flex;
     align-items: center;
     height: 60px;
