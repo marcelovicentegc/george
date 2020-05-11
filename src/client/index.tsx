@@ -1,7 +1,5 @@
 import * as React from "react";
 import "./main.scss";
-import "antd/lib/button/style/index";
-import "antd/lib/table/style/index";
 import "react-toastify/dist/ReactToastify.css";
 import { render } from "react-dom";
 import { InMemoryCache } from "apollo-cache-inmemory";

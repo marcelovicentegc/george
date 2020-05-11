@@ -71,7 +71,6 @@ module.exports = {
           "sass-loader",
         ],
       },
-      // antd needs it
       {
         test: /\.less$/,
         use: [

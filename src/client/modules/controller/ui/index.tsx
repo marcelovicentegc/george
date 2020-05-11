@@ -2,8 +2,7 @@ import * as React from "react";
 import "./main.scss";
 import { Mutation, Query } from "react-apollo";
 import { toggleThing, getThing } from "../../../../gql";
-import { TableWrapper } from "./components/TableWrapper";
-import { Button } from "@fluentui/react-northstar";
+import { Button, Table } from "@fluentui/react-northstar";
 import { rootStoreContext } from "../../../stores/RootStore";
 import { Loading } from "../../system/Loading";
 import {
@@ -16,8 +15,7 @@ import {
 export type DataSource = [
   {
     key: string;
-    date: string;
-    state: string;
+    items: string[];
   }
 ];
 
@@ -44,18 +42,9 @@ const Controller: React.FunctionComponent = () => {
 
   let currentThingState: string;
 
-  const columns: Column[] = [
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
-    },
-    {
-      title: "State",
-      dataIndex: "state",
-      key: "state",
-    },
-  ];
+  const header = {
+    items: ["Date", "State"],
+  };
 
   return (
     <Query<GetThingQuery, GetThingQueryVariables>
@@ -92,15 +81,13 @@ const Controller: React.FunctionComponent = () => {
               return controllerStore.setDataSource([
                 {
                   key: log.id,
-                  date: log.date,
-                  state: log.state,
+                  items: [log.date, log.state],
                 },
               ]);
             } else if (controllerStore.dataSource) {
               return controllerStore.dataSource.unshift({
                 key: log.id,
-                date: log.date,
-                state: log.state,
+                items: [log.date, log.state],
               });
             }
           });
@@ -142,9 +129,10 @@ const Controller: React.FunctionComponent = () => {
             </div>
             <div className="log-wrapper">
               <div className="log">
-                <TableWrapper
-                  dataSource={controllerStore.dataSource}
-                  columns={columns}
+                <Table
+                  header={header}
+                  rows={controllerStore.dataSource}
+                  aria-label="Static table"
                 />
               </div>
             </div>

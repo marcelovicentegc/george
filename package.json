@@ -96,8 +96,6 @@
     "@graphql-codegen/typescript-operations": "^1.13.1",
     "@graphql-codegen/typescript-react-apollo": "^1.13.1",
     "@types/node-fetch": "^2.5.4",
-    "antd": "^3.26.0",
-    "antd-mobile": "^2.3.1",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
     "apollo-link-error": "^1.1.12",
