@@ -19,12 +19,24 @@ export const Header: React.FC = observer(() => {
   const { data, loading } = useGetUsernameQuery();
   const [mutate] = useLogoutUserMutation();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [headerTitle, setHeaderTitle] = React.useState(georgeAlias);
+  React.useEffect(() => {
+    if (
+      routerStore.location.pathname === BASE_ROUTES.PROFILE ||
+      routerStore.location.pathname === BASE_ROUTES.HOME ||
+      routerStore.location.pathname === BASE_ROUTES.SETTINGS
+    ) {
+      setHeaderTitle(georgeAlias);
+    } else {
+      setHeaderTitle(georgeAlias + " " + routerStore.location.pathname);
+    }
+  }, [routerStore.location.pathname]);
 
   return (
     <header className={s.header}>
       <Flex>
-        <Flex column>
-          <H1 content={georgeAlias} className={s.h1} />
+        <Flex column className={s.column}>
+          <H1 content={headerTitle} className={s.h1} />
           <Menu
             className={s.menu}
             items={[

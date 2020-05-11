@@ -17,8 +17,16 @@ header.header {
     border: none;
   }
 
+  .column {
+    width: 100%;
+  }
+
   .row {
     align-items: flex-end;
-    width: 100%;
+    width: 150px;
+    height: 29px;
+    position: absolute;
+    bottom: 8px;
+    right: 0px;
   }
 }
