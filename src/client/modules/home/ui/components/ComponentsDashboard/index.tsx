@@ -10,7 +10,6 @@ import { Button, Dialog, Form } from "@fluentui/react-northstar";
 import { Mutation } from "react-apollo";
 import { addThing } from "../../../../../../gql/Mutations.graphql";
 import { getThings } from "../../../../../../gql/Queries.graphql";
-import { ErrorMessage } from "../ErrorMessage";
 import { toast } from "react-toastify";
 
 interface Props {
@@ -21,9 +20,6 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
   ({ groupId }) => {
     const [space, setSpace] = React.useState<string>();
     const [component, setComponent] = React.useState<string>();
-    const [errorMessage, setErrorMessage] = React.useState<string | undefined>(
-      undefined
-    );
     const [awaiting, setAwaiting] = React.useState(false);
 
     const isValid = () => {
@@ -73,9 +69,6 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
                   }}
                   content={
                     <>
-                      {errorMessage && (
-                        <ErrorMessage errorMessage={errorMessage} />
-                      )}
                       <Form
                         fields={[
                           {
