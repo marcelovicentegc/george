@@ -4,7 +4,7 @@ import { cleanup, wait } from "@testing-library/react";
 import { renderWithRouter } from "../../../../../../utils/renderWithRouter";
 import { Components } from "..";
 import { act } from "react-dom/test-utils";
-import { mockedGetThingsFromGroupId } from "../../../../../../utils/mockedQueries";
+import { mockedGetThings } from "../../../../../../utils/mockedQueries";
 
 afterEach(cleanup);
 
@@ -26,12 +26,12 @@ describe("<Components /> test case", () => {
   });
 
   test("Renders component with mocked data", async () => {
-    const { container, getByText, findAllByTestId } = renderWithRouter(
+    const { getByText, findAllByTestId } = renderWithRouter(
       <Components groupId={"1"} />,
       {
         route: "/",
       },
-      mockedGetThingsFromGroupId
+      mockedGetThings
     );
 
     const items = await findAllByTestId(/component-[0-9]/);

@@ -2,6 +2,7 @@ import * as React from "react";
 import "./main.scss";
 import "antd/lib/button/style/index";
 import "antd/lib/table/style/index";
+import "react-toastify/dist/ReactToastify.css";
 import { render } from "react-dom";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
@@ -14,6 +15,7 @@ import { Provider as MobxProvider } from "mobx-react";
 import { rootStore } from "./stores/RootStore";
 import { serverPort } from "./config";
 import { Provider as ThemeProvider, themes } from "@fluentui/react-northstar";
+import { ToastContainer } from "react-toastify";
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -40,6 +42,7 @@ const App: React.SFC = () => {
       <MobxProvider {...rootStore}>
         <ThemeProvider theme={themes.teams}>
           <Routes />
+          <ToastContainer />
         </ThemeProvider>
       </MobxProvider>
     </ApolloProvider>

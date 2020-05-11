@@ -6,6 +6,7 @@ import { TriggerLog } from "../../database/entities/TriggerLog.model";
 import { ThingWithTriggerLog } from "../../gql";
 import { QueryResolvers, MutationResolvers } from "../../gql";
 import { User } from "../../database/entities/User.model";
+import { DeepPartial } from "typeorm";
 
 const queries: QueryResolvers = {
   getThings: async (_, { groupId }) => {
@@ -103,7 +104,7 @@ const mutations: MutationResolvers = {
       space,
       component,
       topic: spaceSlug + "/" + componentSlug,
-      user,
+      user: userId as any,
       triggerLog: [],
     });
 

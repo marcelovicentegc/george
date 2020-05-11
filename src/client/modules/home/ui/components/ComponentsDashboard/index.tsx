@@ -11,6 +11,7 @@ import { Mutation } from "react-apollo";
 import { addThing } from "../../../../../../gql/Mutations.graphql";
 import { getThings } from "../../../../../../gql/Queries.graphql";
 import { ErrorMessage } from "../ErrorMessage";
+import { toast } from "react-toastify";
 
 interface Props {
   groupId: string;
@@ -40,13 +41,13 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
             <Mutation<AddThingMutation, AddThingMutationVariables>
               mutation={addThing}
               onError={(error) => {
-                setErrorMessage(error.message);
+                toast(error.message);
               }}
               refetchQueries={[
                 {
                   query: getThings,
                   variables: {
-                    id: groupId,
+                    groupId,
                   },
                 },
               ]}
@@ -65,10 +66,8 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
                           space,
                           component,
                         },
-                      }).then(() => {
-                        if (!errorMessage) {
-                          setAwaiting(false);
-                        }
+                      }).finally(() => {
+                        setAwaiting(false);
                       });
                     }
                   }}
