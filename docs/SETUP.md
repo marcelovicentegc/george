@@ -1,4 +1,7 @@
-# Setting IoTs up 🏗
+---
+id: iot
+title: IoT setup
+---
 
 ## ESP8266
 

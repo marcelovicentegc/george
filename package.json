@@ -26,6 +26,7 @@
     "test-server:alone": "concurrently --kill-others --success first \"npm run start:server\" \"npm run test-server:wait\"",
     "start": "cross-env NODE_ENV=development concurrently \"npm run start:server\" \"npm run start:client:wait\"",
     "start-with-e2e": "cross-env concurrently NODE_ENV=development \"npm run start:server\" \"npm run client:wait\" \"npm run e2e:wait\" ",
+    "doc-init": "docusaurus-init",
     "launch": "cross-env NODE_ENV=production node ./dist/server/index.js"
   },
   "devDependencies": {
@@ -59,6 +60,7 @@
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.1",
     "cypress": "^3.7.0",
+    "docusaurus-init": "^1.14.1",
     "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.5",

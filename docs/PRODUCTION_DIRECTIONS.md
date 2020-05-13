@@ -1,4 +1,7 @@
-# Production directions 🖥
+---
+id: setup
+title: 🖥 Setup
+---
 
 ## Raspberry Pi setup 😋
 

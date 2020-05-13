@@ -7,3 +7,4 @@ yarn-error.log
 *.out
 *.sqlite3
 coverage
+yarn.lock

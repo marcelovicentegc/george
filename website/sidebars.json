@@ -1,0 +1,9 @@
+{
+  "docs": {
+    "Getting started": ["about"],
+    "Production directions": ["config", "setup", "iot"]
+  },
+  "docs-other": {
+    "First Category": ["doc4", "doc5"]
+  }
+}
