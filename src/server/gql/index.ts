@@ -63,6 +63,7 @@ export type Query = {
   getUserId?: Maybe<Scalars['String']>;
   getUsers?: Maybe<Array<Maybe<User>>>;
   getUsername?: Maybe<Scalars['String']>;
+  getProfileAvatar?: Maybe<Scalars['String']>;
   getGroupId?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
   getThing?: Maybe<Thing>;
@@ -72,6 +73,11 @@ export type Query = {
 
 
 export type QueryGetUsernameArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetProfileAvatarArgs = {
   userId?: Maybe<Scalars['String']>;
 };
 
@@ -267,6 +273,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getUserId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   getUsername?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetUsernameArgs, never>>,
+  getProfileAvatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetProfileAvatarArgs, never>>,
   getGroupId?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupIdArgs, never>>,
   getThings?: Resolver<Maybe<Array<Maybe<ResolversTypes['Thing']>>>, ParentType, ContextType, RequireFields<QueryGetThingsArgs, 'groupId'>>,
   getThing?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType, RequireFields<QueryGetThingArgs, 'topic'>>,

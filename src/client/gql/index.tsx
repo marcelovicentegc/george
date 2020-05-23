@@ -68,6 +68,7 @@ export type Query = {
   getUserId?: Maybe<Scalars['String']>;
   getUsers?: Maybe<Array<Maybe<User>>>;
   getUsername?: Maybe<Scalars['String']>;
+  getProfileAvatar?: Maybe<Scalars['String']>;
   getGroupId?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
   getThing?: Maybe<Thing>;
@@ -77,6 +78,11 @@ export type Query = {
 
 
 export type QueryGetUsernameArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetProfileAvatarArgs = {
   userId?: Maybe<Scalars['String']>;
 };
 
@@ -212,6 +218,16 @@ export type GetUsersQuery = (
     { __typename?: 'User' }
     & Pick<User, 'username'>
   )>>> }
+);
+
+export type GetProfileAvatarQueryVariables = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type GetProfileAvatarQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'getProfileAvatar'>
 );
 
 export type GetGroupIdQueryVariables = {
@@ -625,6 +641,54 @@ export function useGetUsersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
+export const GetProfileAvatarDocument = gql`
+    query GetProfileAvatar($userId: String) {
+  getProfileAvatar(userId: $userId)
+}
+    `;
+export type GetProfileAvatarComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetProfileAvatarQuery, GetProfileAvatarQueryVariables>, 'query'>;
+
+    export const GetProfileAvatarComponent = (props: GetProfileAvatarComponentProps) => (
+      <ApolloReactComponents.Query<GetProfileAvatarQuery, GetProfileAvatarQueryVariables> query={GetProfileAvatarDocument} {...props} />
+    );
+    
+export type GetProfileAvatarProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetProfileAvatarQuery, GetProfileAvatarQueryVariables> & TChildProps;
+export function withGetProfileAvatar<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetProfileAvatarQuery,
+  GetProfileAvatarQueryVariables,
+  GetProfileAvatarProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetProfileAvatarQuery, GetProfileAvatarQueryVariables, GetProfileAvatarProps<TChildProps>>(GetProfileAvatarDocument, {
+      alias: 'getProfileAvatar',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetProfileAvatarQuery__
+ *
+ * To run a query within a React component, call `useGetProfileAvatarQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProfileAvatarQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProfileAvatarQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetProfileAvatarQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetProfileAvatarQuery, GetProfileAvatarQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetProfileAvatarQuery, GetProfileAvatarQueryVariables>(GetProfileAvatarDocument, baseOptions);
+      }
+export function useGetProfileAvatarLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetProfileAvatarQuery, GetProfileAvatarQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetProfileAvatarQuery, GetProfileAvatarQueryVariables>(GetProfileAvatarDocument, baseOptions);
+        }
+export type GetProfileAvatarQueryHookResult = ReturnType<typeof useGetProfileAvatarQuery>;
+export type GetProfileAvatarLazyQueryHookResult = ReturnType<typeof useGetProfileAvatarLazyQuery>;
+export type GetProfileAvatarQueryResult = ApolloReactCommon.QueryResult<GetProfileAvatarQuery, GetProfileAvatarQueryVariables>;
 export const GetGroupIdDocument = gql`
     query GetGroupId($userId: String) {
   getGroupId(userId: $userId) {

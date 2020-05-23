@@ -20,6 +20,12 @@ export const getUsers = gql`
   }
 `;
 
+export const getProfileAvatar = gql`
+  query GetProfileAvatar($userId: String) {
+    getProfileAvatar(userId: $userId)
+  }
+`;
+
 export const getGroupIdFromUserId = gql`
   query GetGroupId($userId: String) {
     getGroupId(userId: $userId) {
