@@ -7,7 +7,7 @@ import {
   AddThingMutationVariables,
   Controller,
 } from "../../../gql";
-import { Button, Dialog, Form } from "@fluentui/react-northstar";
+import { Button, Dialog, Form, Dropdown } from "@fluentui/react-northstar";
 import { Mutation } from "react-apollo";
 import { addThing } from "../../../../gql/Mutations.graphql";
 import { getThings } from "../../../../gql/Queries.graphql";
@@ -17,19 +17,38 @@ interface Props {
   groupId: string;
 }
 
-export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
+export const Dashboard: React.FunctionComponent<Props> = observer(
   ({ groupId }) => {
     const [space, setSpace] = React.useState<string>();
     const [component, setComponent] = React.useState<string>();
+    const [controller, setController] = React.useState<Controller>(
+      Controller.Switch
+    );
+    const [controllerOptions, setControllerOptions] = React.useState<string[]>(
+      []
+    );
     const [awaiting, setAwaiting] = React.useState(false);
+    React.useEffect(() => {
+      const options: string[] = [];
+
+      // tslint:disable-next-line:forin
+      for (const option in Controller) {
+        options.push(option);
+      }
+
+      setControllerOptions(options);
+    }, []);
 
     const isValid = () => {
-      if (space && component) {
+      if (space && component && controller) {
         return true;
       } else {
         return false;
       }
     };
+
+    const controllerLabelId = "choose-controller";
+    const controllerId = "choose-controller-id";
 
     return (
       <>
@@ -62,11 +81,13 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
                         variables: {
                           space,
                           component,
-                          controller: Controller.Switch,
+                          controller,
                         },
                       }).finally(() => {
                         setAwaiting(false);
                       });
+                    } else {
+                      toast("You must fill in every input field.");
                     }
                   }}
                   content={
@@ -96,6 +117,30 @@ export const ComponentsDashboard: React.FunctionComponent<Props> = observer(
                               e: React.ChangeEvent<HTMLInputElement>
                             ) => {
                               setComponent(e.target.value);
+                            },
+                          },
+                          {
+                            label: "Controller",
+                            name: "controller",
+                            id: "controller",
+                            key: controllerId,
+                            type: "controller",
+                            control: {
+                              as: Dropdown,
+                              items: controllerOptions,
+                              "aria-labelledby": controllerLabelId,
+                              search: true,
+                              placeholder: "Choose a controller type",
+                              searchInput: {
+                                id: controllerId, // id needs to end up on the search input.
+                              },
+                              id: undefined, // not on the main wrapper element.
+                            },
+                            required: true,
+                            onChange: (
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              setController(e.target.value as Controller);
                             },
                           },
                         ]}

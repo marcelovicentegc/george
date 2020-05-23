@@ -84,7 +84,7 @@ const queries: QueryResolvers = {
 };
 
 const mutations: MutationResolvers = {
-  addThing: async (_, { space, component }, { req }: Context) => {
+  addThing: async (_, { space, component, controller }, { req }: Context) => {
     const userId = req.session.userId;
 
     if (!userId) {
@@ -103,6 +103,7 @@ const mutations: MutationResolvers = {
     const thing = Thing.create({
       space,
       component,
+      controller,
       topic: spaceSlug + "/" + componentSlug,
       user: userId as any,
       triggerLog: [],
