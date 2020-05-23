@@ -1,16 +1,16 @@
 import * as React from "react";
 import "./main.scss";
 import { Mutation, Query } from "react-apollo";
-import { toggleThing, getThing } from "../../../../gql";
+import { toggleThing, getThing } from "../../../gql";
 import { Button, Table } from "@fluentui/react-northstar";
-import { rootStoreContext } from "../../../stores/RootStore";
-import { Loading } from "../../system/Loading";
+import { rootStoreContext } from "../../stores/RootStore";
+import { Loading } from "../system/Loading";
 import {
   GetThingQuery,
   GetThingQueryVariables,
   ToggleThingMutation,
   ToggleThingMutationVariables,
-} from "../../../gql";
+} from "../../gql";
 
 export type DataSource = [
   {

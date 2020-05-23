@@ -2,7 +2,7 @@
 
 ## Who/what is George? 🤷‍♂
 
-George is a home automation assistant built to run at your local network. It can aid you on automating your home, offering itself to manage which switches should be turned on or off, log that data to a database and give you insights about energy consumption. It can also integrate with Alexa, in case you don't feel like pushing buttons.
+George is a home automation assistant built to run at your local network. It can aid you on automating your home, offering itself to manage which switches should be turned on or off, log that data to a database and give you insights about energy consumption. It can also integrate with A.I. assistants, in case you don't feel like pushing buttons.
 
 George doesn't work out of the box! You need a server to run it on your local network and at least one IoT device.
 

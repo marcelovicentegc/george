@@ -1,18 +1,14 @@
 import * as React from "react";
 import * as s from "./main.scss";
 import { Query } from "react-apollo";
-import { getThings } from "../../../../../../gql/Queries.graphql";
+import { getThings } from "../../../../gql/Queries.graphql";
 import {
   Table,
   TableRowProps,
   ShorthandCollection,
 } from "@fluentui/react-northstar";
-import {
-  GetGroupIdQueryVariables,
-  GetThingsQuery,
-  GetThingsQueryVariables,
-} from "../../../../../gql";
-import { rootStoreContext } from "../../../../../stores/RootStore";
+import { GetThingsQuery, GetThingsQueryVariables } from "../../../gql";
+import { rootStoreContext } from "../../../stores/RootStore";
 
 interface Props {
   groupId: string;

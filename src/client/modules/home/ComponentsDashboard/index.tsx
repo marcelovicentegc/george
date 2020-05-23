@@ -2,14 +2,11 @@ import * as React from "react";
 import * as s from "./main.scss";
 import { observer } from "mobx-react";
 import { Components } from "../Components";
-import {
-  AddThingMutation,
-  AddThingMutationVariables,
-} from "../../../../../gql";
+import { AddThingMutation, AddThingMutationVariables } from "../../../gql";
 import { Button, Dialog, Form } from "@fluentui/react-northstar";
 import { Mutation } from "react-apollo";
-import { addThing } from "../../../../../../gql/Mutations.graphql";
-import { getThings } from "../../../../../../gql/Queries.graphql";
+import { addThing } from "../../../../gql/Mutations.graphql";
+import { getThings } from "../../../../gql/Queries.graphql";
 import { toast } from "react-toastify";
 
 interface Props {

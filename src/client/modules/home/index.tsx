@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as s from "./main.scss";
-import { ComponentsDashboard } from "./components/ComponentsDashboard";
+import { ComponentsDashboard } from "./ComponentsDashboard";
 
 interface Props {
   groupId: string;

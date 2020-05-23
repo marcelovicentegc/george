@@ -17,9 +17,9 @@ import {
 import { Header } from "../modules/system/Header";
 import { BASE_ROUTES } from "../utils/routes";
 import { rootStore } from "../stores/RootStore";
-const Auth = React.lazy(() => import("../modules/auth/ui"));
-const Home = React.lazy(() => import("../modules/home/ui"));
-const Controller = React.lazy(() => import("../modules/controller/ui"));
+const Auth = React.lazy(() => import("../modules/auth"));
+const Home = React.lazy(() => import("../modules/home"));
+const Controller = React.lazy(() => import("../modules/controller"));
 
 export const Routes: React.FC = () => {
   return (

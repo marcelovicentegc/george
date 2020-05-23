@@ -1,6 +1,6 @@
 import { observable, action } from "mobx";
 import { RootStore } from "./RootStore";
-import { DataSource } from "../modules/controller/ui";
+import { DataSource } from "../modules/controller";
 
 export class ControllerStore {
   protected rootStore: RootStore;
