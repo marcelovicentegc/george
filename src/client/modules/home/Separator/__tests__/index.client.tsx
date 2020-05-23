@@ -1,7 +1,7 @@
 import * as React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { cleanup } from "@testing-library/react";
-import { renderWithRouter } from "../../../../../../utils/renderWithRouter";
+import { renderWithRouter } from "../../../../utils/renderWithRouter";
 import { Separator } from "..";
 
 afterEach(cleanup);
