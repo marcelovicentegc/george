@@ -15,6 +15,10 @@ export type Scalars = {
   Float: number;
 };
 
+export enum Controller {
+  Switch = 'SWITCH'
+}
+
 export type Group = {
    __typename?: 'Group';
   id: Scalars['String'];
@@ -41,6 +45,7 @@ export type MutationLoginUserArgs = {
 export type MutationAddThingArgs = {
   space: Scalars['String'];
   component: Scalars['String'];
+  controller: Controller;
 };
 
 
@@ -95,6 +100,7 @@ export type Thing = {
   id: Scalars['ID'];
   space: Scalars['String'];
   component: Scalars['String'];
+  controller: Controller;
   topic?: Maybe<Scalars['String']>;
   triggerLog?: Maybe<Array<Maybe<TriggerLog>>>;
 };
@@ -147,6 +153,7 @@ export type LogoutUserMutation = (
 export type AddThingMutationVariables = {
   space: Scalars['String'];
   component: Scalars['String'];
+  controller: Controller;
 };
 
 
@@ -355,8 +362,8 @@ export type LogoutUserMutationHookResult = ReturnType<typeof useLogoutUserMutati
 export type LogoutUserMutationResult = ApolloReactCommon.MutationResult<LogoutUserMutation>;
 export type LogoutUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutUserMutation, LogoutUserMutationVariables>;
 export const AddThingDocument = gql`
-    mutation AddThing($space: String!, $component: String!) {
-  addThing(space: $space, component: $component)
+    mutation AddThing($space: String!, $component: String!, $controller: Controller!) {
+  addThing(space: $space, component: $component, controller: $controller)
 }
     `;
 export type AddThingMutationFn = ApolloReactCommon.MutationFunction<AddThingMutation, AddThingMutationVariables>;
@@ -393,6 +400,7 @@ export function withAddThing<TProps, TChildProps = {}>(operationOptions?: Apollo
  *   variables: {
  *      space: // value for 'space'
  *      component: // value for 'component'
+ *      controller: // value for 'controller'
  *   },
  * });
  */

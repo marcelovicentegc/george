@@ -1,6 +1,6 @@
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
-import { QueryResolvers } from "../../gql";
+import { QueryResolvers, Group } from "../../gql";
 import { Context } from "../../utils";
 
 const queries: QueryResolvers = {

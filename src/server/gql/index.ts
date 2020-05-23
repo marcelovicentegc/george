@@ -10,6 +10,10 @@ export type Scalars = {
   Float: number;
 };
 
+export enum Controller {
+  Switch = 'SWITCH'
+}
+
 export type Group = {
    __typename?: 'Group';
   id: Scalars['String'];
@@ -36,6 +40,7 @@ export type MutationLoginUserArgs = {
 export type MutationAddThingArgs = {
   space: Scalars['String'];
   component: Scalars['String'];
+  controller: Controller;
 };
 
 
@@ -90,6 +95,7 @@ export type Thing = {
   id: Scalars['ID'];
   space: Scalars['String'];
   component: Scalars['String'];
+  controller: Controller;
   topic?: Maybe<Scalars['String']>;
   triggerLog?: Maybe<Array<Maybe<TriggerLog>>>;
 };
@@ -196,6 +202,7 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Thing: ResolverTypeWrapper<Thing>,
+  Controller: Controller,
   TriggerLog: ResolverTypeWrapper<TriggerLog>,
   ThingWithTriggerLog: ResolverTypeWrapper<ThingWithTriggerLog>,
   Mutation: ResolverTypeWrapper<{}>,
@@ -210,6 +217,7 @@ export type ResolversParentTypes = {
   User: User,
   ID: Scalars['ID'],
   Thing: Thing,
+  Controller: Controller,
   TriggerLog: TriggerLog,
   ThingWithTriggerLog: ThingWithTriggerLog,
   Mutation: {},
@@ -227,7 +235,7 @@ export type GroupResolvers<ContextType = any, ParentType extends ResolversParent
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   loginUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'username' | 'password'>>,
   logoutUser?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  addThing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAddThingArgs, 'space' | 'component'>>,
+  addThing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAddThingArgs, 'space' | 'component' | 'controller'>>,
   toggleThing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationToggleThingArgs, 'toggle' | 'topic'>>,
 };
 
@@ -245,6 +253,7 @@ export type ThingResolvers<ContextType = any, ParentType extends ResolversParent
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   space?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   component?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  controller?: Resolver<ResolversTypes['Controller'], ParentType, ContextType>,
   topic?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   triggerLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['TriggerLog']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,

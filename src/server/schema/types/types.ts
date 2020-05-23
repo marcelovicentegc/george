@@ -16,10 +16,15 @@ export const types = gql`
     things: [Thing]
   }
 
+  enum Controller {
+    SWITCH
+  }
+
   type Thing {
     id: ID!
     space: String!
     component: String!
+    controller: Controller!
     topic: String
     triggerLog: [TriggerLog]
   }

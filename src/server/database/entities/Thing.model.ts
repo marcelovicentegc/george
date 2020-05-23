@@ -9,6 +9,7 @@ import {
 import { Group } from "./Group.model";
 import { User } from "./User.model";
 import { TriggerLog } from "./TriggerLog.model";
+import { Controller } from "../../gql";
 
 @Entity("component")
 export class Thing extends BaseEntity {
@@ -20,6 +21,9 @@ export class Thing extends BaseEntity {
 
   @Column()
   public component: string;
+
+  @Column("text")
+  public controller: Controller;
 
   @Column()
   public topic: string;
