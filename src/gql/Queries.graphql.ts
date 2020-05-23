@@ -12,6 +12,14 @@ export const getUsername = gql`
   }
 `;
 
+export const getUsers = gql`
+  query GetUsers {
+    getUsers {
+      username
+    }
+  }
+`;
+
 export const getGroupIdFromUserId = gql`
   query GetGroupId($userId: String) {
     getGroupId(userId: $userId) {

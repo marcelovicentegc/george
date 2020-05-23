@@ -3,9 +3,12 @@ import {
   Column,
   Entity,
   ManyToOne,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
 import { Group } from "./Group.model";
+import { Profile } from "./Profile.model";
 
 @Entity("user")
 export class User extends BaseEntity {
@@ -18,6 +21,10 @@ export class User extends BaseEntity {
   @Column()
   public password: string;
 
-  @ManyToOne(() => Group, group => group.users)
+  @OneToOne(() => Profile)
+  @JoinColumn()
+  public profile: Profile;
+
+  @ManyToOne(() => Group, (group) => group.users)
   public group: Group;
 }

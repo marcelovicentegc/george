@@ -12,8 +12,7 @@ import {
   ConnectionOptions,
 } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
-import { Group } from "./database/entities/Group.model";
-import { User } from "./database/entities/User.model";
+import { User, Group, Profile } from "./database/entities";
 import { redis } from "./redis";
 import { schema } from "./schema";
 import {
@@ -24,6 +23,7 @@ import {
   redisSecret,
 } from "./config";
 import { Context } from "./utils";
+import { v1 } from "uuid";
 
 const log = console.log;
 
@@ -56,6 +56,11 @@ const startServer = async () => {
         });
         await group.save();
         log("Created default group");
+
+        const profile = Profile.create({
+          avatarUrl: `https://avatars.dicebear.com/v2/jdenticon/${v1()}.svg`,
+        });
+        await profile.save();
 
         const hashedPassword = await bcrypt.hash("admin", 12);
         const user = await User.create({

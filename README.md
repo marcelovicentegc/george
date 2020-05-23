@@ -19,6 +19,7 @@ George doesn't work out of the box! You need a server to run it on your local ne
 5. By default, the MQTT broker runs on port 1883, the server runs on port 4000, and the client on the port 3000. Check the [configuration guide](/docs/CONFIGURATION.md) if you want to change some configuration.
 6. You're good to go. Run: `npm start`
 7. A default user will be created every time upon start. It has `admin` as username and password.
+8. To generate new types, first change the types on `src/server/schema/types/`, run `npm run gen` while George is up and running, and add the query or mutation on `src/gql/` files if necessary.
 
 ## Pull requests 🌳
 

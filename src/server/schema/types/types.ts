@@ -1,12 +1,20 @@
 import gql from "graphql-tag";
 
 export const types = gql`
-  # https://github.com/apollographql/graphql-tools/issues/764
+  scalar Upload
 
   type User {
     id: ID!
+    profile: Profile!
     username: String!
     password: String!
+  }
+
+  type Profile {
+    id: ID!
+    avatar: Upload
+    avatarUrl: String
+    name: String
   }
 
   type Group {

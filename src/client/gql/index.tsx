@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Upload: any;
 };
 
 export enum Controller {
@@ -54,9 +55,18 @@ export type MutationToggleThingArgs = {
   topic: Scalars['String'];
 };
 
+export type Profile = {
+   __typename?: 'Profile';
+  id: Scalars['ID'];
+  avatar?: Maybe<Scalars['Upload']>;
+  avatarUrl?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
    __typename?: 'Query';
   getUserId?: Maybe<Scalars['String']>;
+  getUsers?: Maybe<Array<Maybe<User>>>;
   getUsername?: Maybe<Scalars['String']>;
   getGroupId?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
@@ -121,9 +131,11 @@ export type TriggerLog = {
   thingId: Scalars['String'];
 };
 
+
 export type User = {
    __typename?: 'User';
   id: Scalars['ID'];
+  profile: Profile;
   username: Scalars['String'];
   password: Scalars['String'];
 };
@@ -189,6 +201,17 @@ export type GetUsernameQueryVariables = {
 export type GetUsernameQuery = (
   { __typename?: 'Query' }
   & Pick<Query, 'getUsername'>
+);
+
+export type GetUsersQueryVariables = {};
+
+
+export type GetUsersQuery = (
+  { __typename?: 'Query' }
+  & { getUsers?: Maybe<Array<Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'username'>
+  )>>> }
 );
 
 export type GetGroupIdQueryVariables = {
@@ -553,6 +576,55 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
+export const GetUsersDocument = gql`
+    query GetUsers {
+  getUsers {
+    username
+  }
+}
+    `;
+export type GetUsersComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetUsersQuery, GetUsersQueryVariables>, 'query'>;
+
+    export const GetUsersComponent = (props: GetUsersComponentProps) => (
+      <ApolloReactComponents.Query<GetUsersQuery, GetUsersQueryVariables> query={GetUsersDocument} {...props} />
+    );
+    
+export type GetUsersProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetUsersQuery, GetUsersQueryVariables> & TChildProps;
+export function withGetUsers<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetUsersQuery,
+  GetUsersQueryVariables,
+  GetUsersProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetUsersQuery, GetUsersQueryVariables, GetUsersProps<TChildProps>>(GetUsersDocument, {
+      alias: 'getUsers',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetUsersQuery__
+ *
+ * To run a query within a React component, call `useGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUsersQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
+      }
+export function useGetUsersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, baseOptions);
+        }
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
+export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
+export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const GetGroupIdDocument = gql`
     query GetGroupId($userId: String) {
   getGroupId(userId: $userId) {

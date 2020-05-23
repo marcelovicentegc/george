@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -8,6 +8,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Upload: any;
 };
 
 export enum Controller {
@@ -49,9 +50,18 @@ export type MutationToggleThingArgs = {
   topic: Scalars['String'];
 };
 
+export type Profile = {
+   __typename?: 'Profile';
+  id: Scalars['ID'];
+  avatar?: Maybe<Scalars['Upload']>;
+  avatarUrl?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
    __typename?: 'Query';
   getUserId?: Maybe<Scalars['String']>;
+  getUsers?: Maybe<Array<Maybe<User>>>;
   getUsername?: Maybe<Scalars['String']>;
   getGroupId?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
@@ -116,9 +126,11 @@ export type TriggerLog = {
   thingId: Scalars['String'];
 };
 
+
 export type User = {
    __typename?: 'User';
   id: Scalars['ID'];
+  profile: Profile;
   username: Scalars['String'];
   password: Scalars['String'];
 };
@@ -198,9 +210,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
-  Group: ResolverTypeWrapper<Group>,
   User: ResolverTypeWrapper<User>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
+  Profile: ResolverTypeWrapper<Profile>,
+  Upload: ResolverTypeWrapper<Scalars['Upload']>,
+  Group: ResolverTypeWrapper<Group>,
   Thing: ResolverTypeWrapper<Thing>,
   Controller: Controller,
   TriggerLog: ResolverTypeWrapper<TriggerLog>,
@@ -213,9 +227,11 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Query: {},
   String: Scalars['String'],
-  Group: Group,
   User: User,
   ID: Scalars['ID'],
+  Profile: Profile,
+  Upload: Scalars['Upload'],
+  Group: Group,
   Thing: Thing,
   Controller: Controller,
   TriggerLog: TriggerLog,
@@ -239,8 +255,17 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   toggleThing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationToggleThingArgs, 'toggle' | 'topic'>>,
 };
 
+export type ProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  avatar?: Resolver<Maybe<ResolversTypes['Upload']>, ParentType, ContextType>,
+  avatarUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getUserId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   getUsername?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetUsernameArgs, never>>,
   getGroupId?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupIdArgs, never>>,
   getThings?: Resolver<Maybe<Array<Maybe<ResolversTypes['Thing']>>>, ParentType, ContextType, RequireFields<QueryGetThingsArgs, 'groupId'>>,
@@ -275,8 +300,13 @@ export type TriggerLogResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
+  name: 'Upload'
+}
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  profile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType>,
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
@@ -285,10 +315,12 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 export type Resolvers<ContextType = any> = {
   Group?: GroupResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
+  Profile?: ProfileResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Thing?: ThingResolvers<ContextType>,
   ThingWithTriggerLog?: ThingWithTriggerLogResolvers<ContextType>,
   TriggerLog?: TriggerLogResolvers<ContextType>,
+  Upload?: GraphQLScalarType,
   User?: UserResolvers<ContextType>,
 };
 
