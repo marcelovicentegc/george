@@ -1,8 +1,12 @@
-# george 💁‍♂
+<p align="center">
+  <img alt="george logo" src="assets/george-sq.png" height="150" />
+  <h3 align="center">george</h3>
+  <p align="center">A configurable DIY home automation, assistance and analytics project with plugs for IoT devices.</p>
+</p>
 
-## Who/what is George? 🤷‍♂
+---
 
-George is a home automation assistant built to run at your local network. It can aid you on automating your home, offering itself to manage which switches should be turned on or off, log that data to a database and give you insights about energy consumption. It can also integrate with A.I. assistants, in case you don't feel like pushing buttons.
+George can aid you on automating your home, offering itself to manage which switches should be turned on or off, log that data to a database and give you insights about energy consumption. It can also integrate with A.I. assistants, in case you don't feel like pushing buttons.
 
 George doesn't work out of the box! You need a server to run it on your local network and at least one IoT device.
 
