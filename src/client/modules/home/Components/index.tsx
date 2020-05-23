@@ -9,6 +9,7 @@ import {
 } from "@fluentui/react-northstar";
 import { GetThingsQuery, GetThingsQueryVariables } from "../../../gql";
 import { rootStoreContext } from "../../../stores/RootStore";
+import { TableWrapper } from "../../system/TableWrapper";
 
 interface Props {
   groupId: string;
@@ -25,7 +26,7 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
   };
 
   return (
-    <div className={s.components} data-testid="components">
+    <TableWrapper id={s.componentsWrapper} data-testid="components">
       <Query<GetThingsQuery, GetThingsQueryVariables>
         query={getThings}
         variables={{
@@ -68,6 +69,6 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
           );
         }}
       </Query>
-    </div>
+    </TableWrapper>
   );
 };

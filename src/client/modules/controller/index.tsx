@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./main.scss";
+import * as s from "./main.scss";
 import { Mutation, Query } from "react-apollo";
 import { toggleThing, getThing } from "../../../gql";
 import { Button, Table } from "@fluentui/react-northstar";
@@ -11,6 +11,7 @@ import {
   ToggleThingMutation,
   ToggleThingMutationVariables,
 } from "../../gql";
+import { TableWrapper } from "../system/TableWrapper";
 
 export type DataSource = [
   {
@@ -93,8 +94,8 @@ const Controller: React.FunctionComponent = () => {
           });
 
         return (
-          <div className="controller-wrapper">
-            <div className="controller">
+          <div className={s.dashboardWrapper}>
+            <div className={s.dashboard}>
               <Mutation<ToggleThingMutation, ToggleThingMutationVariables>
                 mutation={toggleThing}
                 refetchQueries={[
@@ -108,6 +109,8 @@ const Controller: React.FunctionComponent = () => {
               >
                 {(mutate) => (
                   <Button
+                    circular
+                    content={awaiting ? "..." : thingState ? "Off" : "On"}
                     onClick={async () => {
                       if (!awaiting) {
                         setAwaiting(true);
@@ -120,22 +123,17 @@ const Controller: React.FunctionComponent = () => {
                         }).finally(() => setAwaiting(false));
                       }
                     }}
-                  >
-                    {awaiting ? "..." : thingState ? "Off" : "On"}
-                  </Button>
+                  />
                 )}
               </Mutation>
-              <span>{data.getThing.topic}</span>
             </div>
-            <div className="log-wrapper">
-              <div className="log">
-                <Table
-                  header={header}
-                  rows={controllerStore.dataSource}
-                  aria-label="Static table"
-                />
-              </div>
-            </div>
+            <TableWrapper id={s.logWrapper}>
+              <Table
+                header={header}
+                rows={controllerStore.dataSource}
+                aria-label="Static table"
+              />
+            </TableWrapper>
           </div>
         );
       }}

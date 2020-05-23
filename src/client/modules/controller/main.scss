@@ -1,13 +1,5 @@
-.controller-wrapper {
-  height: calc(100% - 80px);
-  padding: 20px;
+@import "../styles/mixins.scss";
 
-  .controller {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 15px;
-  }
+.dashboardWrapper {
+  @include dashboardWrapper();
 }
