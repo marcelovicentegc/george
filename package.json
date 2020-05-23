@@ -13,6 +13,7 @@
     "build": "rimraf dist && webpack --config webpack.config.js && tsc --p tsconfig.server.json ",
     "start:client": "webpack-dev-server --progress",
     "start:client:wait": "wait-on tcp:${SERVER_PORT:-4000} && npm run start:client",
+    "start:docs": "cd website && npm start",
     "gen:client": "wait-on tcp:${SERVER_PORT:-4000} && graphql-codegen --config codegen-client.yml",
     "gen:server": "wait-on tcp:${SERVER_PORT:-4000} && graphql-codegen --config codegen-server.yml",
     "gen": "npm run gen:server && npm run gen:client",
