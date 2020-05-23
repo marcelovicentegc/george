@@ -67,6 +67,7 @@ const startServer = async () => {
           username: "admin",
           password: hashedPassword,
           group,
+          profile,
         });
 
         await user.save();

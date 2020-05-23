@@ -12,11 +12,22 @@ import { rootStoreContext } from "../../../stores/RootStore";
 import { BASE_ROUTES } from "../../../utils/routes";
 import { georgeAlias } from "../../../config";
 import { observer } from "mobx-react";
-import { useGetUsernameQuery, useLogoutUserMutation } from "../../../gql";
+import {
+  useGetUsernameQuery,
+  useLogoutUserMutation,
+  useGetProfileAvatarQuery,
+} from "../../../gql";
 
 export const Header: React.FC = observer(() => {
   const { routerStore } = React.useContext(rootStoreContext);
-  const { data, loading } = useGetUsernameQuery();
+  const {
+    data: avatarData,
+    loading: avatarLoading,
+  } = useGetProfileAvatarQuery();
+  const {
+    data: usernameData,
+    loading: usernameLoading,
+  } = useGetUsernameQuery();
   const [mutate] = useLogoutUserMutation();
   const [isLoading, setIsLoading] = React.useState(false);
   const [headerTitle, setHeaderTitle] = React.useState(georgeAlias);
@@ -66,9 +77,14 @@ export const Header: React.FC = observer(() => {
           />
         </Flex>
         <Flex hAlign={"end"} className={s.row}>
-          {loading && <Loader />}
-          {data && data.getUsername && (
-            <Avatar name={data.getUsername.toUpperCase()} />
+          {(avatarLoading || usernameLoading) && <Loader />}
+          {avatarData && avatarData.getProfileAvatar ? (
+            <Avatar image={avatarData.getProfileAvatar} />
+          ) : (
+            usernameData &&
+            usernameData.getUsername && (
+              <Avatar name={usernameData.getUsername.toUpperCase()} />
+            )
           )}
           <Button
             content="Logout"
