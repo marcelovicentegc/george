@@ -25,9 +25,9 @@ const queries: QueryResolvers = {
   getThing: async (_, { topic }) => {
     const thing = await Thing.findOne({
       where: { topic },
-      relations: ["triggerLog"],
+      relations: ["triggerLog", "triggerLog.user"],
     });
-    // if (!thing) return new Error("This component doesn't exist.");
+
     return thing;
   },
   getThingsWithTriggerLog: async (_, { id }) => {
@@ -123,12 +123,12 @@ const mutations: MutationResolvers = {
       .replace(/T/, " ")
       .replace(/\..+/, "");
 
-    const triggerLog = await TriggerLog.create({
+    const triggerLog = TriggerLog.create({
       state,
       date,
       thing,
       thingId: thing.id,
-      userId,
+      user: userId as any,
     });
 
     await triggerLog.save();

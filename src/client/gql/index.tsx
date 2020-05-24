@@ -134,8 +134,8 @@ export type TriggerLog = {
   id: Scalars['ID'];
   state: Scalars['String'];
   date: Scalars['String'];
+  user: User;
   thingId: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 
@@ -145,6 +145,7 @@ export type User = {
   profile: Profile;
   username: Scalars['String'];
   password: Scalars['String'];
+  activity?: Maybe<Array<Maybe<TriggerLog>>>;
 };
 
 export type LoginUserMutationVariables = {
@@ -274,6 +275,10 @@ export type GetThingQuery = (
     & { triggerLog?: Maybe<Array<Maybe<(
       { __typename?: 'TriggerLog' }
       & Pick<TriggerLog, 'id' | 'state' | 'date' | 'thingId'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'username'>
+      ) }
     )>>> }
   )> }
 );
@@ -288,6 +293,10 @@ export type GetTriggerLogQuery = (
   & { getTriggerLog?: Maybe<Array<Maybe<(
     { __typename?: 'TriggerLog' }
     & Pick<TriggerLog, 'id' | 'state' | 'date' | 'thingId'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username'>
+    ) }
   )>>> }
 );
 
@@ -810,6 +819,9 @@ export const GetThingDocument = gql`
       state
       date
       thingId
+      user {
+        username
+      }
     }
   }
 }
@@ -864,6 +876,9 @@ export const GetTriggerLogDocument = gql`
     state
     date
     thingId
+    user {
+      username
+    }
   }
 }
     `;

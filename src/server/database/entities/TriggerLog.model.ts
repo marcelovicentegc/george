@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Thing } from "./Thing.model";
+import { User } from "./User.model";
 
 @Entity("triggerLog")
 export class TriggerLog extends BaseEntity {
@@ -21,9 +22,9 @@ export class TriggerLog extends BaseEntity {
   @ManyToOne(() => Thing, (thing) => thing.triggerLog)
   public thing: Thing;
 
-  @Column()
-  public thingId: string;
+  @ManyToOne(() => User, (user) => user.activity)
+  public user: User;
 
   @Column()
-  public userId: string;
+  public thingId: string;
 }

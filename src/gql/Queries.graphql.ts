@@ -62,6 +62,9 @@ export const getThing = gql`
         state
         date
         thingId
+        user {
+          username
+        }
       }
     }
   }
@@ -74,6 +77,9 @@ export const getTriggerLog = gql`
       state
       date
       thingId
+      user {
+        username
+      }
     }
   }
 `;

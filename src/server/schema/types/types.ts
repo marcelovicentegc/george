@@ -8,6 +8,7 @@ export const types = gql`
     profile: Profile!
     username: String!
     password: String!
+    activity: [TriggerLog]
   }
 
   type Profile {
@@ -41,8 +42,8 @@ export const types = gql`
     id: ID!
     state: String!
     date: String!
+    user: User!
     thingId: String!
-    userId: String!
   }
 
   type ThingWithTriggerLog {

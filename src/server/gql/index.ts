@@ -129,8 +129,8 @@ export type TriggerLog = {
   id: Scalars['ID'];
   state: Scalars['String'];
   date: Scalars['String'];
+  user: User;
   thingId: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 
@@ -140,6 +140,7 @@ export type User = {
   profile: Profile;
   username: Scalars['String'];
   password: Scalars['String'];
+  activity?: Maybe<Array<Maybe<TriggerLog>>>;
 };
 
 
@@ -221,10 +222,10 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Profile: ResolverTypeWrapper<Profile>,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
+  TriggerLog: ResolverTypeWrapper<TriggerLog>,
   Group: ResolverTypeWrapper<Group>,
   Thing: ResolverTypeWrapper<Thing>,
   Controller: Controller,
-  TriggerLog: ResolverTypeWrapper<TriggerLog>,
   ThingWithTriggerLog: ResolverTypeWrapper<ThingWithTriggerLog>,
   Mutation: ResolverTypeWrapper<{}>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
@@ -238,10 +239,10 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'],
   Profile: Profile,
   Upload: Scalars['Upload'],
+  TriggerLog: TriggerLog,
   Group: Group,
   Thing: Thing,
   Controller: Controller,
-  TriggerLog: TriggerLog,
   ThingWithTriggerLog: ThingWithTriggerLog,
   Mutation: {},
   Boolean: Scalars['Boolean'],
@@ -304,8 +305,8 @@ export type TriggerLogResolvers<ContextType = any, ParentType extends ResolversP
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   state?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>,
   thingId?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -318,6 +319,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   profile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType>,
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  activity?: Resolver<Maybe<Array<Maybe<ResolversTypes['TriggerLog']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
