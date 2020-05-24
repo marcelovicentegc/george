@@ -2,7 +2,7 @@ import { IResolvers } from "graphql-tools";
 import { Group } from "../../database/entities/Group.model";
 import { Thing } from "../../database/entities/Thing.model";
 import { TriggerLog } from "../../database/entities/TriggerLog.model";
-import { QueryResolvers, MutationResolvers } from "../../gql";
+import { QueryResolvers } from "../../gql";
 
 const queries: QueryResolvers = {
   getTriggerLog: async (_, { groupId }) => {

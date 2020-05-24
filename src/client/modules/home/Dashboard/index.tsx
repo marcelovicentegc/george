@@ -122,7 +122,6 @@ export const Dashboard: React.FunctionComponent<Props> = observer(
                           {
                             label: "Controller",
                             name: "controller",
-                            id: "controller",
                             key: controllerId,
                             type: "controller",
                             control: {

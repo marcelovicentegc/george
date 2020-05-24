@@ -1,55 +1,9 @@
 #componentsWrapper {
-  .help-box {
-    position: absolute;
-    top: 40px;
-    right: 0;
-    left: 0;
-    background: #fff;
-    border: 1px solid #c2c2c2;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+  .image {
+    max-width: 400px;
   }
 
-  .no-component {
-    position: absolute;
-    top: 121.69px;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    span {
-      position: relative;
-      top: -21.69px;
-    }
-  }
-
-  a {
-    text-decoration: none;
-    color: #242424;
-
-    .component {
-      display: flex;
-      flex-direction: row;
-      transition: 0.2s;
-
-      &:hover {
-        margin: 0px -20px;
-        padding: 0px 20px;
-        background: #e9e9e9;
-        cursor: pointer;
-      }
-
-      > div {
-        padding: 10px;
-
-        &.component-topic {
-          position: absolute;
-          right: 20px;
-        }
-      }
-    }
+  .text {
+    cursor: pointer;
   }
 }

@@ -1,7 +1,7 @@
 @mixin dashboardWrapper {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 76px);
+  height: calc(100vh - 108px);
   width: 100%;
 
   .dashboard {
