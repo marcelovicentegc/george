@@ -10,14 +10,14 @@
 
 // List of projects/orgs using your project for the users page.
 const users = [
-  {
-    caption: "User1",
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/undraw_open_source.svg",
-    infoLink: "https://www.facebook.com",
-    pinned: true,
-  },
+  // {
+  //   caption: "User1",
+  //   // You will need to prepend the image path with your baseUrl
+  //   // if it is not '/', like: '/test-site/img/image.jpg'.
+  //   image: "/img/undraw_open_source.svg",
+  //   infoLink: "https://www.facebook.com",
+  //   pinned: false,
+  // },
 ];
 
 const siteConfig = {
@@ -48,14 +48,14 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: "img/favicon.ico",
-  footerIcon: "img/favicon.ico",
-  favicon: "img/favicon.ico",
+  headerIcon: "img/george-favicon.png",
+  footerIcon: "img/george-favicon.png",
+  favicon: "img/george-favicon.png",
 
   /* Colors for website */
   colors: {
-    primaryColor: "#161567",
-    secondaryColor: "#0f0e48",
+    primaryColor: "#6264A7",
+    secondaryColor: "#EDEDED",
   },
 
   /* Custom fonts for website */
@@ -73,7 +73,7 @@ const siteConfig = {
   */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Your Name or Your Company Name`,
+  copyright: `Copyright © ${new Date().getFullYear()} Three O Four`,
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
@@ -104,7 +104,7 @@ const siteConfig = {
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
-  //   repoUrl: 'https://github.com/facebook/test-site',
+  repoUrl: "https://github.com/three-o-four/george",
 };
 
 module.exports = siteConfig;
