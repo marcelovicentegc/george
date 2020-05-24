@@ -44,7 +44,7 @@ const Controller: React.FunctionComponent = () => {
   let currentThingState: string;
 
   const header = {
-    items: ["Date", "State"],
+    items: ["Date", "State", "Last triggered by"],
   };
 
   return (
@@ -82,13 +82,13 @@ const Controller: React.FunctionComponent = () => {
               return controllerStore.setDataSource([
                 {
                   key: log.id,
-                  items: [log.date, log.state],
+                  items: [log.date, log.state, log.user.username],
                 },
               ]);
             } else if (controllerStore.dataSource) {
               return controllerStore.dataSource.unshift({
                 key: log.id,
-                items: [log.date, log.state],
+                items: [log.date, log.state, log.user.username],
               });
             }
           });
