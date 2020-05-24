@@ -1,6 +1,5 @@
 <p align="center">
   <img alt="george logo" src="assets/george-sq.png" height="150" />
-  <h2 align="center">george</h2>
   <p align="center">A configurable DIY home automation, assistance and analytics project with plugs for IoT devices.</p>
 </p>
 
