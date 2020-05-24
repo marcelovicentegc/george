@@ -12,6 +12,7 @@ import {
   ToggleThingMutationVariables,
 } from "../../gql";
 import { TableWrapper } from "../system/TableWrapper";
+import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 
 export type DataSource = [
   {
@@ -82,13 +83,21 @@ const Controller: React.FunctionComponent = () => {
               return controllerStore.setDataSource([
                 {
                   key: log.id,
-                  items: [log.date, log.state, log.user.username],
+                  items: [
+                    log.date,
+                    log.state,
+                    capitalizeFirstLetter(log.user.username),
+                  ],
                 },
               ]);
             } else if (controllerStore.dataSource) {
               return controllerStore.dataSource.unshift({
                 key: log.id,
-                items: [log.date, log.state, log.user.username],
+                items: [
+                  log.date,
+                  log.state,
+                  capitalizeFirstLetter(log.user.username),
+                ],
               });
             }
           });
