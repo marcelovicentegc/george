@@ -42,6 +42,7 @@ export const types = gql`
     state: String!
     date: String!
     thingId: String!
+    userId: String!
   }
 
   type ThingWithTriggerLog {

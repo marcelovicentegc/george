@@ -10,9 +10,9 @@ George can aid you on automating your home, offering itself to manage which swit
 
 George doesn't work out of the box! You need a server to run it on your local network and at least one IoT device.
 
-| George can manage                |     |
-| -------------------------------- | --- |
-| [ESP8266](docs/SETUP.md#ESP8266) | ✔️  |
+| Device                           | Support |
+| -------------------------------- | ------- |
+| [ESP8266](docs/SETUP.md#ESP8266) | ✔️      |
 
 ## Development directions ⌨️
 

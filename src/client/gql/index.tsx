@@ -135,6 +135,7 @@ export type TriggerLog = {
   state: Scalars['String'];
   date: Scalars['String'];
   thingId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 

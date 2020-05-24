@@ -6,7 +6,6 @@ import { TriggerLog } from "../../database/entities/TriggerLog.model";
 import { ThingWithTriggerLog } from "../../gql";
 import { QueryResolvers, MutationResolvers } from "../../gql";
 import { User } from "../../database/entities/User.model";
-import { DeepPartial } from "typeorm";
 
 const queries: QueryResolvers = {
   getThings: async (_, { groupId }) => {
@@ -30,24 +29,6 @@ const queries: QueryResolvers = {
     });
     // if (!thing) return new Error("This component doesn't exist.");
     return thing;
-  },
-  getTriggerLog: async (_, { groupId }) => {
-    const group = await Group.findOne(groupId);
-
-    if (!group) {
-      throw new Error("This group doesn't exist");
-    }
-
-    const things = await Thing.find({
-      where: { groupId },
-      relations: ["triggerLog"],
-    });
-
-    const triggerLog: TriggerLog[] = [];
-
-    things.map((thing) => thing.triggerLog.map((log) => triggerLog.push(log)));
-
-    return triggerLog;
   },
   getThingsWithTriggerLog: async (_, { id }) => {
     const group = await Group.findOne(id);
@@ -124,8 +105,13 @@ const mutations: MutationResolvers = {
 
     return true;
   },
-  toggleThing: async (_, { toggle, topic }) => {
+  toggleThing: async (_, { toggle, topic }, { req }: Context) => {
     const state = toggle === "true" ? "on" : "off";
+    const userId = req.session.userId;
+
+    if (!userId) {
+      return false;
+    }
 
     const thing = await Thing.findOne({
       where: { topic },
@@ -142,6 +128,7 @@ const mutations: MutationResolvers = {
       date,
       thing,
       thingId: thing.id,
+      userId,
     });
 
     await triggerLog.save();

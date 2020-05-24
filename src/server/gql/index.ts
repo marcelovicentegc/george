@@ -130,6 +130,7 @@ export type TriggerLog = {
   state: Scalars['String'];
   date: Scalars['String'];
   thingId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -304,6 +305,7 @@ export type TriggerLogResolvers<ContextType = any, ParentType extends ResolversP
   state?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   thingId?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
