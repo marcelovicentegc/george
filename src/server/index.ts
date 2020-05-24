@@ -39,7 +39,6 @@ const startServer = async () => {
         cli: {
           entitiesDir: "dist/server/database/entities",
         },
-        dropSchema: false,
       });
     }
 
