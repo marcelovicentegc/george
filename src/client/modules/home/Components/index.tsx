@@ -22,7 +22,7 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
     "This is the topic which you need to subscribe the related module to.";
 
   const header = {
-    items: ["Space", "Thing", "Topic"],
+    items: ["Space", "Thing", "Topic", "State"],
   };
 
   return (
@@ -52,7 +52,12 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
           > = data.getThings.map((thing, i) => {
             return {
               key: i,
-              items: [thing.space, thing.component, thing.topic],
+              items: [
+                thing.space,
+                thing.component,
+                thing.topic,
+                thing.triggerLog[thing.triggerLog.length - 1].state,
+              ],
               onClick: () => routerStore.push(thing.topic),
             };
           });
