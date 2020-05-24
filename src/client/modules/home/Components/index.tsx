@@ -10,6 +10,7 @@ import {
 import { GetThingsQuery, GetThingsQueryVariables } from "../../../gql";
 import { rootStoreContext } from "../../../stores/RootStore";
 import { TableWrapper } from "../../system/TableWrapper";
+import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
 
 interface Props {
   groupId: string;
@@ -21,9 +22,6 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
   const helpText =
     "This is the topic which you need to subscribe the related module to.";
 
-  const header = {
-    items: ["Space", "Thing", "Topic", "State"],
-  };
 
   return (
     <TableWrapper id={s.componentsWrapper} data-testid="components">
@@ -46,6 +44,10 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
             );
           }
 
+          const header = {
+            items: ["Space", "Thing", "Topic", "State"],
+          };
+
           const rows: ShorthandCollection<
             TableRowProps,
             never
@@ -56,7 +58,7 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
                 thing.space,
                 thing.component,
                 thing.topic,
-                thing.triggerLog[thing.triggerLog.length - 1].state,
+                thing.triggerLog[thing.triggerLog?.length - 1] ? capitalizeFirstLetter(thing.triggerLog[thing.triggerLog?.length - 1].state) : "Never triggered", 
               ],
               onClick: () => routerStore.push(thing.topic),
             };

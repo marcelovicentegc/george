@@ -85,7 +85,7 @@ const Controller: React.FunctionComponent = () => {
                   key: log.id,
                   items: [
                     log.date,
-                    log.state,
+                    capitalizeFirstLetter(log.state),
                     capitalizeFirstLetter(log.user.username),
                   ],
                 },
@@ -95,7 +95,7 @@ const Controller: React.FunctionComponent = () => {
                 key: log.id,
                 items: [
                   log.date,
-                  log.state,
+                  capitalizeFirstLetter(log.state),
                   capitalizeFirstLetter(log.user.username),
                 ],
               });
