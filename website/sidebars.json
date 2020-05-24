@@ -1,6 +1,8 @@
 {
   "docs": {
-    "Getting started": ["about"],
-    "Production directions": ["config", "setup", "iot"]
+    "Getting started": ["about"]
+  },
+  "tutorial": {
+    "Tutorial": ["config", "setup", "iot"]
   }
 }

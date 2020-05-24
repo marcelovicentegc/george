@@ -22,8 +22,8 @@ const users = [
 
 const siteConfig = {
   title: "George", // Title for your website.
-  tagline: "Your favorite home automation project.",
-  url: "https://marcelovicente.github.io", // Your website URL
+  tagline: "The DIY home automation, assistance and analytics project.",
+  url: "https://three-o-four.github.io", // Your website URL
   baseUrl: "/george/", // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
@@ -31,7 +31,7 @@ const siteConfig = {
 
   // Used for publishing and more
   projectName: "george",
-  organizationName: "marcelovicentegc",
+  organizationName: "three-o-four",
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
@@ -39,9 +39,8 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     { doc: "about", label: "Docs" },
-    // { doc: "doc4", label: "API" },
+    { doc: "config", label: "Tutorial" },
     { page: "help", label: "Help" },
-    // { blog: true, label: "Blog" },
   ],
 
   // If you have users set above, you add it here:
@@ -73,7 +72,7 @@ const siteConfig = {
   */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Three O Four`,
+  copyright: `Copyright © ${new Date().getFullYear()} - 304`,
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.

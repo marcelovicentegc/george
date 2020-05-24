@@ -29,11 +29,12 @@
     },
     "links": {
       "Docs": "Docs",
+      "Tutorial": "Tutorial",
       "Help": "Help"
     },
     "categories": {
       "Getting started": "Getting started",
-      "Production directions": "Production directions"
+      "Tutorial": "Tutorial"
     }
   },
   "pages-strings": {
