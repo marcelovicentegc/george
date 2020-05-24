@@ -1,5 +1,6 @@
 <p align="center">
-  <img alt="george logo" src="assets/george-sq.png" height="150" />
+  <img alt="george logo" src="assets/george.png" height="300" />
+  <h3 align="center">GEORGE</h3>
   <p align="center">A configurable DIY home automation, assistance and analytics project with plugs for IoT devices.</p>
 </p>
 
@@ -32,6 +33,6 @@ For pull requests, check the [contribution guide](docs/CONTRIBUTING.md)
 
 To put George in production, check the [production instructions](docs/PRODUCTION_DIRECTIONS.md). These instructions apply to Debian-based O.Ss, secifically, Raspberry Pies. If you pretend to run George in production on another O.S. or device, you are on your own, although it shouldn't be a problem to set up everything needed to get George up and running in any O.S. or device. PRs with production directions for other platforms are welcome 😄!
 
-<a href="https://www.buymeacoffee.com/YkwcZVO" target="_blank"><img src="./assets/buymeacoffee.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/YkwcZVO" target="_blank"><img src="./assets/buymeacoffee.png" alt="Buy Me A Coffee" height="51"></a>
 
 [![Become a patron](./assets/patron.png)](https://www.patreon.com/bePatron?u=34051560)
