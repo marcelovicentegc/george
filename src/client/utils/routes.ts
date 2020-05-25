@@ -1,6 +1,7 @@
 export enum BASE_ROUTES {
   HOME = "/",
   SETTINGS = "/settings",
-  PROFILE = "/profile",
+  USERS = "/users",
+  GROUPS = "/groups",
   THINGS = "/things",
 }

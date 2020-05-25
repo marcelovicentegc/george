@@ -16,7 +16,16 @@ export const getUsers = gql`
   query GetUsers {
     getUsers {
       username
+      profile {
+        avatarUrl
+      }
     }
+  }
+`;
+
+export const getPermission = gql`
+  query GetPermission($userId: String) {
+    getPermission(userId: $userId)
   }
 `;
 

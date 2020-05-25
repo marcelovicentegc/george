@@ -13,15 +13,23 @@ import {
   GetGroupIdQueryVariables,
   GetUsernameQuery,
   GetUsernameQueryVariables,
+  useGetPermissionQuery,
+  Permission,
 } from "../gql";
 import { Header } from "../modules/system/Header";
 import { BASE_ROUTES } from "../utils/routes";
 import { rootStore } from "../stores/RootStore";
+
 const Auth = React.lazy(() => import("../modules/auth"));
 const Home = React.lazy(() => import("../modules/home"));
 const Controller = React.lazy(() => import("../modules/controller"));
 
 export const Routes: React.FC = () => {
+  const {
+    data: permissionData,
+    loading: permissionLoading,
+  } = useGetPermissionQuery();
+
   return (
     <Router history={rootStore.history}>
       <React.Suspense fallback={<Loading />}>
@@ -69,21 +77,32 @@ export const Routes: React.FC = () => {
                         }}
                       </Query>
                       <Switch>
+                        <Route exact path="/:space/:name">
+                          <Controller />
+                        </Route>
                         <Route exact path="/">
                           <Home groupId={groupId} />
                         </Route>
-                        <Route exact path={BASE_ROUTES.PROFILE}>
-                          <div>
-                            <h1>PROFILE</h1>
-                          </div>
-                        </Route>
+                        {permissionData &&
+                          permissionData.getPermission &&
+                          permissionData.getPermission === Permission.Admin && (
+                            <>
+                              <Route exact path={BASE_ROUTES.USERS}>
+                                <div>
+                                  <h1>USERS</h1>
+                                </div>
+                              </Route>
+                              <Route exact path={BASE_ROUTES.GROUPS}>
+                                <div>
+                                  <h1>GROUPS</h1>
+                                </div>
+                              </Route>
+                            </>
+                          )}
                         <Route exact path={BASE_ROUTES.SETTINGS}>
                           <div>
                             <h1>SETTINGS</h1>
                           </div>
-                        </Route>
-                        <Route exact path="/:space/:name">
-                          <Controller />
                         </Route>
                       </Switch>
                     </>

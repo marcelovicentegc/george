@@ -50,6 +50,11 @@ export type MutationToggleThingArgs = {
   topic: Scalars['String'];
 };
 
+export enum Permission {
+  Admin = 'ADMIN',
+  Common = 'COMMON'
+}
+
 export type Profile = {
    __typename?: 'Profile';
   id: Scalars['ID'];
@@ -63,6 +68,7 @@ export type Query = {
   getUserId?: Maybe<Scalars['String']>;
   getUsers?: Maybe<Array<Maybe<User>>>;
   getUsername?: Maybe<Scalars['String']>;
+  getPermission: Permission;
   getProfileAvatar?: Maybe<Scalars['String']>;
   getGroupId?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
@@ -73,6 +79,11 @@ export type Query = {
 
 
 export type QueryGetUsernameArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetPermissionArgs = {
   userId?: Maybe<Scalars['String']>;
 };
 
@@ -140,6 +151,7 @@ export type User = {
   profile: Profile;
   username: Scalars['String'];
   password: Scalars['String'];
+  permission: Permission;
   activity?: Maybe<Array<Maybe<TriggerLog>>>;
 };
 
@@ -222,6 +234,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Profile: ResolverTypeWrapper<Profile>,
   Upload: ResolverTypeWrapper<Scalars['Upload']>,
+  Permission: Permission,
   TriggerLog: ResolverTypeWrapper<TriggerLog>,
   Group: ResolverTypeWrapper<Group>,
   Thing: ResolverTypeWrapper<Thing>,
@@ -239,6 +252,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'],
   Profile: Profile,
   Upload: Scalars['Upload'],
+  Permission: Permission,
   TriggerLog: TriggerLog,
   Group: Group,
   Thing: Thing,
@@ -275,6 +289,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getUserId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   getUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>,
   getUsername?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetUsernameArgs, never>>,
+  getPermission?: Resolver<ResolversTypes['Permission'], ParentType, ContextType, RequireFields<QueryGetPermissionArgs, never>>,
   getProfileAvatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetProfileAvatarArgs, never>>,
   getGroupId?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupIdArgs, never>>,
   getThings?: Resolver<Maybe<Array<Maybe<ResolversTypes['Thing']>>>, ParentType, ContextType, RequireFields<QueryGetThingsArgs, 'groupId'>>,
@@ -319,6 +334,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   profile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType>,
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  permission?: Resolver<ResolversTypes['Permission'], ParentType, ContextType>,
   activity?: Resolver<Maybe<Array<Maybe<ResolversTypes['TriggerLog']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };

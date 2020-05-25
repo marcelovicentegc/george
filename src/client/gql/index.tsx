@@ -55,6 +55,11 @@ export type MutationToggleThingArgs = {
   topic: Scalars['String'];
 };
 
+export enum Permission {
+  Admin = 'ADMIN',
+  Common = 'COMMON'
+}
+
 export type Profile = {
    __typename?: 'Profile';
   id: Scalars['ID'];
@@ -68,6 +73,7 @@ export type Query = {
   getUserId?: Maybe<Scalars['String']>;
   getUsers?: Maybe<Array<Maybe<User>>>;
   getUsername?: Maybe<Scalars['String']>;
+  getPermission: Permission;
   getProfileAvatar?: Maybe<Scalars['String']>;
   getGroupId?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
@@ -78,6 +84,11 @@ export type Query = {
 
 
 export type QueryGetUsernameArgs = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetPermissionArgs = {
   userId?: Maybe<Scalars['String']>;
 };
 
@@ -145,6 +156,7 @@ export type User = {
   profile: Profile;
   username: Scalars['String'];
   password: Scalars['String'];
+  permission: Permission;
   activity?: Maybe<Array<Maybe<TriggerLog>>>;
 };
 
@@ -219,7 +231,21 @@ export type GetUsersQuery = (
   & { getUsers?: Maybe<Array<Maybe<(
     { __typename?: 'User' }
     & Pick<User, 'username'>
+    & { profile: (
+      { __typename?: 'Profile' }
+      & Pick<Profile, 'avatarUrl'>
+    ) }
   )>>> }
+);
+
+export type GetPermissionQueryVariables = {
+  userId?: Maybe<Scalars['String']>;
+};
+
+
+export type GetPermissionQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'getPermission'>
 );
 
 export type GetProfileAvatarQueryVariables = {
@@ -606,6 +632,9 @@ export const GetUsersDocument = gql`
     query GetUsers {
   getUsers {
     username
+    profile {
+      avatarUrl
+    }
   }
 }
     `;
@@ -651,6 +680,54 @@ export function useGetUsersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
+export const GetPermissionDocument = gql`
+    query GetPermission($userId: String) {
+  getPermission(userId: $userId)
+}
+    `;
+export type GetPermissionComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetPermissionQuery, GetPermissionQueryVariables>, 'query'>;
+
+    export const GetPermissionComponent = (props: GetPermissionComponentProps) => (
+      <ApolloReactComponents.Query<GetPermissionQuery, GetPermissionQueryVariables> query={GetPermissionDocument} {...props} />
+    );
+    
+export type GetPermissionProps<TChildProps = {}> = ApolloReactHoc.DataProps<GetPermissionQuery, GetPermissionQueryVariables> & TChildProps;
+export function withGetPermission<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GetPermissionQuery,
+  GetPermissionQueryVariables,
+  GetPermissionProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GetPermissionQuery, GetPermissionQueryVariables, GetPermissionProps<TChildProps>>(GetPermissionDocument, {
+      alias: 'getPermission',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGetPermissionQuery__
+ *
+ * To run a query within a React component, call `useGetPermissionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPermissionQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPermissionQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetPermissionQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetPermissionQuery, GetPermissionQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetPermissionQuery, GetPermissionQueryVariables>(GetPermissionDocument, baseOptions);
+      }
+export function useGetPermissionLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetPermissionQuery, GetPermissionQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetPermissionQuery, GetPermissionQueryVariables>(GetPermissionDocument, baseOptions);
+        }
+export type GetPermissionQueryHookResult = ReturnType<typeof useGetPermissionQuery>;
+export type GetPermissionLazyQueryHookResult = ReturnType<typeof useGetPermissionLazyQuery>;
+export type GetPermissionQueryResult = ApolloReactCommon.QueryResult<GetPermissionQuery, GetPermissionQueryVariables>;
 export const GetProfileAvatarDocument = gql`
     query GetProfileAvatar($userId: String) {
   getProfileAvatar(userId: $userId)

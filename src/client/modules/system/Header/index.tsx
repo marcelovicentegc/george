@@ -16,7 +16,9 @@ import {
   useGetUsernameQuery,
   useLogoutUserMutation,
   useGetProfileAvatarQuery,
+  useGetPermissionQuery,
 } from "../../../gql";
+import { Permission } from "../../../../server/gql";
 
 export const Header: React.FC = observer(() => {
   const { routerStore } = React.useContext(rootStoreContext);
@@ -28,13 +30,18 @@ export const Header: React.FC = observer(() => {
     data: usernameData,
     loading: usernameLoading,
   } = useGetUsernameQuery();
+  const {
+    data: permissionData,
+    loading: permissionLoading,
+  } = useGetPermissionQuery();
   const [mutate] = useLogoutUserMutation();
   const [isLoading, setIsLoading] = React.useState(false);
   const [headerTitle, setHeaderTitle] = React.useState(georgeAlias);
   React.useEffect(() => {
     if (
-      routerStore.location.pathname === BASE_ROUTES.PROFILE ||
+      routerStore.location.pathname === BASE_ROUTES.USERS ||
       routerStore.location.pathname === BASE_ROUTES.HOME ||
+      routerStore.location.pathname === BASE_ROUTES.GROUPS ||
       routerStore.location.pathname === BASE_ROUTES.SETTINGS
     ) {
       setHeaderTitle(georgeAlias);
@@ -59,12 +66,22 @@ export const Header: React.FC = observer(() => {
                   routerStore.location.pathname.includes(BASE_ROUTES.THINGS),
                 onClick: () => routerStore.push(BASE_ROUTES.HOME),
               },
-              {
-                key: "profile",
-                content: "Profile",
-                active: routerStore.location.pathname === BASE_ROUTES.PROFILE,
-                onClick: () => routerStore.push(BASE_ROUTES.PROFILE),
-              },
+              permissionData &&
+                permissionData.getPermission &&
+                permissionData.getPermission === Permission.Admin && {
+                  key: "users",
+                  content: "Users",
+                  active: routerStore.location.pathname === BASE_ROUTES.USERS,
+                  onClick: () => routerStore.push(BASE_ROUTES.USERS),
+                },
+              permissionData &&
+                permissionData.getPermission &&
+                permissionData.getPermission === Permission.Admin && {
+                  key: "groups",
+                  content: "Groups",
+                  active: routerStore.location.pathname === BASE_ROUTES.GROUPS,
+                  onClick: () => routerStore.push(BASE_ROUTES.GROUPS),
+                },
               {
                 key: "settings",
                 content: "Settings",
@@ -77,7 +94,9 @@ export const Header: React.FC = observer(() => {
           />
         </Flex>
         <Flex hAlign={"end"} className={s.row}>
-          {(avatarLoading || usernameLoading) && <Loader />}
+          {(avatarLoading || usernameLoading || permissionLoading) && (
+            <Loader />
+          )}
           {avatarData && avatarData.getProfileAvatar ? (
             <Avatar image={avatarData.getProfileAvatar} />
           ) : (

@@ -3,11 +3,17 @@ import gql from "graphql-tag";
 export const types = gql`
   scalar Upload
 
+  enum Permission {
+    ADMIN
+    COMMON
+  }
+
   type User {
     id: ID!
     profile: Profile!
     username: String!
     password: String!
+    permission: Permission!
     activity: [TriggerLog]
   }
 

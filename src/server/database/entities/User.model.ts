@@ -11,6 +11,7 @@ import {
 import { Group } from "./Group.model";
 import { Profile } from "./Profile.model";
 import { TriggerLog } from "./TriggerLog.model";
+import { Permission } from "../../gql";
 
 @Entity("user")
 export class User extends BaseEntity {
@@ -34,4 +35,7 @@ export class User extends BaseEntity {
     nullable: true,
   })
   public activity: TriggerLog[];
+
+  @Column()
+  public permission: Permission;
 }

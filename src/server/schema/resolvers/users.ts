@@ -1,7 +1,7 @@
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
 import { Context } from "../../utils";
-import { QueryResolvers } from "../../gql";
+import { QueryResolvers, Permission } from "../../gql";
 
 const queries: QueryResolvers = {
   getUserId: async (_, __, { req }: Context) => {
@@ -15,7 +15,7 @@ const queries: QueryResolvers = {
 
     return user.id;
   },
-  getUsername: async (_, { userId }, { req }: Context): Promise<string> => {
+  getUsername: async (_, { userId }, { req }: Context) => {
     let username: string;
 
     if (userId) {
@@ -31,6 +31,21 @@ const queries: QueryResolvers = {
     if (!username) return null;
 
     return username;
+  },
+  getPermission: async (_, { userId }, { req }: Context) => {
+    let permission: Permission;
+
+    if (userId) {
+      permission = (await User.findOne(userId)).permission;
+    } else {
+      const user = req.session.userId;
+
+      if (user === undefined) return null;
+
+      permission = (await User.findOne(user)).permission;
+    }
+
+    return permission;
   },
 };
 

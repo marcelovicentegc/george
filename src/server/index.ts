@@ -24,6 +24,7 @@ import {
 } from "./config";
 import { Context } from "./utils";
 import { v1 } from "uuid";
+import { Permission } from "./gql";
 
 const log = console.log;
 
@@ -65,6 +66,7 @@ const startServer = async () => {
         const user = await User.create({
           username: "admin",
           password: hashedPassword,
+          permission: Permission.Admin,
           group,
           profile,
         });
