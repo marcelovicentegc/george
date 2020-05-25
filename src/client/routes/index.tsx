@@ -23,6 +23,8 @@ import { rootStore } from "../stores/RootStore";
 const Auth = React.lazy(() => import("../modules/auth"));
 const Home = React.lazy(() => import("../modules/home"));
 const Controller = React.lazy(() => import("../modules/controller"));
+const Users = React.lazy(() => import("../modules/users"));
+const Groups = React.lazy(() => import("../modules/groups"));
 
 export const Routes: React.FC = () => {
   const {
@@ -88,14 +90,10 @@ export const Routes: React.FC = () => {
                           permissionData.getPermission === Permission.Admin && (
                             <>
                               <Route exact path={BASE_ROUTES.USERS}>
-                                <div>
-                                  <h1>USERS</h1>
-                                </div>
+                                <Users />
                               </Route>
                               <Route exact path={BASE_ROUTES.GROUPS}>
-                                <div>
-                                  <h1>GROUPS</h1>
-                                </div>
+                                <Groups />
                               </Route>
                             </>
                           )}
