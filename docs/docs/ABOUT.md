@@ -1,6 +1,6 @@
 ---
 id: about
-title: 🏠 About George
+title: About George
 ---
 
 ## Application architecture

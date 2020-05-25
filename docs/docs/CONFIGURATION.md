@@ -1,6 +1,6 @@
 ---
 id: config
-title: ⚙️ Configuration
+title: Configuration
 ---
 
 | Available environment variable | Default value | What this variable is responsible for |
