@@ -1,6 +1,6 @@
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
-import { QueryResolvers, MutationResolvers } from "../../gql";
+import { QueryResolvers, MutationResolvers, Permission } from "../../gql";
 import { Context } from "../../utils";
 import { Group, Thing } from "../../database/entities";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
@@ -35,6 +35,10 @@ const mutations: MutationResolvers = {
       return false;
     }
 
+    if (user.permission !== Permission.Admin) {
+      return false;
+    }
+
     const group = Group.create({
       name,
       users: [],
@@ -60,6 +64,10 @@ const mutations: MutationResolvers = {
       return false;
     }
 
+    if (user.permission !== Permission.Admin) {
+      return false;
+    }
+
     if (groupId) {
       return false;
     }
@@ -75,6 +83,25 @@ const mutations: MutationResolvers = {
           things: thingIds as QueryDeepPartialEntity<Thing>[],
         }
       );
+      return true;
+    } catch (error) {
+      console.log(error.message);
+      return false;
+    }
+  },
+  deleteGroup: async (_, { id }, { req }: Context) => {
+    const user = await User.findOne(req.session.userId);
+
+    if (!user) {
+      return false;
+    }
+
+    if (user.permission !== Permission.Admin) {
+      return false;
+    }
+
+    try {
+      await Group.delete(id);
       return true;
     } catch (error) {
       console.log(error.message);
