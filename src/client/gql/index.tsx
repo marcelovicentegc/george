@@ -97,6 +97,7 @@ export type Query = {
   getPermission: Permission;
   getProfileAvatar?: Maybe<Scalars['String']>;
   getGroupId?: Maybe<Group>;
+  getGroup?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
   getThing?: Maybe<Thing>;
   getTriggerLog?: Maybe<Array<Maybe<TriggerLog>>>;
@@ -121,6 +122,11 @@ export type QueryGetProfileAvatarArgs = {
 
 export type QueryGetGroupIdArgs = {
   userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetGroupArgs = {
+  id: Scalars['String'];
 };
 
 

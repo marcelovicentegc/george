@@ -25,6 +25,17 @@ const queries: QueryResolvers = {
 
     return group;
   },
+  getGroup: async (_, { id }, { req }: Context) => {
+    if (!(await User.findOne(req.session.userId))) {
+      throw new Error("You can't do this.");
+    }
+
+    const group = await Group.findOne(id, {
+      relations: ["users", "things"],
+    });
+
+    return group;
+  },
 };
 
 const mutations: MutationResolvers = {

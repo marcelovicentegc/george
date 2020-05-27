@@ -92,6 +92,7 @@ export type Query = {
   getPermission: Permission;
   getProfileAvatar?: Maybe<Scalars['String']>;
   getGroupId?: Maybe<Group>;
+  getGroup?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
   getThing?: Maybe<Thing>;
   getTriggerLog?: Maybe<Array<Maybe<TriggerLog>>>;
@@ -116,6 +117,11 @@ export type QueryGetProfileAvatarArgs = {
 
 export type QueryGetGroupIdArgs = {
   userId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetGroupArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -316,6 +322,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getPermission?: Resolver<ResolversTypes['Permission'], ParentType, ContextType, RequireFields<QueryGetPermissionArgs, never>>,
   getProfileAvatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGetProfileAvatarArgs, never>>,
   getGroupId?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupIdArgs, never>>,
+  getGroup?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupArgs, 'id'>>,
   getThings?: Resolver<Maybe<Array<Maybe<ResolversTypes['Thing']>>>, ParentType, ContextType, RequireFields<QueryGetThingsArgs, 'groupId'>>,
   getThing?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType, RequireFields<QueryGetThingArgs, 'topic'>>,
   getTriggerLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['TriggerLog']>>>, ParentType, ContextType, RequireFields<QueryGetTriggerLogArgs, 'groupId'>>,

@@ -43,6 +43,26 @@ export const getGroupIdFromUserId = gql`
   }
 `;
 
+export const getGroup = gql`
+  query GetGroup($id: String!) {
+    getGroup(id: $id) {
+      name
+      users {
+        id
+        username
+        profile {
+          avatarUrl
+        }
+      }
+      things {
+        id
+        space
+        component
+      }
+    }
+  }
+`;
+
 export const getThings = gql`
   query GetThings($groupId: String!) {
     getThings(groupId: $groupId) {
