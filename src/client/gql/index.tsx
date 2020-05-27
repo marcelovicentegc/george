@@ -34,6 +34,9 @@ export type Mutation = {
   logoutUser: Scalars['Boolean'];
   addThing: Scalars['Boolean'];
   toggleThing: Scalars['Boolean'];
+  createGroup: Scalars['Boolean'];
+  updateGroup: Scalars['Boolean'];
+  deleteGroup: Scalars['Boolean'];
 };
 
 
@@ -53,6 +56,23 @@ export type MutationAddThingArgs = {
 export type MutationToggleThingArgs = {
   toggle: Scalars['String'];
   topic: Scalars['String'];
+};
+
+
+export type MutationCreateGroupArgs = {
+  name: Scalars['String'];
+};
+
+
+export type MutationUpdateGroupArgs = {
+  name?: Maybe<Scalars['String']>;
+  userIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  thingIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+export type MutationDeleteGroupArgs = {
+  id: Scalars['String'];
 };
 
 export enum Permission {

@@ -29,6 +29,9 @@ export type Mutation = {
   logoutUser: Scalars['Boolean'];
   addThing: Scalars['Boolean'];
   toggleThing: Scalars['Boolean'];
+  createGroup: Scalars['Boolean'];
+  updateGroup: Scalars['Boolean'];
+  deleteGroup: Scalars['Boolean'];
 };
 
 
@@ -48,6 +51,23 @@ export type MutationAddThingArgs = {
 export type MutationToggleThingArgs = {
   toggle: Scalars['String'];
   topic: Scalars['String'];
+};
+
+
+export type MutationCreateGroupArgs = {
+  name: Scalars['String'];
+};
+
+
+export type MutationUpdateGroupArgs = {
+  name?: Maybe<Scalars['String']>;
+  userIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  thingIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+export type MutationDeleteGroupArgs = {
+  id: Scalars['String'];
 };
 
 export enum Permission {
@@ -275,6 +295,9 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   logoutUser?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   addThing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAddThingArgs, 'space' | 'component' | 'controller'>>,
   toggleThing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationToggleThingArgs, 'toggle' | 'topic'>>,
+  createGroup?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationCreateGroupArgs, 'name'>>,
+  updateGroup?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateGroupArgs, never>>,
+  deleteGroup?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteGroupArgs, 'id'>>,
 };
 
 export type ProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = {

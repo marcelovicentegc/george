@@ -29,3 +29,21 @@ export const toggleThing = gql`
     toggleThing(toggle: $toggle, topic: $topic)
   }
 `;
+
+export const createGroup = gql`
+  mutation CreateGroup($name: String!) {
+    createGroup(name: $name)
+  }
+`;
+
+export const updateGroup = gql`
+  mutation UpdateGroup($name: String, $userIds: [String], $thingIds: [String]) {
+    updateGroup(name: $name, userIds: $userIds, thingIds: $thingIds)
+  }
+`;
+
+export const deleteGroup = gql`
+  mutation DeleteGroup($id: String!) {
+    deleteGroup(id: $id)
+  }
+`;

@@ -49,7 +49,7 @@ const startServer = async () => {
       });
 
       if (!isProduction) {
-        const group = await Group.create({
+        const group = Group.create({
           name: "Default",
           users: [],
           things: [],

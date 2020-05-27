@@ -10,5 +10,8 @@ export const mutations = gql`
       controller: Controller!
     ): Boolean!
     toggleThing(toggle: String!, topic: String!): Boolean!
+    createGroup(name: String!): Boolean!
+    updateGroup(name: String, userIds: [String], thingIds: [String]): Boolean!
+    deleteGroup(id: String!): Boolean!
   }
 `;
