@@ -2,7 +2,8 @@ import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
 import { QueryResolvers, MutationResolvers } from "../../gql";
 import { Context } from "../../utils";
-import { Group } from "../../database/entities";
+import { Group, Thing } from "../../database/entities";
+import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 
 const queries: QueryResolvers = {
   getGroupId: async (_, { userId }, { req }: Context) => {
@@ -42,6 +43,38 @@ const mutations: MutationResolvers = {
 
     try {
       await group.save();
+      return true;
+    } catch (error) {
+      console.log(error.message);
+      return false;
+    }
+  },
+  updateGroup: async (
+    _,
+    { groupId, name, userIds, thingIds },
+    { req }: Context
+  ) => {
+    const user = await User.findOne(req.session.userId);
+
+    if (!user) {
+      return false;
+    }
+
+    if (groupId) {
+      return false;
+    }
+
+    try {
+      await Group.update(
+        {
+          id: groupId,
+        },
+        {
+          name,
+          users: userIds as QueryDeepPartialEntity<Thing>[],
+          things: thingIds as QueryDeepPartialEntity<Thing>[],
+        }
+      );
       return true;
     } catch (error) {
       console.log(error.message);

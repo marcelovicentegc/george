@@ -65,6 +65,7 @@ export type MutationCreateGroupArgs = {
 
 
 export type MutationUpdateGroupArgs = {
+  groupId: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   userIds?: Maybe<Array<Maybe<Scalars['String']>>>;
   thingIds?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -223,6 +224,39 @@ export type ToggleThingMutationVariables = {
 export type ToggleThingMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'toggleThing'>
+);
+
+export type CreateGroupMutationVariables = {
+  name: Scalars['String'];
+};
+
+
+export type CreateGroupMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createGroup'>
+);
+
+export type UpdateGroupMutationVariables = {
+  groupId: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  userIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+  thingIds?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
+export type UpdateGroupMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateGroup'>
+);
+
+export type DeleteGroupMutationVariables = {
+  id: Scalars['String'];
+};
+
+
+export type DeleteGroupMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteGroup'>
 );
 
 export type GetUserIdQueryVariables = {};
@@ -553,6 +587,150 @@ export function useToggleThingMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type ToggleThingMutationHookResult = ReturnType<typeof useToggleThingMutation>;
 export type ToggleThingMutationResult = ApolloReactCommon.MutationResult<ToggleThingMutation>;
 export type ToggleThingMutationOptions = ApolloReactCommon.BaseMutationOptions<ToggleThingMutation, ToggleThingMutationVariables>;
+export const CreateGroupDocument = gql`
+    mutation CreateGroup($name: String!) {
+  createGroup(name: $name)
+}
+    `;
+export type CreateGroupMutationFn = ApolloReactCommon.MutationFunction<CreateGroupMutation, CreateGroupMutationVariables>;
+export type CreateGroupComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<CreateGroupMutation, CreateGroupMutationVariables>, 'mutation'>;
+
+    export const CreateGroupComponent = (props: CreateGroupComponentProps) => (
+      <ApolloReactComponents.Mutation<CreateGroupMutation, CreateGroupMutationVariables> mutation={CreateGroupDocument} {...props} />
+    );
+    
+export type CreateGroupProps<TChildProps = {}> = ApolloReactHoc.MutateProps<CreateGroupMutation, CreateGroupMutationVariables> & TChildProps;
+export function withCreateGroup<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CreateGroupMutation,
+  CreateGroupMutationVariables,
+  CreateGroupProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, CreateGroupMutation, CreateGroupMutationVariables, CreateGroupProps<TChildProps>>(CreateGroupDocument, {
+      alias: 'createGroup',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCreateGroupMutation__
+ *
+ * To run a mutation, you first call `useCreateGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createGroupMutation, { data, loading, error }] = useCreateGroupMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useCreateGroupMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateGroupMutation, CreateGroupMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateGroupMutation, CreateGroupMutationVariables>(CreateGroupDocument, baseOptions);
+      }
+export type CreateGroupMutationHookResult = ReturnType<typeof useCreateGroupMutation>;
+export type CreateGroupMutationResult = ApolloReactCommon.MutationResult<CreateGroupMutation>;
+export type CreateGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateGroupMutation, CreateGroupMutationVariables>;
+export const UpdateGroupDocument = gql`
+    mutation UpdateGroup($groupId: String!, $name: String, $userIds: [String], $thingIds: [String]) {
+  updateGroup(groupId: $groupId, name: $name, userIds: $userIds, thingIds: $thingIds)
+}
+    `;
+export type UpdateGroupMutationFn = ApolloReactCommon.MutationFunction<UpdateGroupMutation, UpdateGroupMutationVariables>;
+export type UpdateGroupComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UpdateGroupMutation, UpdateGroupMutationVariables>, 'mutation'>;
+
+    export const UpdateGroupComponent = (props: UpdateGroupComponentProps) => (
+      <ApolloReactComponents.Mutation<UpdateGroupMutation, UpdateGroupMutationVariables> mutation={UpdateGroupDocument} {...props} />
+    );
+    
+export type UpdateGroupProps<TChildProps = {}> = ApolloReactHoc.MutateProps<UpdateGroupMutation, UpdateGroupMutationVariables> & TChildProps;
+export function withUpdateGroup<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  UpdateGroupMutation,
+  UpdateGroupMutationVariables,
+  UpdateGroupProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, UpdateGroupMutation, UpdateGroupMutationVariables, UpdateGroupProps<TChildProps>>(UpdateGroupDocument, {
+      alias: 'updateGroup',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useUpdateGroupMutation__
+ *
+ * To run a mutation, you first call `useUpdateGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateGroupMutation, { data, loading, error }] = useUpdateGroupMutation({
+ *   variables: {
+ *      groupId: // value for 'groupId'
+ *      name: // value for 'name'
+ *      userIds: // value for 'userIds'
+ *      thingIds: // value for 'thingIds'
+ *   },
+ * });
+ */
+export function useUpdateGroupMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateGroupMutation, UpdateGroupMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateGroupMutation, UpdateGroupMutationVariables>(UpdateGroupDocument, baseOptions);
+      }
+export type UpdateGroupMutationHookResult = ReturnType<typeof useUpdateGroupMutation>;
+export type UpdateGroupMutationResult = ApolloReactCommon.MutationResult<UpdateGroupMutation>;
+export type UpdateGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateGroupMutation, UpdateGroupMutationVariables>;
+export const DeleteGroupDocument = gql`
+    mutation DeleteGroup($id: String!) {
+  deleteGroup(id: $id)
+}
+    `;
+export type DeleteGroupMutationFn = ApolloReactCommon.MutationFunction<DeleteGroupMutation, DeleteGroupMutationVariables>;
+export type DeleteGroupComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<DeleteGroupMutation, DeleteGroupMutationVariables>, 'mutation'>;
+
+    export const DeleteGroupComponent = (props: DeleteGroupComponentProps) => (
+      <ApolloReactComponents.Mutation<DeleteGroupMutation, DeleteGroupMutationVariables> mutation={DeleteGroupDocument} {...props} />
+    );
+    
+export type DeleteGroupProps<TChildProps = {}> = ApolloReactHoc.MutateProps<DeleteGroupMutation, DeleteGroupMutationVariables> & TChildProps;
+export function withDeleteGroup<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  DeleteGroupMutation,
+  DeleteGroupMutationVariables,
+  DeleteGroupProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, DeleteGroupMutation, DeleteGroupMutationVariables, DeleteGroupProps<TChildProps>>(DeleteGroupDocument, {
+      alias: 'deleteGroup',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useDeleteGroupMutation__
+ *
+ * To run a mutation, you first call `useDeleteGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteGroupMutation, { data, loading, error }] = useDeleteGroupMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteGroupMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteGroupMutation, DeleteGroupMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteGroupMutation, DeleteGroupMutationVariables>(DeleteGroupDocument, baseOptions);
+      }
+export type DeleteGroupMutationHookResult = ReturnType<typeof useDeleteGroupMutation>;
+export type DeleteGroupMutationResult = ApolloReactCommon.MutationResult<DeleteGroupMutation>;
+export type DeleteGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteGroupMutation, DeleteGroupMutationVariables>;
 export const GetUserIdDocument = gql`
     query GetUserId {
   getUserId

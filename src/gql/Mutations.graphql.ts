@@ -37,8 +37,18 @@ export const createGroup = gql`
 `;
 
 export const updateGroup = gql`
-  mutation UpdateGroup($name: String, $userIds: [String], $thingIds: [String]) {
-    updateGroup(name: $name, userIds: $userIds, thingIds: $thingIds)
+  mutation UpdateGroup(
+    $groupId: String!
+    $name: String
+    $userIds: [String]
+    $thingIds: [String]
+  ) {
+    updateGroup(
+      groupId: $groupId
+      name: $name
+      userIds: $userIds
+      thingIds: $thingIds
+    )
   }
 `;
 

@@ -60,6 +60,7 @@ export type MutationCreateGroupArgs = {
 
 
 export type MutationUpdateGroupArgs = {
+  groupId: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   userIds?: Maybe<Array<Maybe<Scalars['String']>>>;
   thingIds?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -296,7 +297,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   addThing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAddThingArgs, 'space' | 'component' | 'controller'>>,
   toggleThing?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationToggleThingArgs, 'toggle' | 'topic'>>,
   createGroup?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationCreateGroupArgs, 'name'>>,
-  updateGroup?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateGroupArgs, never>>,
+  updateGroup?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationUpdateGroupArgs, 'groupId'>>,
   deleteGroup?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteGroupArgs, 'id'>>,
 };
 

@@ -11,7 +11,12 @@ export const mutations = gql`
     ): Boolean!
     toggleThing(toggle: String!, topic: String!): Boolean!
     createGroup(name: String!): Boolean!
-    updateGroup(name: String, userIds: [String], thingIds: [String]): Boolean!
+    updateGroup(
+      groupId: String!
+      name: String
+      userIds: [String]
+      thingIds: [String]
+    ): Boolean!
     deleteGroup(id: String!): Boolean!
   }
 `;
