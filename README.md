@@ -6,13 +6,13 @@
 
 ---
 
-George can aid you on automating your home, offering itself to manage which switches should be turned on or off, log that data to a database and give you insights about energy consumption. It can also integrate with A.I. assistants, in case you don't feel like pushing buttons.
+George can aid you on automating your home.
 
 George doesn't work out of the box! You need a server to run it on your local network and at least one IoT device.
 
-| Device                           | Support |
-| -------------------------------- | ------- |
-| [ESP8266](docs/SETUP.md#ESP8266) | ✔️      |
+| Device                             | Support        |
+| ---------------------------------- | -------------- |
+| [ESP8266](./docs/SETUP.md#ESP8266) | In development |
 
 ## Development directions ⌨️
 
@@ -32,6 +32,8 @@ For pull requests, check the [contribution guide](docs/CONTRIBUTING.md)
 ## Production directions ⤴️
 
 To put George in production, check the [production instructions](docs/PRODUCTION_DIRECTIONS.md). These instructions apply to Debian-based O.Ss, secifically, Raspberry Pies. If you pretend to run George in production on another O.S. or device, you are on your own, although it shouldn't be a problem to set up everything needed to get George up and running in any O.S. or device. PRs with production directions for other platforms are welcome 😄!
+
+> PS: A Docker image will be available soon!
 
 <a href="https://www.buymeacoffee.com/YkwcZVO" target="_blank"><img src="./assets/buymeacoffee.png" alt="Buy Me A Coffee" height="51"></a>
 

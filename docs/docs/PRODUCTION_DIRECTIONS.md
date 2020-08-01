@@ -5,6 +5,10 @@ title: 🖥 Setup
 
 ## Raspberry Pi setup 😋
 
+### Docker images 🐋
+
+In progress...
+
 ### Fast setup ⏩
 
 If you don't want to go through each of these steps, I separated a script to do some of the boring stuff for you, [here](../setup.sh). **Please, read this before running it.** This scripts installs the following software on your machine:

@@ -3,14 +3,6 @@ id: about
 title: About George
 ---
 
-## Application architecture
-
-- User authentication.
-- House dashbord.
-- Device toggle functionality.
-
----
-
 ## Software directions
 
 | General steps                                                                                      |
@@ -195,7 +187,7 @@ Sources: [How to connect a lamp to a DIY relay module for the popular clap switc
 
 ---
 
-## Hardware dictionary
+## Hardware glossary
 
 | Word | Meaning                              |
 | ---- | ------------------------------------ |
