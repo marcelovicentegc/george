@@ -1,10 +1,10 @@
 module.exports = {
   title: "George", // Title for your website.
   tagline: "The DIY home automation, assistance and analytics project.",
-  url: "https://three-o-four.github.io",
+  url: "https://marcelovicentegc.github.io/george",
   baseUrl: "/george/",
   favicon: "img/george-favicon.png",
-  organizationName: "three-o-four",
+  organizationName: "marcelovicentegc",
   projectName: "george",
   themeConfig: {
     navbar: {
@@ -15,13 +15,13 @@ module.exports = {
       },
       links: [
         {
-          to: "/docs/about/",
+          to: "/docs/",
           activeBasePath: "docs",
           label: "Docs",
           position: "right",
         },
         {
-          href: "https://github.com/three-o-four/george",
+          href: "https://github.com/marcelovicentegc/george",
           label: "GitHub",
           position: "right",
         },
@@ -34,8 +34,8 @@ module.exports = {
           title: "Docs",
           items: [
             {
-              label: "About",
-              to: "/docs/about/",
+              label: "Useful resources",
+              to: "/docs/useful-resources/",
             },
             {
               label: "Configuration",
@@ -56,7 +56,7 @@ module.exports = {
         alt: "George Logo",
         src: "img/george-favicon.png",
       },
-      copyright: `Copyright © ${new Date().getFullYear()} - 304. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} - Marcelo Cardoso. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -64,9 +64,9 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          homePageId: "about",
+          homePageId: "docs",
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/three-o-four/george/edit/docs/docs/",
+          editUrl: "https://github.com/marcelovicentegc/george/edit/docs/docs/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

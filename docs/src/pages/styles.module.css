@@ -35,3 +35,11 @@
   height: 200px;
   width: 200px;
 }
+
+.getStarted {
+  color: #fff !important;
+}
+
+.getStarted:hover {
+  color: #000 !important;
+}

@@ -1,6 +1,6 @@
 module.exports = {
   someSidebar: {
-    "Getting started": ["about"],
-    Tutorial: ["config", "setup", "iot"],
+    Tutorial: ["setup", "config", "iot"],
+    Miscellaneous: ["useful-resources"],
   },
 };

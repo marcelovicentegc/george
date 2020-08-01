@@ -1,15 +1,9 @@
 ---
-id: about
-title: About George
+id: useful-resources
+title: Useful resources
 ---
 
-## Software directions
-
-| General steps                                                                                      |
-| -------------------------------------------------------------------------------------------------- |
-| Install Node.js on Raspberry -> Set a MQTT broker on Raspberry -> Set a MQTT client on Application |
-
-## Configure the Raspberry Pi's O.S. through a remote machine
+## Configuring the Raspberry Pi's O.S. through a remote machine
 
 1. [Get Raspberry Pi's O.S. lite (server) version](https://www.raspberrypi.org/downloads/raspbian/)
 2. [Follow the instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
@@ -54,7 +48,7 @@ title: About George
 19. _pi@raspberrypi_ Reboot: `sudo reboot`
 20. _pi@raspberrypi_ Start the application: `pm2...`
 
-## Configure the Raspberry Pi's O.S. on a Hyper-V V.M
+## Configuring the Raspberry Pi's O.S. on a Hyper-V V.M
 
 Sources: [How to install Raspbian O.S. on Hyper-V](https://www.avoiderrors.com/how-to-install-raspbian-os-on-hyper-v/)
 
