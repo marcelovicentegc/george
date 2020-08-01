@@ -6,7 +6,7 @@ title: IoT setup
 ## ESP8266
 
 1. Make sure you have the [Arduino IDE](https://www.arduino.cc/en/Main/Software) installed on your machine.
-2. Upload either a [.ino](./src/esp8266/mqtt/mqtt.ino) file:
+2. Upload either a [.ino](https://github.com/marcelovicentegc/george/blob/master/src/esp8266/mqtt/mqtt.ino) file:
 
    1. Install [PubSubClient](https://github.com/knolleary/pubsubclient)
 
@@ -132,7 +132,7 @@ title: IoT setup
     }
    ```
 
-3. Or a [.lua](./src/esp8266/mqtt/mqtt.lua) file:
+3. Or a [.lua](https://github.com/marcelovicentegc/george/blob/master/src/esp8266/mqtt/mqtt.lua) file:
 
    1. Make sure to pass your network name as the third parameter (replacing `"username"`) of the `Client` method, and your network password as the fourth parameter (replacing `"password"`) and to assing the topic you want to subscribe this module to to the `topic` variable:
 
