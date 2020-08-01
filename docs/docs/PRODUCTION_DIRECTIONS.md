@@ -1,6 +1,6 @@
 ---
 id: setup
-title: 🖥 Setup
+title: Setup 🖥
 ---
 
 ## Raspberry Pi setup 😋

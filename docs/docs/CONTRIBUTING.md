@@ -1,4 +1,7 @@
-# 🔨 Contributing
+---
+id: contrib
+title: Contributing 🔨
+---
 
 Please note we have a [code of conduct](CODE_OF_CONDUCT.md), follow it in all your interactions with the project.
 

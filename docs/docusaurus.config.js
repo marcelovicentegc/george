@@ -16,7 +16,7 @@ module.exports = {
       },
       items: [
         {
-          to: "/docs/",
+          to: "/docs/setup",
           activeBasePath: "docs",
           label: "Docs",
           position: "right",
@@ -49,6 +49,23 @@ module.exports = {
             {
               label: "IoT setup",
               to: "/docs/iot/",
+            },
+          ],
+        },
+        {
+          title: "Contributing",
+          items: [
+            {
+              label: "Guidelines",
+              to: "/docs/contrib/",
+            },
+            {
+              label: "Code of Conduct",
+              to: "/docs/code-of-conduct/",
+            },
+            {
+              label: "Roadmap",
+              to: "/docs/roadmap/",
             },
           ],
         },
