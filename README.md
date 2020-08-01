@@ -27,7 +27,7 @@ George doesn't work out of the box! You need a server to run it on your local ne
 
 ## Pull requests 🌳
 
-For pull requests, check the [contribution guide](docs/CONTRIBUTING.md)
+For pull requests, check the [contribution guide](https://marcelovicentegc.github.io/george/docs/contrib)
 
 ## Production directions ⤴️
 
