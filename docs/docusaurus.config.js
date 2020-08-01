@@ -5,6 +5,7 @@ module.exports = {
   baseUrl: "/george/",
   favicon: "img/george-favicon.png",
   organizationName: "marcelovicentegc",
+  onBrokenLinks: "warn",
   projectName: "george",
   themeConfig: {
     navbar: {
@@ -13,7 +14,7 @@ module.exports = {
         alt: "George logo",
         src: "img/george.png",
       },
-      links: [
+      items: [
         {
           to: "/docs/",
           activeBasePath: "docs",
