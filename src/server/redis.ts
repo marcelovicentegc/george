@@ -1,3 +1,7 @@
-import * as Redis from "ioredis";
+import * as Redis from "redis";
+import { redisPort, redisHost } from "./config";
 
-export const redis = new Redis();
+export const redis = Redis.createClient({
+  host: redisHost,
+  port: redisPort,
+});

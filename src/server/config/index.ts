@@ -3,7 +3,9 @@ const {
   BROKER_PORT,
   SERVER_PORT,
   CLIENT_PORT,
-  REDIS_SECRET,
+  REDIS_PORT,
+  REDIS_HOST,
+  SESSION_SECRET,
 } = process.env;
 
 export const isProduction = NODE_ENV === "production";
@@ -14,5 +16,9 @@ export const serverPort = SERVER_PORT || 4000;
 
 export const clientPort = CLIENT_PORT || 3000;
 
-export const redisSecret =
-  REDIS_SECRET || "b0187547-832d-4a6f-9101-b2dadb6025ae";
+export const redisPort = Number(REDIS_PORT) || 6379;
+
+export const redisHost = REDIS_HOST || "localhost";
+
+export const sessionSecret =
+  SESSION_SECRET || "b0187547-832d-4a6f-9101-b2dadb6025ae";

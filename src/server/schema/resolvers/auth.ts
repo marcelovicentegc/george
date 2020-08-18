@@ -2,9 +2,10 @@ import * as bcrypt from "bcrypt";
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
 import { MutationResolvers } from "../../gql";
+import { Context } from "../../utils";
 
 const mutations: MutationResolvers = {
-  loginUser: async (_, { username, password }, { req }) => {
+  loginUser: async (_, { username, password }, { req }: Context) => {
     const user = await User.findOne({
       where: { username },
     });
@@ -19,6 +20,9 @@ const mutations: MutationResolvers = {
     }
 
     req.session.userId = user.id;
+
+    delete user.password;
+
     return user;
   },
   logoutUser: async (_, __, { req, res }) => {

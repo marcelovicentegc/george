@@ -20,7 +20,8 @@ import {
   isProduction,
   brokerPort,
   clientPort,
-  redisSecret,
+  sessionSecret,
+  redisPort,
 } from "./config";
 import { Context } from "./utils";
 import { v1 } from "uuid";
@@ -45,7 +46,7 @@ const startServer = async () => {
 
     try {
       await createConnection(connectionOptions).then(() => {
-        log("Connected to sqlite database");
+        log("Connected to database");
       });
 
       if (!isProduction) {
@@ -55,7 +56,7 @@ const startServer = async () => {
           things: [],
         });
         await group.save();
-        log("Created default group");
+        log("Default group created");
 
         const profile = Profile.create({
           avatarUrl: `https://avatars.dicebear.com/v2/jdenticon/${v1()}.svg`,
@@ -63,7 +64,7 @@ const startServer = async () => {
         await profile.save();
 
         const hashedPassword = await bcrypt.hash("admin", 12);
-        const user = await User.create({
+        const user = User.create({
           username: "admin",
           password: hashedPassword,
           permission: Permission.Admin,
@@ -72,7 +73,7 @@ const startServer = async () => {
         });
 
         await user.save();
-        log("Created default user");
+        log("Default user created");
 
         group.users.push(user);
         await group.save();
@@ -97,13 +98,19 @@ const startServer = async () => {
 
   const RedisStore = connectRedis(session);
 
+  redis.on("ready", () => {
+    log(`Redis is ready on port ${redisPort}`);
+  });
+
+  redis.on("error", (err) => log(err));
+
   app.use(bodyParser.json());
   app.use(
     session({
       store: new RedisStore({
-        client: redis as any,
+        client: redis,
       }),
-      secret: redisSecret,
+      secret: sessionSecret,
       resave: false,
       saveUninitialized: false,
     })
@@ -128,7 +135,7 @@ const startServer = async () => {
   if (isProduction) {
     app.use(express.static(path.resolve("./dist")));
     app.get("*", (_, res) => {
-      res.sendFile(path.resolve("./dist/index.html"));
+      res.sendFile(path.resolve("./index.html"));
     });
   }
 

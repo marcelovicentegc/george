@@ -102,6 +102,7 @@ class Auth extends React.Component<Props, State> {
                         this.state.errorMessage &&
                           this.setState({
                             awaiting: false,
+                            errorMessage: this.state.errorMessage,
                           });
                       });
                     }}
