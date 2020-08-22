@@ -11,7 +11,7 @@ import { User } from "./User.model";
 import { TriggerLog } from "./TriggerLog.model";
 import { Controller } from "../../gql";
 
-@Entity("component")
+@Entity("components")
 export class Thing extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;

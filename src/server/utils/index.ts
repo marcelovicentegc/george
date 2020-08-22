@@ -9,11 +9,13 @@ export const slugify = (text: string) => {
     .toLowerCase();
 };
 
+interface Session extends Express.Session {
+  userId: string | undefined;
+}
+
 export interface Context {
   req: {
-    session: {
-      userId: string | undefined;
-    };
+    session: Session;
   };
   res: {};
 }

@@ -13,7 +13,7 @@ import { Profile } from "./Profile.model";
 import { TriggerLog } from "./TriggerLog.model";
 import { Permission } from "../../gql";
 
-@Entity("user")
+@Entity("users")
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;

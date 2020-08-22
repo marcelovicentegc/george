@@ -12,12 +12,12 @@ const queries: QueryResolvers = {
     if (userId) {
       user = await User.findOne({
         where: { userId },
-        relations: ["group"],
+        relations: ["groups"],
       });
     } else if (req.session.userId) {
       user = await User.findOne({
         where: { userId: req.session.userId },
-        relations: ["group"],
+        relations: ["groups"],
       });
     }
 

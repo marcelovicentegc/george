@@ -17,7 +17,7 @@ const queries: QueryResolvers = {
 
     const things = await Thing.find({
       where: { groupId },
-      relations: ["triggerLog"],
+      relations: ["triggerLogs"],
     });
 
     return things;
@@ -25,7 +25,7 @@ const queries: QueryResolvers = {
   getThing: async (_, { topic }) => {
     const thing = await Thing.findOne({
       where: { topic },
-      relations: ["triggerLog", "triggerLog.user"],
+      relations: ["triggerLogs", "triggerLogs.user"],
     });
 
     return thing;
@@ -41,7 +41,7 @@ const queries: QueryResolvers = {
 
     const things = await Thing.find({
       where: { groupId },
-      relations: ["triggerLog"],
+      relations: ["triggerLogs"],
     });
 
     const thingsWithTriggerLog: Pick<

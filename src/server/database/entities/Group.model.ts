@@ -3,12 +3,12 @@ import {
   Column,
   Entity,
   OneToMany,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Thing } from "./Thing.model";
 import { User } from "./User.model";
 
-@Entity("group")
+@Entity("groups")
 export class Group extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
@@ -16,12 +16,12 @@ export class Group extends BaseEntity {
   @Column()
   public name: string;
 
-  @OneToMany(() => User, user => user.group, { nullable: true })
+  @OneToMany(() => User, (user) => user.group, { nullable: true })
   public users: User[];
 
-  @OneToMany(() => Thing, thing => thing.user, {
+  @OneToMany(() => Thing, (thing) => thing.user, {
     nullable: true,
-    cascade: true
+    cascade: true,
   })
   public things: Thing[];
 }

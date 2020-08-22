@@ -102,7 +102,7 @@ const startServer = async () => {
     log(`Redis is ready on port ${redisPort}`);
   });
 
-  redis.on("error", (err) => log(err));
+  redis.on("error", console.error);
 
   app.use(bodyParser.json());
   app.use(

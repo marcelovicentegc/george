@@ -8,7 +8,7 @@ import {
 import { Thing } from "./Thing.model";
 import { User } from "./User.model";
 
-@Entity("triggerLog")
+@Entity("triggerLogs")
 export class TriggerLog extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
