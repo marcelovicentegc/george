@@ -17,7 +17,7 @@
     "start:docs": "cd docs && rimraf .docusaurus && npm start",
     "start:redis": "docker run --name george_redis -d -p 6379:6379 redis:5",
     "stop:redis": "docker stop george_redis",
-    "start:postgres": "docker run --name george_postgres -d -p 5432:5432 postgres:11",
+    "start:postgres": "docker run --name george_postgres -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres:11",
     "stop:postgres": "docker stop george_postgres",
     "gen:client": "wait-on tcp:${SERVER_PORT:-4000} && graphql-codegen --config codegen-client.yml",
     "gen:server": "wait-on tcp:${SERVER_PORT:-4000} && graphql-codegen --config codegen-server.yml",

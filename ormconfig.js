@@ -11,11 +11,11 @@ const isProduction = NODE_ENV === "production";
 
 module.exports = {
   type: "postgres",
-  database: DB_DATABASE,
-  host: DB_HOST,
-  password: DB_PASSWORD,
-  port: DB_PORT,
-  username: DB_USERNAME,
+  database: DB_DATABASE || "postgres",
+  host: DB_HOST || "localhost",
+  password: DB_PASSWORD || "postgres",
+  port: DB_PORT || 5432,
+  username: DB_USERNAME || "postgres",
   dropSchema: !isProduction,
   synchronize: !isProduction,
   logging: !isProduction,
