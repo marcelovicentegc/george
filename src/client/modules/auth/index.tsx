@@ -99,11 +99,10 @@ class Auth extends React.Component<Props, State> {
                           password: this.state.password,
                         },
                       }).then(() => {
-                        this.state.errorMessage &&
-                          this.setState({
-                            awaiting: false,
-                            errorMessage: this.state.errorMessage,
-                          });
+                        this.setState({
+                          awaiting: false,
+                          errorMessage: this.state.errorMessage || "",
+                        });
                       });
                     }}
                   />

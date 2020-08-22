@@ -1,3 +1,4 @@
+import * as Redis from "redis";
 import * as bcrypt from "bcrypt";
 import * as bodyParser from "body-parser";
 import * as connectRedis from "connect-redis";
@@ -13,7 +14,6 @@ import {
 } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import { User, Group, Profile } from "./database/entities";
-import { redis } from "./redis";
 import { schema } from "./schema";
 import {
   serverPort,
@@ -21,12 +21,14 @@ import {
   brokerPort,
   clientPort,
   sessionSecret,
-  redisPort,
   dbType,
+  redisPort,
+  redisHost,
 } from "./config";
 import { Context } from "./utils";
 import { v1 } from "uuid";
 import { Permission } from "./gql";
+// import { redisPort, redisHost } from "./config";
 
 const log = console.log;
 
@@ -97,19 +99,34 @@ const startServer = async () => {
 
   const app = express();
 
-  const RedisStore = connectRedis(session);
-
-  redis.on("ready", () => {
-    log(`Redis is ready on port ${redisPort}`);
+  const redisClient = Redis.createClient({
+    port: redisPort,
+    host: redisHost,
   });
 
-  redis.on("error", console.error);
+  redisClient.on("error", console.error);
+
+  const runSample = () => {
+    log(`Redis is ready on port ${redisPort}`);
+
+    redisClient.set("redis_healthcheck", "Hello World", (err, reply) => {
+      log(`\tRedis set healthcheck: ${reply.toString()}`);
+    });
+
+    redisClient.get("redis_healthcheck", (err, reply) => {
+      log(`\tRedis get healthcheck: ${reply.toString()}`);
+    });
+  };
+
+  redisClient.on("connect", runSample);
+
+  const RedisStore = connectRedis(session);
 
   app.use(bodyParser.json());
   app.use(
     session({
       store: new RedisStore({
-        client: redis,
+        client: redisClient,
       }),
       secret: sessionSecret,
       resave: false,

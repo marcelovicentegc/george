@@ -5,6 +5,7 @@ const {
   DB_USERNAME,
   DB_PASSWORD,
   DB_DATABASE,
+  DB_LOGGING,
   USE_SQLITE,
 } = process.env;
 
@@ -13,7 +14,7 @@ const isProduction = NODE_ENV === "production";
 const base = {
   dropSchema: !isProduction,
   synchronize: !isProduction,
-  logging: !isProduction,
+  logging: Boolean(DB_LOGGING),
   entities: ["src/server/database/**/*.model.ts"],
   migrations: ["src/server/database/migrations/*.ts"],
   cli: {

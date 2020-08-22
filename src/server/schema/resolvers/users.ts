@@ -7,6 +7,9 @@ const queries: QueryResolvers = {
   getUserId: async (_, __, { req }: Context) => {
     const userIdFromSession = req.session.userId;
 
+    console.log("[getUserId] =======================\n");
+    console.log("req.session: ", req.session);
+
     if (userIdFromSession === undefined) return null;
 
     const user = await User.findOne(userIdFromSession);
