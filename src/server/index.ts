@@ -134,7 +134,7 @@ const startServer = async () => {
       saveUninitialized: false,
       cookie: {
         secure: useHttps,
-        sameSite: "lax",
+        sameSite: "strict",
       },
     })
   );
