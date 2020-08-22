@@ -22,6 +22,7 @@ import {
   clientPort,
   sessionSecret,
   redisPort,
+  dbType,
 } from "./config";
 import { Context } from "./utils";
 import { v1 } from "uuid";
@@ -46,7 +47,7 @@ const startServer = async () => {
 
     try {
       await createConnection(connectionOptions).then(() => {
-        log("Connected to database");
+        log(`Connected to ${dbType} database`);
       });
 
       if (!isProduction) {
