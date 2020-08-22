@@ -24,6 +24,7 @@ import {
   dbType,
   redisPort,
   redisHost,
+  useHttps,
 } from "./config";
 import { Context } from "./utils";
 import { v1 } from "uuid";
@@ -132,7 +133,7 @@ const startServer = async () => {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: false,
+        secure: useHttps,
         sameSite: "lax",
       },
     })
