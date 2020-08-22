@@ -4,11 +4,8 @@ import { Context } from "../../utils";
 import { QueryResolvers, Permission } from "../../gql";
 
 const queries: QueryResolvers = {
-  getUserId: async (_, __, { req }: Context) => {
+  getUserId: async (_, __, { req, res }: Context) => {
     const userIdFromSession = req.session.userId;
-
-    console.log("[getUserId] =======================\n");
-    console.log("req.session: ", req.session);
 
     if (userIdFromSession === undefined) return null;
 

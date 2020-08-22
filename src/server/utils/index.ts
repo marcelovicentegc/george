@@ -17,5 +17,5 @@ export interface Context {
   req: {
     session: Session;
   };
-  res: {};
+  res: Express.Response;
 }

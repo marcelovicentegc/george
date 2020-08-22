@@ -14,7 +14,7 @@ const queries: QueryResolvers = {
 
     const things = await Thing.find({
       where: { groupId },
-      relations: ["triggerLogs"],
+      relations: ["triggerLog"],
     });
 
     const triggerLog: TriggerLog[] = [];

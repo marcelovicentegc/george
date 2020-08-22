@@ -131,6 +131,10 @@ const startServer = async () => {
       secret: sessionSecret,
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        secure: false,
+        sameSite: "lax",
+      },
     })
   );
   server.applyMiddleware({
