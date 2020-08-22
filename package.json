@@ -113,7 +113,7 @@
     "apollo-link-http": "^1.5.16",
     "apollo-server-express": "^2.9.13",
     "apollo-upload-client": "^12.1.0",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "connect-redis": "^5.0.0",
     "cors": "^2.8.5",
