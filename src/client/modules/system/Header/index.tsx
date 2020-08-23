@@ -97,7 +97,7 @@ export const Header: React.FC = observer(() => {
           {(avatarLoading || usernameLoading || permissionLoading) && (
             <Loader />
           )}
-          {avatarData && avatarData.getProfileAvatar ? (
+          {!avatarLoading && avatarData && avatarData.getProfileAvatar ? (
             <Avatar image={avatarData.getProfileAvatar} />
           ) : (
             usernameData &&

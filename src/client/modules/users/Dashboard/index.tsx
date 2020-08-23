@@ -2,13 +2,21 @@ import * as React from "react";
 import * as s from "./main.scss";
 import { Mutation } from "react-apollo";
 import { toast } from "react-toastify";
-import { Form, Button, Dialog, Dropdown } from "@fluentui/react-northstar";
+import {
+  Form,
+  Button,
+  Dialog,
+  Dropdown,
+  Loader,
+} from "@fluentui/react-northstar";
 import { createUser, getUsers } from "../../../../gql";
 import {
   CreateUserMutation,
   CreateUserMutationVariables,
   Permission,
 } from "../../../gql";
+
+const Users = React.lazy(() => import("../Users"));
 
 const Dashboard: React.FC = () => {
   const [awaiting, setAwaiting] = React.useState(false);
@@ -179,6 +187,9 @@ const Dashboard: React.FC = () => {
             )}
           </Mutation>
         </div>
+        <React.Suspense fallback={<Loader />}>
+          <Users />
+        </React.Suspense>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import { Context } from "../../utils";
 import { QueryResolvers, Permission } from "../../gql";
 
 const queries: QueryResolvers = {
-  getUserId: async (_, __, { req, res }: Context) => {
+  getUserId: async (_, __, { req }: Context) => {
     const userIdFromSession = req.session.userId;
 
     if (userIdFromSession === undefined) return null;
@@ -14,6 +14,19 @@ const queries: QueryResolvers = {
     if (!user) return null;
 
     return user.id;
+  },
+  getUsers: async (_, __, { req }: Context) => {
+    const userIdFromSession = req.session.userId;
+
+    if (userIdFromSession === undefined) return null;
+
+    const user = await User.findOne(userIdFromSession);
+
+    if (!user || user.permission !== Permission.Admin) return null;
+
+    const users = await User.find({ relations: ["profile"] });
+
+    return users;
   },
   getUsername: async (_, { userId }, { req }: Context) => {
     let username: string;

@@ -12,7 +12,7 @@ const queries: QueryResolvers = {
     }
 
     const user = await User.findOne(id, {
-      relations: ["profiles"],
+      relations: ["profile"],
     });
 
     return user.profile.avatarUrl;
