@@ -1,59 +1,30 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import { toast } from "react-toastify";
+import { Form, Button, Dialog, Loader } from "@fluentui/react-northstar";
+import { createGroup } from "../../../../gql";
 import {
-  Form,
-  Button,
-  Dialog,
-  Dropdown,
-  Loader,
-} from "@fluentui/react-northstar";
-import { createUser, getUsers } from "../../../../gql";
-import {
-  CreateUserMutation,
-  CreateUserMutationVariables,
-  Permission,
+  CreateGroupMutationVariables,
+  CreateGroupMutation,
 } from "../../../gql";
 import { DashboardWrapper } from "../../system/DashboardWrapper";
+import { groups } from "../../../../gql/Queries.graphql";
 
 const Groups = React.lazy(() => import("./Groups"));
 
 const Dashboard: React.FC = () => {
   const [awaiting, setAwaiting] = React.useState(false);
-  const [userData, setUserData] = React.useState<CreateUserMutationVariables>();
-  const [permissionOptions, setPermissionOptions] = React.useState<string[]>(
-    []
-  );
-  React.useEffect(() => {
-    let options: string[] = [];
-
-    // tslint:disable-next-line:forin
-    for (const option in Permission) {
-      options.push(option);
-    }
-
-    setPermissionOptions(options);
-
-    options = [];
-  }, []);
+  const [groupData, setGroupData] = React.useState<
+    CreateGroupMutationVariables
+  >({ name: "" });
 
   const isValid = () => {
-    if (
-      userData.username &&
-      userData.password &&
-      userData.permission &&
-      userData.group
-    ) {
+    if (groupData.name) {
       return true;
     }
 
     return false;
   };
-
-  const permissionLabelId = "choose-permission";
-  const permissionId = "choose-permission-id";
-  const groupLabelId = "choose-group";
-  const groupId = "choose-group-id";
 
   return (
     <DashboardWrapper
@@ -63,14 +34,14 @@ const Dashboard: React.FC = () => {
         </React.Suspense>
       }
     >
-      <Mutation<CreateUserMutation, CreateUserMutationVariables>
-        mutation={createUser}
+      <Mutation<CreateGroupMutation, CreateGroupMutationVariables>
+        mutation={createGroup}
         onError={(error) => {
           toast(error.message);
         }}
         refetchQueries={[
           {
-            query: getUsers,
+            query: groups,
           },
         ]}
         awaitRefetchQueries
@@ -84,10 +55,7 @@ const Dashboard: React.FC = () => {
                 setAwaiting(true);
                 await mutate({
                   variables: {
-                    username: userData.username,
-                    password: userData.password,
-                    group: userData.group,
-                    permission: userData.permission,
+                    name: groupData.name,
                   },
                 }).finally(() => {
                   setAwaiting(false);
@@ -101,82 +69,22 @@ const Dashboard: React.FC = () => {
                 <Form
                   fields={[
                     {
-                      label: "Username",
-                      name: "username",
-                      id: "username",
-                      key: "username",
+                      label: "Name",
+                      name: "name",
+                      id: "name",
+                      key: "name",
                       required: true,
                       onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        setUserData({
-                          ...userData,
-                          username: e.target.value,
+                        setGroupData({
+                          name: e.target.value,
                         });
-                      },
-                    },
-                    {
-                      label: "Password",
-                      name: "password",
-                      id: "password",
-                      key: "password",
-                      type: "password",
-                      required: true,
-                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        setUserData({
-                          ...userData,
-                          password: e.target.value,
-                        });
-                      },
-                    },
-                    {
-                      label: "Permission",
-                      name: "permission",
-                      key: "permission",
-                      type: "permission",
-                      control: {
-                        as: Dropdown,
-                        items: permissionOptions,
-                        "aria-labelledby": permissionLabelId,
-                        search: true,
-                        placeholder: "Choose a permission",
-                        searchInput: {
-                          id: permissionId, // id needs to end up on the search input.
-                        },
-                        id: undefined, // not on the main wrapper element.
-                      },
-                      required: true,
-                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        setUserData({
-                          ...userData,
-                          permission: e.target.value,
-                        });
-                      },
-                    },
-                    {
-                      label: "Group",
-                      name: "group",
-                      key: "group",
-                      type: "group",
-                      control: {
-                        as: Dropdown,
-                        items: [],
-                        "aria-labelledby": groupLabelId,
-                        search: true,
-                        placeholder: "Choose a group",
-                        searchInput: {
-                          id: groupId, // id needs to end up on the search input.
-                        },
-                        id: undefined, // not on the main wrapper element.
-                      },
-                      required: true,
-                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        setUserData({ ...userData, group: e.target.value });
                       },
                     },
                   ]}
                 />
               </>
             }
-            header="Add user"
+            header="Add group"
             trigger={<Button circular content="+" />}
           />
         )}
