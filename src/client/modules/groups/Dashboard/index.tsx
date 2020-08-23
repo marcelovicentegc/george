@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as s from "./main.scss";
 import { Mutation } from "react-apollo";
 import { toast } from "react-toastify";
 import {
@@ -15,6 +14,7 @@ import {
   CreateUserMutationVariables,
   Permission,
 } from "../../../gql";
+import { DashboardWrapper } from "../../system/DashboardWrapper";
 
 const Groups = React.lazy(() => import("./Groups"));
 
@@ -56,142 +56,132 @@ const Dashboard: React.FC = () => {
   const groupId = "choose-group-id";
 
   return (
-    <>
-      <div className={s.dashboardWrapper} data-testid="dashboardWrapper">
-        <div className={s.dashboard} data-testid="dashboard">
-          <Mutation<CreateUserMutation, CreateUserMutationVariables>
-            mutation={createUser}
-            onError={(error) => {
-              toast(error.message);
-            }}
-            refetchQueries={[
-              {
-                query: getUsers,
-              },
-            ]}
-            awaitRefetchQueries
-          >
-            {(mutate) => (
-              <Dialog
-                className={s.dialog}
-                cancelButton="Cancel"
-                confirmButton={awaiting ? "Submitting" : "Submit"}
-                onConfirm={async () => {
-                  if (isValid() && !awaiting) {
-                    setAwaiting(true);
-                    await mutate({
-                      variables: {
-                        username: userData.username,
-                        password: userData.password,
-                        group: userData.group,
-                        permission: userData.permission,
-                      },
-                    }).finally(() => {
-                      setAwaiting(false);
-                    });
-                  } else {
-                    toast("You must fill in every input field.");
-                  }
-                }}
-                content={
-                  <>
-                    <Form
-                      fields={[
-                        {
-                          label: "Username",
-                          name: "username",
-                          id: "username",
-                          key: "username",
-                          required: true,
-                          onChange: (
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            setUserData({
-                              ...userData,
-                              username: e.target.value,
-                            });
-                          },
-                        },
-                        {
-                          label: "Password",
-                          name: "password",
-                          id: "password",
-                          key: "password",
-                          type: "password",
-                          required: true,
-                          onChange: (
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            setUserData({
-                              ...userData,
-                              password: e.target.value,
-                            });
-                          },
-                        },
-                        {
-                          label: "Permission",
-                          name: "permission",
-                          key: "permission",
-                          type: "permission",
-                          control: {
-                            as: Dropdown,
-                            items: permissionOptions,
-                            "aria-labelledby": permissionLabelId,
-                            search: true,
-                            placeholder: "Choose a permission",
-                            searchInput: {
-                              id: permissionId, // id needs to end up on the search input.
-                            },
-                            id: undefined, // not on the main wrapper element.
-                          },
-                          required: true,
-                          onChange: (
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            setUserData({
-                              ...userData,
-                              permission: e.target.value,
-                            });
-                          },
-                        },
-                        {
-                          label: "Group",
-                          name: "group",
-                          key: "group",
-                          type: "group",
-                          control: {
-                            as: Dropdown,
-                            items: [],
-                            "aria-labelledby": groupLabelId,
-                            search: true,
-                            placeholder: "Choose a group",
-                            searchInput: {
-                              id: groupId, // id needs to end up on the search input.
-                            },
-                            id: undefined, // not on the main wrapper element.
-                          },
-                          required: true,
-                          onChange: (
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            setUserData({ ...userData, group: e.target.value });
-                          },
-                        },
-                      ]}
-                    />
-                  </>
-                }
-                header="Add user"
-                trigger={<Button circular content="+" />}
-              />
-            )}
-          </Mutation>
-        </div>
+    <DashboardWrapper
+      wrapperChildren={
         <React.Suspense fallback={<Loader />}>
           <Groups />
         </React.Suspense>
-      </div>
-    </>
+      }
+    >
+      <Mutation<CreateUserMutation, CreateUserMutationVariables>
+        mutation={createUser}
+        onError={(error) => {
+          toast(error.message);
+        }}
+        refetchQueries={[
+          {
+            query: getUsers,
+          },
+        ]}
+        awaitRefetchQueries
+      >
+        {(mutate) => (
+          <Dialog
+            cancelButton="Cancel"
+            confirmButton={awaiting ? "Submitting" : "Submit"}
+            onConfirm={async () => {
+              if (isValid() && !awaiting) {
+                setAwaiting(true);
+                await mutate({
+                  variables: {
+                    username: userData.username,
+                    password: userData.password,
+                    group: userData.group,
+                    permission: userData.permission,
+                  },
+                }).finally(() => {
+                  setAwaiting(false);
+                });
+              } else {
+                toast("You must fill in every input field.");
+              }
+            }}
+            content={
+              <>
+                <Form
+                  fields={[
+                    {
+                      label: "Username",
+                      name: "username",
+                      id: "username",
+                      key: "username",
+                      required: true,
+                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                        setUserData({
+                          ...userData,
+                          username: e.target.value,
+                        });
+                      },
+                    },
+                    {
+                      label: "Password",
+                      name: "password",
+                      id: "password",
+                      key: "password",
+                      type: "password",
+                      required: true,
+                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                        setUserData({
+                          ...userData,
+                          password: e.target.value,
+                        });
+                      },
+                    },
+                    {
+                      label: "Permission",
+                      name: "permission",
+                      key: "permission",
+                      type: "permission",
+                      control: {
+                        as: Dropdown,
+                        items: permissionOptions,
+                        "aria-labelledby": permissionLabelId,
+                        search: true,
+                        placeholder: "Choose a permission",
+                        searchInput: {
+                          id: permissionId, // id needs to end up on the search input.
+                        },
+                        id: undefined, // not on the main wrapper element.
+                      },
+                      required: true,
+                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                        setUserData({
+                          ...userData,
+                          permission: e.target.value,
+                        });
+                      },
+                    },
+                    {
+                      label: "Group",
+                      name: "group",
+                      key: "group",
+                      type: "group",
+                      control: {
+                        as: Dropdown,
+                        items: [],
+                        "aria-labelledby": groupLabelId,
+                        search: true,
+                        placeholder: "Choose a group",
+                        searchInput: {
+                          id: groupId, // id needs to end up on the search input.
+                        },
+                        id: undefined, // not on the main wrapper element.
+                      },
+                      required: true,
+                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                        setUserData({ ...userData, group: e.target.value });
+                      },
+                    },
+                  ]}
+                />
+              </>
+            }
+            header="Add user"
+            trigger={<Button circular content="+" />}
+          />
+        )}
+      </Mutation>
+    </DashboardWrapper>
   );
 };
 

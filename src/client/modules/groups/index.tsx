@@ -1,18 +1,16 @@
 import * as React from "react";
-import * as s from "./main.scss";
 import { Loader } from "@fluentui/react-northstar";
+import { HomeWrapper } from "../system/HomeWrapper";
 
 const Dashboard = React.lazy(() => import("./Dashboard"));
 
 const Groups: React.FC = () => {
   return (
-    <div className={s.homeWrapper} data-testid="homeWrapper">
-      <div className={s.home} data-testid="home">
-        <React.Suspense fallback={<Loader />}>
-          <Dashboard />
-        </React.Suspense>
-      </div>
-    </div>
+    <HomeWrapper>
+      <React.Suspense fallback={<Loader />}>
+        <Dashboard />
+      </React.Suspense>
+    </HomeWrapper>
   );
 };
 

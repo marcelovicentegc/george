@@ -1,18 +1,11 @@
 import * as React from "react";
 import * as s from "./main.scss";
-import searching from "../../../assets/searching.png";
-import {
-  Table,
-  Image,
-  Flex,
-  Text,
-  Loader,
-  Avatar,
-} from "@fluentui/react-northstar";
-import { useGetUsersQuery } from "../../../gql";
-import { rootStoreContext } from "../../../stores/RootStore";
-import { TableWrapper } from "../../system/TableWrapper";
+import { Table, Text, Loader, Avatar } from "@fluentui/react-northstar";
+import { useGetUsersQuery } from "../../../../gql";
+import { rootStoreContext } from "../../../../stores/RootStore";
+import { TableWrapper } from "../../../system/TableWrapper";
 import { toast } from "react-toastify";
+import { NotFound } from "../../../system/NotFound";
 
 const Users: React.FC = () => {
   const { routerStore } = React.useContext(rootStoreContext);
@@ -48,10 +41,7 @@ const Users: React.FC = () => {
     <TableWrapper id={s.componentsWrapper} data-testid="components">
       {loading && <Loader />}
       {(!data || !data.getUsers || data.getUsers.length === 0) && (
-        <Flex data-testid="noComponent" column hAlign={"center"}>
-          <Image src={searching} className={s.image} />
-          <Text>It looks like you haven't added components yet.</Text>
-        </Flex>
+        <NotFound label={"It looks like there are no users yet."} />
       )}
 
       {!loading && data && data.getUsers && data.getUsers.length > 0 && (

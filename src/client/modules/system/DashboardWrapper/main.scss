@@ -2,10 +2,4 @@
 
 .dashboardWrapper {
   @include dashboardWrapper();
-
-  .dashboard {
-    .dialog {
-      width: 256px;
-    }
-  }
 }

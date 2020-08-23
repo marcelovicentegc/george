@@ -46,7 +46,7 @@ const queries: QueryResolvers = {
     }
 
     return await Group.find({
-      relations: ["things", "users"],
+      relations: ["things", "users", "users.profile"],
     });
   },
   groupNames: async (_, __, { req, res }: Context) => {

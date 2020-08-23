@@ -1,20 +1,13 @@
 import * as React from "react";
 import * as s from "./main.scss";
-import searching from "../../../assets/searching.png";
-import { getThings } from "../../../../gql/Queries.graphql";
-import {
-  Table,
-  Button,
-  Image,
-  Flex,
-  Text,
-  Loader,
-} from "@fluentui/react-northstar";
-import { useToggleThingMutation, useGetThingsQuery } from "../../../gql";
-import { rootStoreContext } from "../../../stores/RootStore";
-import { TableWrapper } from "../../system/TableWrapper";
-import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
+import { getThings } from "../../../../../gql/Queries.graphql";
+import { Table, Button, Text, Loader } from "@fluentui/react-northstar";
+import { useToggleThingMutation, useGetThingsQuery } from "../../../../gql";
+import { rootStoreContext } from "../../../../stores/RootStore";
+import { TableWrapper } from "../../../system/TableWrapper";
+import { capitalizeFirstLetter } from "../../../../utils/capitalizeFirstLetter";
 import { toast } from "react-toastify";
+import { NotFound } from "../../../system/NotFound";
 
 interface Props {
   groupId: string;
@@ -69,10 +62,7 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
     <TableWrapper id={s.componentsWrapper} data-testid="components">
       {loading && <Loader />}
       {(!data || !data.getThings || data.getThings.length === 0) && (
-        <Flex data-testid="noComponent" column hAlign={"center"}>
-          <Image src={searching} className={s.image} />
-          <Text>It looks like you haven't added components yet.</Text>
-        </Flex>
+        <NotFound label={"It looks like you haven't added components yet."} />
       )}
 
       {!loading && data && data.getThings && data.getThings.length > 0 && (

@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as s from "./main.scss";
-import searching from "../../../../assets/searching.png";
 import { Table, Image, Flex, Text, Loader } from "@fluentui/react-northstar";
 import { useGroupsQuery } from "../../../../gql";
 import { rootStoreContext } from "../../../../stores/RootStore";
 import { TableWrapper } from "../../../system/TableWrapper";
 import { toast } from "react-toastify";
+import { NotFound } from "../../../system/NotFound";
 
 const Groups: React.FC = () => {
   const { routerStore } = React.useContext(rootStoreContext);
@@ -38,13 +38,10 @@ const Groups: React.FC = () => {
   };
 
   return (
-    <TableWrapper id={s.componentsWrapper} data-testid="components">
+    <TableWrapper id={s.componentsWrapper} data-testid="groups">
       {loading && <Loader />}
       {(!data || !data.groups || data.groups.length === 0) && (
-        <Flex data-testid="noComponent" column hAlign={"center"}>
-          <Image src={searching} className={s.image} />
-          <Text>It looks like you haven't added components yet.</Text>
-        </Flex>
+        <NotFound label={"It looks like there are no groups yet."} />
       )}
 
       {!loading && data && data.groups && data.groups.length > 0 && (

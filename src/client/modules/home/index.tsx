@@ -1,6 +1,6 @@
 import * as React from "react";
-import * as s from "./main.scss";
 import { Dashboard } from "./Dashboard";
+import { HomeWrapper } from "../system/HomeWrapper";
 
 interface Props {
   groupId: string;
@@ -8,11 +8,9 @@ interface Props {
 
 const Home: React.FunctionComponent<Props> = (props) => {
   return (
-    <div className={s.homeWrapper} data-testid="homeWrapper">
-      <div className={s.home} data-testid="home">
-        <Dashboard groupId={props.groupId} />
-      </div>
-    </div>
+    <HomeWrapper>
+      <Dashboard groupId={props.groupId} />
+    </HomeWrapper>
   );
 };
 
