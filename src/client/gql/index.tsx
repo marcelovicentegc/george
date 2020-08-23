@@ -37,6 +37,7 @@ export type Mutation = {
   createGroup: Scalars['Boolean'];
   updateGroup: Scalars['Boolean'];
   deleteGroup: Scalars['Boolean'];
+  createUser: Scalars['Boolean'];
 };
 
 
@@ -74,6 +75,14 @@ export type MutationUpdateGroupArgs = {
 
 export type MutationDeleteGroupArgs = {
   id: Scalars['String'];
+};
+
+
+export type MutationCreateUserArgs = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+  group: Scalars['String'];
+  permission: Scalars['String'];
 };
 
 export enum Permission {
@@ -207,6 +216,19 @@ export type LogoutUserMutationVariables = {};
 export type LogoutUserMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'logoutUser'>
+);
+
+export type CreateUserMutationVariables = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+  group: Scalars['String'];
+  permission: Scalars['String'];
+};
+
+
+export type CreateUserMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createUser'>
 );
 
 export type AddThingMutationVariables = {
@@ -520,6 +542,56 @@ export function useLogoutUserMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type LogoutUserMutationHookResult = ReturnType<typeof useLogoutUserMutation>;
 export type LogoutUserMutationResult = ApolloReactCommon.MutationResult<LogoutUserMutation>;
 export type LogoutUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutUserMutation, LogoutUserMutationVariables>;
+export const CreateUserDocument = gql`
+    mutation CreateUser($username: String!, $password: String!, $group: String!, $permission: String!) {
+  createUser(username: $username, password: $password, group: $group, permission: $permission)
+}
+    `;
+export type CreateUserMutationFn = ApolloReactCommon.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+export type CreateUserComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<CreateUserMutation, CreateUserMutationVariables>, 'mutation'>;
+
+    export const CreateUserComponent = (props: CreateUserComponentProps) => (
+      <ApolloReactComponents.Mutation<CreateUserMutation, CreateUserMutationVariables> mutation={CreateUserDocument} {...props} />
+    );
+    
+export type CreateUserProps<TChildProps = {}> = ApolloReactHoc.MutateProps<CreateUserMutation, CreateUserMutationVariables> & TChildProps;
+export function withCreateUser<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CreateUserMutation,
+  CreateUserMutationVariables,
+  CreateUserProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, CreateUserMutation, CreateUserMutationVariables, CreateUserProps<TChildProps>>(CreateUserDocument, {
+      alias: 'createUser',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      password: // value for 'password'
+ *      group: // value for 'group'
+ *      permission: // value for 'permission'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, baseOptions);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = ApolloReactCommon.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const AddThingDocument = gql`
     mutation AddThing($space: String!, $component: String!, $controller: Controller!) {
   addThing(space: $space, component: $component, controller: $controller)

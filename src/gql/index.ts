@@ -3,6 +3,8 @@ export {
   logoutUser,
   addThing,
   toggleThing,
+  createGroup,
+  createUser,
 } from "./Mutations.graphql";
 export {
   getUsername,
@@ -12,4 +14,5 @@ export {
   getThingsWithTriggerLog,
   getTriggerLog,
   getUserId,
+  getUsers,
 } from "./Queries.graphql";

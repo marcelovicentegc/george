@@ -14,6 +14,22 @@ export const logoutUser = gql`
   }
 `;
 
+export const createUser = gql`
+  mutation CreateUser(
+    $username: String!
+    $password: String!
+    $group: String!
+    $permission: String!
+  ) {
+    createUser(
+      username: $username
+      password: $password
+      group: $group
+      permission: $permission
+    )
+  }
+`;
+
 export const addThing = gql`
   mutation AddThing(
     $space: String!

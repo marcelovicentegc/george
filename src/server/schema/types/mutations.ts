@@ -18,5 +18,11 @@ export const mutations = gql`
       thingIds: [String]
     ): Boolean!
     deleteGroup(id: String!): Boolean!
+    createUser(
+      username: String!
+      password: String!
+      group: String!
+      permission: String!
+    ): Boolean!
   }
 `;

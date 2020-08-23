@@ -3,11 +3,11 @@ id: setup
 title: Setup 🖥
 ---
 
-## Raspberry Pi setup 😋
-
-### Docker images 🐋
+## Docker [recommended]
 
 In progress...
+
+## Host installation
 
 ### Fast setup ⏩
 
