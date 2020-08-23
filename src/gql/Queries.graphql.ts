@@ -63,6 +63,32 @@ export const getGroup = gql`
   }
 `;
 
+export const groupNames = gql`
+  query GroupNames {
+    groupNames
+  }
+`;
+
+export const groups = gql`
+  query Groups {
+    groups {
+      name
+      users {
+        id
+        username
+        profile {
+          avatarUrl
+        }
+      }
+      things {
+        id
+        space
+        component
+      }
+    }
+  }
+`;
+
 export const getThings = gql`
   query GetThings($groupId: String!) {
     getThings(groupId: $groupId) {

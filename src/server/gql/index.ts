@@ -103,6 +103,8 @@ export type Query = {
   getGroupId?: Maybe<Group>;
   getGroup?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
+  groups?: Maybe<Array<Group>>;
+  groupNames?: Maybe<Array<Scalars['String']>>;
   getThing?: Maybe<Thing>;
   getTriggerLog?: Maybe<Array<Maybe<TriggerLog>>>;
   getThingsWithTriggerLog?: Maybe<Array<Maybe<ThingWithTriggerLog>>>;
@@ -334,6 +336,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getGroupId?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupIdArgs, never>>,
   getGroup?: Resolver<Maybe<ResolversTypes['Group']>, ParentType, ContextType, RequireFields<QueryGetGroupArgs, 'id'>>,
   getThings?: Resolver<Maybe<Array<Maybe<ResolversTypes['Thing']>>>, ParentType, ContextType, RequireFields<QueryGetThingsArgs, 'groupId'>>,
+  groups?: Resolver<Maybe<Array<ResolversTypes['Group']>>, ParentType, ContextType>,
+  groupNames?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>,
   getThing?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType, RequireFields<QueryGetThingArgs, 'topic'>>,
   getTriggerLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['TriggerLog']>>>, ParentType, ContextType, RequireFields<QueryGetTriggerLogArgs, 'groupId'>>,
   getThingsWithTriggerLog?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingWithTriggerLog']>>>, ParentType, ContextType, RequireFields<QueryGetThingsWithTriggerLogArgs, 'id'>>,

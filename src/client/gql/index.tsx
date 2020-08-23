@@ -108,6 +108,8 @@ export type Query = {
   getGroupId?: Maybe<Group>;
   getGroup?: Maybe<Group>;
   getThings?: Maybe<Array<Maybe<Thing>>>;
+  groups?: Maybe<Array<Group>>;
+  groupNames?: Maybe<Array<Scalars['String']>>;
   getThing?: Maybe<Thing>;
   getTriggerLog?: Maybe<Array<Maybe<TriggerLog>>>;
   getThingsWithTriggerLog?: Maybe<Array<Maybe<ThingWithTriggerLog>>>;
@@ -375,6 +377,36 @@ export type GetGroupQuery = (
       & Pick<Thing, 'id' | 'space' | 'component'>
     )>>> }
   )> }
+);
+
+export type GroupNamesQueryVariables = {};
+
+
+export type GroupNamesQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'groupNames'>
+);
+
+export type GroupsQueryVariables = {};
+
+
+export type GroupsQuery = (
+  { __typename?: 'Query' }
+  & { groups?: Maybe<Array<(
+    { __typename?: 'Group' }
+    & Pick<Group, 'name'>
+    & { users?: Maybe<Array<Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+      & { profile: (
+        { __typename?: 'Profile' }
+        & Pick<Profile, 'avatarUrl'>
+      ) }
+    )>>>, things?: Maybe<Array<Maybe<(
+      { __typename?: 'Thing' }
+      & Pick<Thing, 'id' | 'space' | 'component'>
+    )>>> }
+  )>> }
 );
 
 export type GetThingsQueryVariables = {
@@ -1188,6 +1220,114 @@ export function useGetGroupLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type GetGroupQueryHookResult = ReturnType<typeof useGetGroupQuery>;
 export type GetGroupLazyQueryHookResult = ReturnType<typeof useGetGroupLazyQuery>;
 export type GetGroupQueryResult = ApolloReactCommon.QueryResult<GetGroupQuery, GetGroupQueryVariables>;
+export const GroupNamesDocument = gql`
+    query GroupNames {
+  groupNames
+}
+    `;
+export type GroupNamesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GroupNamesQuery, GroupNamesQueryVariables>, 'query'>;
+
+    export const GroupNamesComponent = (props: GroupNamesComponentProps) => (
+      <ApolloReactComponents.Query<GroupNamesQuery, GroupNamesQueryVariables> query={GroupNamesDocument} {...props} />
+    );
+    
+export type GroupNamesProps<TChildProps = {}> = ApolloReactHoc.DataProps<GroupNamesQuery, GroupNamesQueryVariables> & TChildProps;
+export function withGroupNames<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GroupNamesQuery,
+  GroupNamesQueryVariables,
+  GroupNamesProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GroupNamesQuery, GroupNamesQueryVariables, GroupNamesProps<TChildProps>>(GroupNamesDocument, {
+      alias: 'groupNames',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGroupNamesQuery__
+ *
+ * To run a query within a React component, call `useGroupNamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroupNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroupNamesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGroupNamesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GroupNamesQuery, GroupNamesQueryVariables>) {
+        return ApolloReactHooks.useQuery<GroupNamesQuery, GroupNamesQueryVariables>(GroupNamesDocument, baseOptions);
+      }
+export function useGroupNamesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GroupNamesQuery, GroupNamesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GroupNamesQuery, GroupNamesQueryVariables>(GroupNamesDocument, baseOptions);
+        }
+export type GroupNamesQueryHookResult = ReturnType<typeof useGroupNamesQuery>;
+export type GroupNamesLazyQueryHookResult = ReturnType<typeof useGroupNamesLazyQuery>;
+export type GroupNamesQueryResult = ApolloReactCommon.QueryResult<GroupNamesQuery, GroupNamesQueryVariables>;
+export const GroupsDocument = gql`
+    query Groups {
+  groups {
+    name
+    users {
+      id
+      username
+      profile {
+        avatarUrl
+      }
+    }
+    things {
+      id
+      space
+      component
+    }
+  }
+}
+    `;
+export type GroupsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GroupsQuery, GroupsQueryVariables>, 'query'>;
+
+    export const GroupsComponent = (props: GroupsComponentProps) => (
+      <ApolloReactComponents.Query<GroupsQuery, GroupsQueryVariables> query={GroupsDocument} {...props} />
+    );
+    
+export type GroupsProps<TChildProps = {}> = ApolloReactHoc.DataProps<GroupsQuery, GroupsQueryVariables> & TChildProps;
+export function withGroups<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  GroupsQuery,
+  GroupsQueryVariables,
+  GroupsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, GroupsQuery, GroupsQueryVariables, GroupsProps<TChildProps>>(GroupsDocument, {
+      alias: 'groups',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useGroupsQuery__
+ *
+ * To run a query within a React component, call `useGroupsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroupsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGroupsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GroupsQuery, GroupsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GroupsQuery, GroupsQueryVariables>(GroupsDocument, baseOptions);
+      }
+export function useGroupsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GroupsQuery, GroupsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GroupsQuery, GroupsQueryVariables>(GroupsDocument, baseOptions);
+        }
+export type GroupsQueryHookResult = ReturnType<typeof useGroupsQuery>;
+export type GroupsLazyQueryHookResult = ReturnType<typeof useGroupsLazyQuery>;
+export type GroupsQueryResult = ApolloReactCommon.QueryResult<GroupsQuery, GroupsQueryVariables>;
 export const GetThingsDocument = gql`
     query GetThings($groupId: String!) {
   getThings(groupId: $groupId) {

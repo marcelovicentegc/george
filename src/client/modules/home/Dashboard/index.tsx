@@ -128,7 +128,6 @@ export const Dashboard: React.FunctionComponent<Props> = observer(
                               as: Dropdown,
                               items: controllerOptions,
                               "aria-labelledby": controllerLabelId,
-                              search: true,
                               placeholder: "Choose a controller type",
                               searchInput: {
                                 id: controllerId, // id needs to end up on the search input.

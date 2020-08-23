@@ -17,5 +17,7 @@ export interface Context {
   req: {
     session: Session;
   };
-  res: Express.Response;
+  res: Express.Response & {
+    clearCookie: (sid: string) => void;
+  };
 }

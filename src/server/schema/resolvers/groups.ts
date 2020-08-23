@@ -4,6 +4,7 @@ import { QueryResolvers, MutationResolvers, Permission } from "../../gql";
 import { Context } from "../../utils";
 import { Group, Thing } from "../../database/entities";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { logout } from "../utils/logout";
 
 const queries: QueryResolvers = {
   getGroupId: async (_, { userId }, { req }: Context) => {
@@ -35,6 +36,28 @@ const queries: QueryResolvers = {
     });
 
     return group;
+  },
+  groups: async (_, __, { req, res }: Context) => {
+    const user = await User.findOne(req.session.userId);
+
+    if (!user || user.permission !== Permission.Admin) {
+      await logout({ req, res });
+      throw new Error("You can't do this.");
+    }
+
+    return await Group.find({
+      relations: ["things", "users"],
+    });
+  },
+  groupNames: async (_, __, { req, res }: Context) => {
+    const user = await User.findOne(req.session.userId);
+
+    if (!user || user.permission !== Permission.Admin) {
+      await logout({ req, res });
+      throw new Error("You can't do this.");
+    }
+
+    return (await Group.find()).flatMap((group) => group.name);
   },
 };
 

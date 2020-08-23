@@ -79,8 +79,6 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
         <Table
           header={header}
           rows={data.getThings.map((thing, i) => {
-            console.log(thing.triggerLog);
-
             return {
               key: i,
               items: [

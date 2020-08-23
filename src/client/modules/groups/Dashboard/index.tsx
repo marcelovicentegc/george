@@ -14,26 +14,18 @@ import {
   CreateUserMutation,
   CreateUserMutationVariables,
   Permission,
-  useGroupNamesQuery,
 } from "../../../gql";
 
-const Users = React.lazy(() => import("../Users"));
+const Groups = React.lazy(() => import("./Groups"));
 
 const Dashboard: React.FC = () => {
   const [awaiting, setAwaiting] = React.useState(false);
-  const [userData, setUserData] = React.useState<CreateUserMutationVariables>({
-    username: "",
-    password: "",
-    group: "",
-    permission: "",
-  });
+  const [userData, setUserData] = React.useState<CreateUserMutationVariables>();
   const [permissionOptions, setPermissionOptions] = React.useState<string[]>(
     []
   );
-  const [groupOptions, setGroupOptions] = React.useState<string[]>([]);
-  const { data, loading } = useGroupNamesQuery();
   React.useEffect(() => {
-    const options: string[] = [];
+    let options: string[] = [];
 
     // tslint:disable-next-line:forin
     for (const option in Permission) {
@@ -41,12 +33,9 @@ const Dashboard: React.FC = () => {
     }
 
     setPermissionOptions(options);
+
+    options = [];
   }, []);
-  React.useEffect(() => {
-    if (!loading && data && data.groupNames.length) {
-      setGroupOptions(data.groupNames);
-    }
-  }, [data, loading]);
 
   const isValid = () => {
     if (
@@ -142,12 +131,13 @@ const Dashboard: React.FC = () => {
                         {
                           label: "Permission",
                           name: "permission",
-                          key: permissionId,
+                          key: "permission",
                           type: "permission",
                           control: {
                             as: Dropdown,
                             items: permissionOptions,
                             "aria-labelledby": permissionLabelId,
+                            search: true,
                             placeholder: "Choose a permission",
                             searchInput: {
                               id: permissionId, // id needs to end up on the search input.
@@ -167,12 +157,13 @@ const Dashboard: React.FC = () => {
                         {
                           label: "Group",
                           name: "group",
-                          key: groupId,
+                          key: "group",
                           type: "group",
                           control: {
                             as: Dropdown,
-                            items: groupOptions,
+                            items: [],
                             "aria-labelledby": groupLabelId,
+                            search: true,
                             placeholder: "Choose a group",
                             searchInput: {
                               id: groupId, // id needs to end up on the search input.
@@ -197,7 +188,7 @@ const Dashboard: React.FC = () => {
           </Mutation>
         </div>
         <React.Suspense fallback={<Loader />}>
-          <Users />
+          <Groups />
         </React.Suspense>
       </div>
     </>

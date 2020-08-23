@@ -3,6 +3,7 @@ import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
 import { MutationResolvers } from "../../gql";
 import { Context } from "../../utils";
+import { logout } from "../utils/logout";
 
 const mutations: MutationResolvers = {
   loginUser: async (_, { username, password }, { req }: Context) => {
@@ -26,8 +27,7 @@ const mutations: MutationResolvers = {
     return user;
   },
   logoutUser: async (_, __, { req, res }) => {
-    await new Promise((res) => req.session.destroy(() => res()));
-    res.clearCookie("cookie.sid");
+    await logout({ req, res });
     return true;
   },
 };

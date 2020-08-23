@@ -10,6 +10,8 @@ export const queries = gql`
     getGroupId(userId: String): Group
     getGroup(id: String!): Group
     getThings(groupId: String!): [Thing]
+    groups: [Group!]
+    groupNames: [String!]
     getThing(topic: String!): Thing
     getTriggerLog(groupId: String!): [TriggerLog]
     getThingsWithTriggerLog(id: String!): [ThingWithTriggerLog]
