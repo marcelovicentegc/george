@@ -25,6 +25,6 @@ export const redisHost = REDIS_HOST || "localhost";
 export const sessionSecret =
   SESSION_SECRET || "b0187547-832d-4a6f-9101-b2dadb6025ae";
 
-export const dbType = Boolean(USE_SQLITE) ? "sqlite" : "postgres";
+export const dbType = Boolean(USE_SQLITE) ? "SQLite" : "Postgres";
 
 export const useHttps = Boolean(SECURE);

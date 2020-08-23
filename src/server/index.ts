@@ -29,7 +29,6 @@ import {
 import { Context } from "./utils";
 import { v1 } from "uuid";
 import { Permission } from "./gql";
-// import { redisPort, redisHost } from "./config";
 
 const log = console.log;
 
@@ -111,11 +110,11 @@ const startServer = async () => {
     log(`Redis is ready on port ${redisPort}`);
 
     redisClient.set("redis_healthcheck", "Hello World", (err, reply) => {
-      log(`\tRedis set healthcheck: ${reply.toString()}`);
+      log(`\tRedis "set" healthcheck: ${reply.toString()}`);
     });
 
     redisClient.get("redis_healthcheck", (err, reply) => {
-      log(`\tRedis get healthcheck: ${reply.toString()}`);
+      log(`\tRedis "get" healthcheck: ${reply.toString()}`);
     });
   };
 
@@ -132,10 +131,10 @@ const startServer = async () => {
       secret: sessionSecret,
       resave: false,
       saveUninitialized: false,
-      cookie: {
-        secure: useHttps,
-        sameSite: "strict",
-      },
+      // cookie: {
+      //   secure: useHttps,
+      //   sameSite: "strict",
+      // },
     })
   );
   server.applyMiddleware({

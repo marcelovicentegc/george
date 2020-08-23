@@ -20,6 +20,13 @@ const queries: QueryResolvers = {
       relations: ["triggerLog"],
     });
 
+    things.map(
+      (thing) =>
+        (thing.triggerLog = thing.triggerLog.sort(
+          (a, b) => Number(new Date(b.date)) - Number(new Date(a.date))
+        ))
+    );
+
     return things;
   },
   getThing: async (_, { topic }) => {

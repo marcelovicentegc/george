@@ -1,10 +1,10 @@
 const {
   NODE_ENV,
-  DB_HOST,
-  DB_PORT,
-  DB_USERNAME,
-  DB_PASSWORD,
-  DB_DATABASE,
+  PG_HOST,
+  PG_PORT,
+  PG_USERNAME,
+  PG_PASSWORD,
+  PG_DATABASE,
   DB_LOGGING,
   USE_SQLITE,
 } = process.env;
@@ -24,11 +24,11 @@ const base = {
 
 const postgres = {
   type: "postgres",
-  database: DB_DATABASE || "postgres",
-  host: DB_HOST || "localhost",
-  password: DB_PASSWORD || "postgres",
-  port: DB_PORT || 5432,
-  username: DB_USERNAME || "postgres",
+  database: PG_DATABASE || "postgres",
+  host: PG_HOST || "localhost",
+  password: PG_PASSWORD || "postgres",
+  port: PG_PORT || 5432,
+  username: PG_USERNAME || "postgres",
   ...base,
 };
 

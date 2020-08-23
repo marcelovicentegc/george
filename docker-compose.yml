@@ -5,9 +5,9 @@ services:
     build:
       context: .
       args:
-        DB_USERNAME: "${DB_USER}"
-        DB_DATABASE: "${DB_NAME}"
-        DB_PASSWORD: "${DB_PASSWORD}"
+        PG_USERNAME: "${PG_USERNAME}"
+        PG_DATABASE: "${PG_DATABASE}"
+        PG_PASSWORD: "${PG_PASSWORD}"
         SESSION_SECRET: "${SESSION_SECRET}"
     restart: always
     ports:
@@ -21,9 +21,9 @@ services:
     restart: always
     image: "postgres:latest"
     environment:
-      POSTGRES_USER: "${DB_USER}"
-      POSTGRES_DB: "${DB_NAME}"
-      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_USER: "${PG_USERNAME}"
+      POSTGRES_DB: "${PG_DATABASE}"
+      POSTGRES_PASSWORD: "${PG_PASSWORD}"
     ports:
       - "5432:5432"
     volumes:

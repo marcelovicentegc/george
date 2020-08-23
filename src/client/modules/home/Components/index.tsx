@@ -1,23 +1,16 @@
 import * as React from "react";
 import * as s from "./main.scss";
 import searching from "../../../assets/searching.png";
-import { Query } from "react-apollo";
 import { getThings } from "../../../../gql/Queries.graphql";
 import {
   Table,
-  TableRowProps,
-  ShorthandCollection,
   Button,
   Image,
   Flex,
   Text,
   Loader,
 } from "@fluentui/react-northstar";
-import {
-  GetThingsQuery,
-  GetThingsQueryVariables,
-  useToggleThingMutation,
-} from "../../../gql";
+import { useToggleThingMutation, useGetThingsQuery } from "../../../gql";
 import { rootStoreContext } from "../../../stores/RootStore";
 import { TableWrapper } from "../../system/TableWrapper";
 import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
@@ -42,6 +35,12 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
     onError: (error) => toast(error.message),
   });
   const [awaiting, setAwaiting] = React.useState(false);
+  const { data, loading } = useGetThingsQuery({
+    variables: {
+      groupId,
+    },
+    onError: (error) => toast(error.message),
+  });
 
   const T = ({
     children,
@@ -62,34 +61,26 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
     );
   };
 
+  const header = {
+    items: ["Space", "Thing", "Topic", "State"],
+  };
+
   return (
     <TableWrapper id={s.componentsWrapper} data-testid="components">
-      <Query<GetThingsQuery, GetThingsQueryVariables>
-        query={getThings}
-        variables={{
-          groupId,
-        }}
-        onError={(error) => toast(error.message)}
-      >
-        {({ data, loading }) => {
-          if (loading) return <Loader />;
-          if (!data || !data.getThings || data.getThings.length === 0) {
-            return (
-              <Flex data-testid="noComponent" column hAlign={"center"}>
-                <Image src={searching} className={s.image} />
-                <Text>It looks like you haven't added components yet.</Text>
-              </Flex>
-            );
-          }
+      {loading && <Loader />}
+      {(!data || !data.getThings || data.getThings.length === 0) && (
+        <Flex data-testid="noComponent" column hAlign={"center"}>
+          <Image src={searching} className={s.image} />
+          <Text>It looks like you haven't added components yet.</Text>
+        </Flex>
+      )}
 
-          const header = {
-            items: ["Space", "Thing", "Topic", "State"],
-          };
+      {!loading && data && data.getThings && data.getThings.length > 0 && (
+        <Table
+          header={header}
+          rows={data.getThings.map((thing, i) => {
+            console.log(thing.triggerLog);
 
-          const rows: ShorthandCollection<
-            TableRowProps,
-            never
-          > = data.getThings.map((thing, i) => {
             return {
               key: i,
               items: [
@@ -137,13 +128,10 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
                 ),
               ],
             };
-          });
-
-          return (
-            <Table header={header} rows={rows} aria-label="Static table" />
-          );
-        }}
-      </Query>
+          })}
+          aria-label="Static table"
+        />
+      )}
     </TableWrapper>
   );
 };
