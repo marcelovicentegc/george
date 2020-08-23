@@ -18,25 +18,40 @@ George doesn't work out of the box! You need a server to run it on your local ne
 
 ### Server
 
-- Node
-- Express
-- GraphQL
-- Apollo Server
-- TypeORM
-- MQTT client
+- [Node](https://nodejs.org/en/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Express](https://expressjs.com/)
+- [GraphQL](https://graphql.org/)
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
+- [TypeORM](https://typeorm.io/)
+- [MQTT client (Mosca)](http://www.mosca.io/)
 - Redis client
 
 ### Client
 
-- React
-- Apollo Client
-- React Testing Library
-- Webpack
+- [React](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/)
+- [SASS](https://sass-lang.com/)
+- [React Router](https://reactrouter.com/)
+- [Apollo Client](https://www.apollographql.com/docs/react/)
+- [Apollo in memory cache](https://www.apollographql.com/docs/react/caching/cache-configuration/)
+- [Apollo React Testing](https://www.apollographql.com/docs/react/api/react/testing/)
+- [MobX](https://mobx.js.org/README.html)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [Jest](https://jestjs.io/)
+- [Webpack](https://webpack.js.org/)
+
+## Docs
+
+- [Docusaurus](https://docusaurus.io/)
 
 ### Other services
 
-- PostgreSQL
-- Redis
+- [GraphQL codegen](https://graphql-code-generator.com/)
+- [SQLite (optional for development mode)](https://www.sqlite.org/index.html)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Redis](https://redis.io/)
 - MQTT
 
 ## Development directions ⌨️

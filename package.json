@@ -142,7 +142,6 @@
     "reflect-metadata": "^0.1.13",
     "remove": "^0.1.5",
     "sqlite3": "^4.1.1",
-    "styled-components": "^5.1.0",
     "tslint": "^5.20.1",
     "typeorm": "^0.2.21",
     "use-onclickoutside": "^0.3.1",
