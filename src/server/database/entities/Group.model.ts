@@ -19,9 +19,8 @@ export class Group extends BaseEntity {
   @OneToMany(() => User, (user) => user.group, { nullable: true })
   public users: User[];
 
-  @OneToMany(() => Thing, (thing) => thing.user, {
+  @OneToMany(() => Thing, (thing) => thing.group, {
     nullable: true,
-    cascade: true,
   })
   public things: Thing[];
 }

@@ -2,4 +2,15 @@
   .text {
     cursor: pointer;
   }
+
+  .row {
+    height: auto;
+    min-height: 46px;
+
+    .list {
+      li {
+        padding: 0;
+      }
+    }
+  }
 }

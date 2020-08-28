@@ -16,7 +16,7 @@ const queries: QueryResolvers = {
     }
 
     const things = await Thing.find({
-      where: { groupId },
+      where: { groupId: group.id },
       relations: ["triggerLog"],
     });
 
@@ -44,10 +44,8 @@ const queries: QueryResolvers = {
       throw new Error("This group doesn't exist");
     }
 
-    const groupId = group.id;
-
     const things = await Thing.find({
-      where: { groupId },
+      where: { groupId: group.id },
       relations: ["triggerLog"],
     });
 
@@ -79,7 +77,12 @@ const mutations: MutationResolvers = {
       return false;
     }
 
-    const user = await User.findOne(userId);
+    const user = await User.findOne({
+      where: {
+        id: userId,
+      },
+      relations: ["group"],
+    });
 
     if (!user) {
       return false;
@@ -88,17 +91,8 @@ const mutations: MutationResolvers = {
     const spaceSlug = slugify(space);
     const componentSlug = slugify(component);
 
-    const thing = Thing.create({
-      space,
-      component,
-      controller,
-      topic: spaceSlug + "/" + componentSlug,
-      user: userId as any,
-      triggerLog: [],
-    });
-
     const group = await Group.findOne({
-      where: { userId },
+      where: { id: user.group.id },
       relations: ["things"],
     });
 
@@ -106,9 +100,25 @@ const mutations: MutationResolvers = {
       return false;
     }
 
+    const thing = Thing.create({
+      space,
+      component,
+      controller,
+      topic: spaceSlug + "/" + componentSlug,
+      user,
+      userId,
+      group,
+      groupId: group.id,
+      triggerLog: [],
+    });
+
     await thing.save();
-    group.things.push(thing);
+
+    group.things = [...group.things, thing.id as any];
+
     await group.save();
+
+    console.log("thing: ", thing);
 
     return true;
   },

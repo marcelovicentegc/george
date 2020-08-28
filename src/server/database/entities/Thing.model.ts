@@ -36,6 +36,12 @@ export class Thing extends BaseEntity {
   @ManyToOne(() => User, (user) => user.group)
   public user: User;
 
+  @Column()
+  public userId: string;
+
   @ManyToOne(() => Group, (group) => group.things)
   public group: Group;
+
+  @Column()
+  public groupId: string;
 }

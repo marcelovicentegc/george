@@ -31,6 +31,9 @@ export class User extends BaseEntity {
   @ManyToOne(() => Group, (group) => group.users)
   public group: Group;
 
+  @Column()
+  public groupId: string;
+
   @OneToMany(() => TriggerLog, (triggerLog) => triggerLog.thing, {
     nullable: true,
   })

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as s from "./main.scss";
-import { Table, Image, Flex, Text, Loader } from "@fluentui/react-northstar";
+import { Table, Text, Loader, List } from "@fluentui/react-northstar";
 import { useGroupsQuery } from "../../../../gql";
 import { rootStoreContext } from "../../../../stores/RootStore";
 import { TableWrapper } from "../../../system/TableWrapper";
@@ -16,16 +16,16 @@ const Groups: React.FC = () => {
 
   const T = ({
     children,
-    topic,
+    group,
   }: {
     children: React.ReactNode;
-    topic: string;
+    group: string;
   }) => {
     return (
       <Text
         className={s.text}
         onClick={() => {
-          !awaiting && routerStore.push(topic);
+          !awaiting && routerStore.push(group);
         }}
       >
         {children}
@@ -34,7 +34,7 @@ const Groups: React.FC = () => {
   };
 
   const header = {
-    items: ["Group name"],
+    items: ["Group name", "Users", "Things"],
   };
 
   return (
@@ -49,11 +49,42 @@ const Groups: React.FC = () => {
           header={header}
           rows={data.groups.map((group, i) => {
             return {
+              className: s.row,
               key: i,
               items: [
-                <T topic={group.name} key={i + "-name"}>
+                <T group={group.name} key={i + "-name"}>
                   {group.name}
                 </T>,
+                <List
+                  key={i}
+                  className={s.list}
+                  items={
+                    group.users.length > 0
+                      ? group.users.flatMap((user, usersIndex) => {
+                          return { content: user.username, key: usersIndex };
+                        })
+                      : [{ content: "There is no one here yet :(", key: 0 }]
+                  }
+                />,
+                <List
+                  key={i}
+                  className={s.list}
+                  items={
+                    group.things.length > 0
+                      ? group.things.flatMap((thing, thingsIndex) => {
+                          return {
+                            content: thing.space + "/" + thing.component,
+                            key: thingsIndex,
+                          };
+                        })
+                      : [
+                          {
+                            content: "There aren't components here yet :(",
+                            key: 0,
+                          },
+                        ]
+                  }
+                />,
               ],
             };
           })}

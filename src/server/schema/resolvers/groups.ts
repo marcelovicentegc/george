@@ -12,12 +12,12 @@ const queries: QueryResolvers = {
 
     if (userId) {
       user = await User.findOne({
-        where: { userId },
+        where: { id: userId },
         relations: ["group"],
       });
     } else if (req.session.userId) {
       user = await User.findOne({
-        where: { userId: req.session.userId },
+        where: { id: req.session.userId },
         relations: ["group"],
       });
     }
@@ -45,9 +45,13 @@ const queries: QueryResolvers = {
       throw new Error("You can't do this.");
     }
 
-    return await Group.find({
+    const groups = await Group.find({
       relations: ["things", "users", "users.profile"],
     });
+
+    console.log(groups);
+
+    return groups;
   },
   groupNames: async (_, __, { req, res }: Context) => {
     const user = await User.findOne(req.session.userId);

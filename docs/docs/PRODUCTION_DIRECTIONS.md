@@ -1,6 +1,6 @@
 ---
 id: setup
-title: Setup 🖥
+title: Setup
 ---
 
 ## Docker [recommended]
