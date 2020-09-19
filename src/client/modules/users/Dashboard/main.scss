@@ -1,0 +1,13 @@
+.dialog {
+  max-width: 700px;
+  min-width: 360px;
+
+  .form {
+    height: max-content;
+    width: 300px;
+
+    &.withDropdowns {
+      padding-top: 20px;
+    }
+  }
+}

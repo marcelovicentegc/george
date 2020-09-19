@@ -1,7 +1,10 @@
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
 import { Context } from "../../utils";
-import { QueryResolvers, Permission } from "../../gql";
+import { QueryResolvers, Permission, MutationResolvers } from "../../gql";
+import { isLoggedInUserAdmin } from "../utils/auth";
+import { Group, Profile } from "../../database/entities";
+import { v1 } from "uuid";
 
 const queries: QueryResolvers = {
   getUserId: async (_, __, { req }: Context) => {
@@ -62,6 +65,36 @@ const queries: QueryResolvers = {
   },
 };
 
+const mutations: MutationResolvers = {
+  createUser: async (
+    _,
+    { username, password, permission, group: groupName },
+    { req, res }: Context
+  ) => {
+    await isLoggedInUserAdmin({ req, res });
+
+    const group = await Group.findOne({ where: { name: groupName } });
+
+    const profile = Profile.create({
+      avatarUrl: `https://avatars.dicebear.com/v2/jdenticon/${v1()}.svg`,
+    });
+    await profile.save();
+
+    const user = new User();
+
+    user.username = username;
+    user.password = password;
+    user.permission = permission as Permission;
+    user.group = group;
+    user.profile = profile;
+
+    await user.save();
+
+    return true;
+  },
+};
+
 export const users: IResolvers = {
   Query: { ...queries },
+  Mutation: { ...mutations },
 };

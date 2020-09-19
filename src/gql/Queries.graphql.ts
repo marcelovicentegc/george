@@ -16,6 +16,7 @@ export const getUsers = gql`
   query GetUsers {
     getUsers {
       username
+      permission
       profile {
         avatarUrl
       }

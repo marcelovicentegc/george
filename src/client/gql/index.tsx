@@ -82,7 +82,7 @@ export type MutationCreateUserArgs = {
   username: Scalars['String'];
   password: Scalars['String'];
   group: Scalars['String'];
-  permission: Scalars['String'];
+  permission: Permission;
 };
 
 export enum Permission {
@@ -224,7 +224,7 @@ export type CreateUserMutationVariables = {
   username: Scalars['String'];
   password: Scalars['String'];
   group: Scalars['String'];
-  permission: Scalars['String'];
+  permission: Permission;
 };
 
 
@@ -314,7 +314,7 @@ export type GetUsersQuery = (
   { __typename?: 'Query' }
   & { getUsers?: Maybe<Array<Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'username'>
+    & Pick<User, 'username' | 'permission'>
     & { profile: (
       { __typename?: 'Profile' }
       & Pick<Profile, 'avatarUrl'>
@@ -575,7 +575,7 @@ export type LogoutUserMutationHookResult = ReturnType<typeof useLogoutUserMutati
 export type LogoutUserMutationResult = ApolloReactCommon.MutationResult<LogoutUserMutation>;
 export type LogoutUserMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutUserMutation, LogoutUserMutationVariables>;
 export const CreateUserDocument = gql`
-    mutation CreateUser($username: String!, $password: String!, $group: String!, $permission: String!) {
+    mutation CreateUser($username: String!, $password: String!, $group: String!, $permission: Permission!) {
   createUser(username: $username, password: $password, group: $group, permission: $permission)
 }
     `;
@@ -964,6 +964,7 @@ export const GetUsersDocument = gql`
     query GetUsers {
   getUsers {
     username
+    permission
     profile {
       avatarUrl
     }

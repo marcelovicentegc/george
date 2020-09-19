@@ -22,7 +22,7 @@ export const mutations = gql`
       username: String!
       password: String!
       group: String!
-      permission: String!
+      permission: Permission!
     ): Boolean!
   }
 `;

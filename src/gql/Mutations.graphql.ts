@@ -19,7 +19,7 @@ export const createUser = gql`
     $username: String!
     $password: String!
     $group: String!
-    $permission: String!
+    $permission: Permission!
   ) {
     createUser(
       username: $username

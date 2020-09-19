@@ -77,7 +77,7 @@ export type MutationCreateUserArgs = {
   username: Scalars['String'];
   password: Scalars['String'];
   group: Scalars['String'];
-  permission: Scalars['String'];
+  permission: Permission;
 };
 
 export enum Permission {

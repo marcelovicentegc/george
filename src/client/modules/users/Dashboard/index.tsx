@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as style from './main.scss';
 import { Mutation } from "react-apollo";
 import { toast } from "react-toastify";
 import {
@@ -16,6 +17,7 @@ import {
   useGroupNamesQuery,
 } from "../../../gql";
 import { DashboardWrapper } from "../../system/DashboardWrapper";
+import { Row } from "../../system/Row";
 
 const Users = React.lazy(() => import("./Users"));
 
@@ -25,7 +27,7 @@ const Dashboard: React.FC = () => {
     username: "",
     password: "",
     group: "",
-    permission: "",
+    permission: Permission.Common,
   });
   const [permissionOptions, setPermissionOptions] = React.useState<string[]>(
     []
@@ -61,11 +63,6 @@ const Dashboard: React.FC = () => {
     return false;
   };
 
-  const permissionLabelId = "choose-permission";
-  const permissionId = "choose-permission-id";
-  const groupLabelId = "choose-group";
-  const groupId = "choose-group-id";
-
   return (
     <DashboardWrapper
       wrapperChildren={
@@ -88,6 +85,7 @@ const Dashboard: React.FC = () => {
       >
         {(mutate) => (
           <Dialog
+            className={style.dialog}
             cancelButton="Cancel"
             confirmButton={awaiting ? "Submitting" : "Submit"}
             onConfirm={async () => {
@@ -108,7 +106,7 @@ const Dashboard: React.FC = () => {
               }
             }}
             content={
-              <>
+              <Row>
                 <Form
                   fields={[
                     {
@@ -138,52 +136,28 @@ const Dashboard: React.FC = () => {
                         });
                       },
                     },
-                    {
-                      label: "Permission",
-                      name: "permission",
-                      key: permissionId,
-                      type: "permission",
-                      control: {
-                        as: Dropdown,
-                        items: permissionOptions,
-                        "aria-labelledby": permissionLabelId,
-                        placeholder: "Choose a permission",
-                        searchInput: {
-                          id: permissionId, // id needs to end up on the search input.
-                        },
-                        id: undefined, // not on the main wrapper element.
-                      },
-                      required: true,
-                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        setUserData({
-                          ...userData,
-                          permission: e.target.value,
-                        });
-                      },
-                    },
-                    {
-                      label: "Group",
-                      name: "group",
-                      key: groupId,
-                      type: "group",
-                      control: {
-                        as: Dropdown,
-                        items: groupOptions,
-                        "aria-labelledby": groupLabelId,
-                        placeholder: "Choose a group",
-                        searchInput: {
-                          id: groupId, // id needs to end up on the search input.
-                        },
-                        id: undefined, // not on the main wrapper element.
-                      },
-                      required: true,
-                      onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        setUserData({ ...userData, group: e.target.value });
-                      },
-                    },
                   ]}
+                  className={style.form}
                 />
-              </>
+                <Form className={`${style.form} ${style.withDropdowns}`}>  
+                  <Dropdown
+                    placeholder={"Permission"}
+                    items={permissionOptions}
+                    onChange={(_, data) =>
+                      setUserData({ ...userData, permission: data.value?.toString().toUpperCase() as Permission })
+                    }
+                    className={style.dropdown}
+                  />
+                  <Dropdown
+                    placeholder={"Group"}
+                    items={groupOptions}
+                    onChange={(_, data) =>
+                      setUserData({ ...userData, group: data.value as string ?? "" })
+                    }
+                    className={style.dropdown}
+                  />
+                </Form>
+              </Row>
             }
             header="Add user"
             trigger={<Button circular content="+" />}

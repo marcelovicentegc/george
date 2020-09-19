@@ -2,39 +2,21 @@ import * as React from "react";
 import * as s from "./main.scss";
 import { Table, Text, Loader, Avatar } from "@fluentui/react-northstar";
 import { useGetUsersQuery } from "../../../../gql";
-import { rootStoreContext } from "../../../../stores/RootStore";
 import { TableWrapper } from "../../../system/TableWrapper";
 import { toast } from "react-toastify";
 import { NotFound } from "../../../system/NotFound";
 
 const Users: React.FC = () => {
-  const { routerStore } = React.useContext(rootStoreContext);
-  const [awaiting, setAwaiting] = React.useState(false);
   const { data, loading } = useGetUsersQuery({
     onError: (error) => toast(error.message),
   });
 
-  const T = ({
-    children,
-    topic,
-  }: {
-    children: React.ReactNode;
-    topic: string;
-  }) => {
-    return (
-      <Text
-        className={s.text}
-        onClick={() => {
-          !awaiting && routerStore.push(topic);
-        }}
-      >
-        {children}
-      </Text>
-    );
+  const T = ({ children }: { children: React.ReactNode }) => {
+    return <Text className={s.text}>{children}</Text>;
   };
 
   const header = {
-    items: ["Username", "Avatar"],
+    items: ["Username", "Permission", "Avatar"],
   };
 
   return (
@@ -51,10 +33,9 @@ const Users: React.FC = () => {
             return {
               key: i,
               items: [
-                <T topic={user.username} key={i + "-username"}>
-                  {user.username}
-                </T>,
-                <T topic={user.username + "-avatarUrl"} key={i + "-avatarUrl"}>
+                <T key={i + "-username"}>{user.username}</T>,
+                <T key={i + "-permission"}>{user.permission}</T>,
+                <T key={i + "-avatarUrl"}>
                   {user.profile.avatarUrl ? (
                     <Avatar image={user.profile.avatarUrl} />
                   ) : (
