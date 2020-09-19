@@ -119,7 +119,8 @@ const Controller: React.FunctionComponent = () => {
                 {(mutate) => (
                   <Button
                     circular
-                    content={awaiting ? "..." : thingState ? "Off" : "On"}
+                    content={awaiting ? "" : thingState ? "Off" : "On"}
+                    loading={awaiting}
                     onClick={async () => {
                       if (!awaiting) {
                         setAwaiting(true);
