@@ -27,7 +27,7 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
     awaitRefetchQueries: true,
     onError: (error) => toast(error.message),
   });
-  const [awaiting, setAwaiting] = React.useState(false);
+  const [awaiting, setAwaiting] = React.useState("-1");
   const { data, loading } = useGetThingsQuery({
     variables: {
       groupId,
@@ -38,15 +38,17 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
   const T = ({
     children,
     topic,
+    id,
   }: {
     children: React.ReactNode;
     topic: string;
+    id: string;
   }) => {
     return (
       <Text
         className={s.text}
         onClick={() => {
-          !awaiting && routerStore.push(topic);
+          awaiting !== id && routerStore.push(topic);
         }}
       >
         {children}
@@ -72,23 +74,26 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
             return {
               key: i,
               items: [
-                <T topic={thing.topic} key={i + "-space"}>
+                <T topic={thing.topic} key={i + "-space"} id={thing.id}>
                   {thing.space}
                 </T>,
-                <T topic={thing.topic} key={i + "-component"}>
+                <T topic={thing.topic} key={i + "-component"} id={thing.id}>
                   {thing.component}
                 </T>,
-                <T topic={thing.topic} key={i + "-topic"}>
+                <T topic={thing.topic} key={i + "-topic"} id={thing.id}>
                   {thing.topic}
                 </T>,
                 thing.triggerLog[0] ? (
                   <Button
                     circular
-                    content={capitalizeFirstLetter(
-                      awaiting ? "..." : thing.triggerLog[0].state
-                    )}
+                    content={
+                      awaiting === thing.id
+                        ? ""
+                        : capitalizeFirstLetter(thing.triggerLog[0].state)
+                    }
+                    loading={awaiting === thing.id}
                     onClick={async () => {
-                      setAwaiting(true);
+                      setAwaiting(thing.id);
 
                       await mutate({
                         variables: {
@@ -98,7 +103,7 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
                           topic: thing.topic,
                         },
                       }).finally(() => {
-                        setAwaiting(false);
+                        setAwaiting("-1");
                       });
                     }}
                   />
@@ -106,7 +111,7 @@ export const Components: React.FunctionComponent<Props> = ({ groupId }) => {
                   <>
                     <Text
                       onClick={() => {
-                        !awaiting && routerStore.push(thing.topic);
+                        awaiting !== thing.id && routerStore.push(thing.topic);
                       }}
                       className={s.text}
                     >
