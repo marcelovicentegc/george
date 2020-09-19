@@ -14,7 +14,7 @@ const isProduction = NODE_ENV === "production";
 const base = {
   dropSchema: !isProduction,
   synchronize: !isProduction,
-  logging: Boolean(DB_LOGGING),
+  logging: true,
   entities: ["src/server/database/**/*.model.ts"],
   migrations: ["src/server/database/migrations/*.ts"],
   cli: {

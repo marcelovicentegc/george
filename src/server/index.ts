@@ -41,6 +41,7 @@ const startServer = async () => {
       connectionOptions = await getConnectionOptions();
       Object.assign(connectionOptions, {
         entities: ["dist/server/database/**/*.model.js"],
+        logging: false,
         cli: {
           entitiesDir: "dist/server/database/entities",
         },

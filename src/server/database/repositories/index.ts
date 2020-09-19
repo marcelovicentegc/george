@@ -1,0 +1,1 @@
+export { ThingRepository } from "./ThingRepository";

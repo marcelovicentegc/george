@@ -35,7 +35,7 @@
     "doc-init": "docusaurus-init",
     "launch": "cross-env NODE_ENV=production node -r dotenv/config ./dist/server/index.js",
     "predeploy": "cd docs && npm install && npm run build",
-    "deploy": "sh deploy.sh"
+    "deploy": "sh docsdeploy.sh"
   },
   "devDependencies": {
     "@apollo/react-testing": "^3.1.3",

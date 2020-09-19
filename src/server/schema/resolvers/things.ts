@@ -100,25 +100,23 @@ const mutations: MutationResolvers = {
       return false;
     }
 
-    const thing = Thing.create({
-      space,
-      component,
-      controller,
-      topic: spaceSlug + "/" + componentSlug,
-      user,
-      userId,
-      group,
-      groupId: group.id,
-      triggerLog: [],
-    });
+    const thing = new Thing();
+
+    thing.space = space;
+    thing.component = component;
+    thing.controller = controller;
+    thing.topic = spaceSlug + "/" + componentSlug;
+    thing.user = user;
+    thing.userId = userId;
+    thing.group = group;
+    thing.groupId = group.id;
+    thing.triggerLog = [];
 
     await thing.save();
 
-    group.things = [...group.things, thing.id as any];
+    group.things = [...group.things, thing];
 
     await group.save();
-
-    console.log("thing: ", thing);
 
     return true;
   },
