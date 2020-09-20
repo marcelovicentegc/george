@@ -32,12 +32,8 @@ module.exports = {
       style: "dark",
       links: [
         {
-          title: "Docs",
+          title: "Tutorial",
           items: [
-            {
-              label: "Useful resources",
-              to: "/docs/useful-resources/",
-            },
             {
               label: "Configuration",
               to: "/docs/config/",
@@ -49,6 +45,10 @@ module.exports = {
             {
               label: "IoT setup",
               to: "/docs/iot/",
+            },
+            {
+              label: "What you will need",
+              to: "docs/what-you-will-need",
             },
           ],
         },
@@ -66,6 +66,15 @@ module.exports = {
             {
               label: "Roadmap",
               to: "/docs/roadmap/",
+            },
+          ],
+        },
+        {
+          title: "Miscellaneous",
+          items: [
+            {
+              label: "Useful resources",
+              to: "/docs/useful-resources/",
             },
           ],
         },
