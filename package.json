@@ -79,7 +79,7 @@
     "jest-transform-stub": "^2.0.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^2.0.1",
     "react-hot-loader": "^4.12.18",
     "rimraf": "^3.0.0",
