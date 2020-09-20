@@ -9,7 +9,7 @@ All schematics can be found [here](https://github.com/marcelovicentegc/george/tr
 
 ### ESP8266 LED pin example
 
-![ES8266 LED pin example](../../assets/esp8266-led-pin.png)
+![ES8266 LED pin example](https://raw.githubusercontent.com/marcelovicentegc/george/master/assets/esp8266-led-pin-example.png)
 
 ## Supported components
 
