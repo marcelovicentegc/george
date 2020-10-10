@@ -73,7 +73,3 @@ For pull requests, check the [contribution guide](https://marcelovicentegc.githu
 ## Production directions ⤴️
 
 To put George in production, check the [production instructions](https://marcelovicentegc.github.io/george/docs/setup).
-
-<a href="https://www.buymeacoffee.com/YkwcZVO" target="_blank"><img src="./assets/buymeacoffee.png" alt="Buy Me A Coffee" height="51"></a>
-
-[![Become a patron](./assets/patron.png)](https://www.patreon.com/bePatron?u=34051560)
