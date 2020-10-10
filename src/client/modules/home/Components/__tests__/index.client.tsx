@@ -1,10 +1,10 @@
 import * as React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { cleanup, wait } from "@testing-library/react";
-import { renderWithRouter } from "../../../../../utils/renderWithRouter";
+import { renderWithRouter } from "../../../../utils/renderWithRouter";
 import { Components } from "..";
 import { act } from "react-dom/test-utils";
-import { mockedGetThings } from "../../../../../utils/mockedQueries";
+import { mockedGetThings } from "../../../../utils/mockedQueries";
 
 afterEach(cleanup);
 
