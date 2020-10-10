@@ -25,6 +25,7 @@ const Home = React.lazy(() => import("../modules/home"));
 const Controller = React.lazy(() => import("../modules/controller"));
 const Users = React.lazy(() => import("../modules/users"));
 const Groups = React.lazy(() => import("../modules/groups"));
+const Settings = React.lazy(() => import("../modules/settings"));
 
 export const Routes: React.FC = () => {
   const {
@@ -85,6 +86,9 @@ export const Routes: React.FC = () => {
                         <Route exact path="/">
                           <Home groupId={groupId} />
                         </Route>
+                        <Route exact path={BASE_ROUTES.SETTINGS}>
+                          <Settings />
+                        </Route>
                         {permissionData &&
                           permissionData.getPermission &&
                           permissionData.getPermission === Permission.Admin && (
@@ -97,11 +101,6 @@ export const Routes: React.FC = () => {
                               </Route>
                             </>
                           )}
-                        <Route exact path={BASE_ROUTES.SETTINGS}>
-                          <div>
-                            <h1>SETTINGS</h1>
-                          </div>
-                        </Route>
                       </Switch>
                     </>
                   );

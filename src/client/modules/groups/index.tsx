@@ -4,7 +4,7 @@ import { HomeWrapper } from "../system/HomeWrapper";
 
 const Dashboard = React.lazy(() => import("./Dashboard"));
 
-const Groups: React.FC = () => {
+const Groups = () => {
   return (
     <HomeWrapper>
       <React.Suspense fallback={<Loader />}>
