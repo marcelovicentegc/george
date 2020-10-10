@@ -80,9 +80,8 @@ export const Dashboard: React.FunctionComponent<Props> = observer(
                       component,
                       controller,
                     },
-                  }).finally(() => {
-                    setAwaiting(false);
                   });
+                  setAwaiting(false);
                 } else {
                   toast("You must fill in every input field.");
                 }
