@@ -34,7 +34,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const App: React.SFC = () => {
+const App = () => {
   return (
     <ApolloProvider client={client}>
       <MobxProvider {...rootStore}>

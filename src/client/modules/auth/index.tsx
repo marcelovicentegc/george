@@ -11,12 +11,12 @@ import {
   Text,
   CardHeader,
 } from "@fluentui/react-northstar";
+import { toast } from "react-toastify";
 
 interface State {
   username: string;
   password: string;
   awaiting: boolean;
-  errorMessage: string;
 }
 
 interface Props {}
@@ -29,7 +29,6 @@ class Auth extends React.Component<Props, State> {
       username: "",
       password: "",
       awaiting: false,
-      errorMessage: "",
     };
   }
 
@@ -39,7 +38,7 @@ class Auth extends React.Component<Props, State> {
         <div className={s.cardWrapper}>
           <Mutation<LoginUserMutation, LoginUserMutationVariables>
             mutation={loginUser}
-            onError={(error) => this.setState({ errorMessage: error.message })}
+            onError={(error) => toast(error.message)}
             refetchQueries={[
               {
                 query: getUserId,
@@ -62,9 +61,6 @@ class Auth extends React.Component<Props, State> {
                         required: true,
                         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                           this.setState({ username: e.target.value });
-                          this.setState({
-                            errorMessage: undefined,
-                          });
                         },
                       },
                       {
@@ -76,7 +72,6 @@ class Auth extends React.Component<Props, State> {
                         required: true,
                         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
                           this.setState({ password: e.target.value });
-                          this.setState({ errorMessage: undefined });
                         },
                       },
                       {
@@ -101,14 +96,10 @@ class Auth extends React.Component<Props, State> {
                       }).then(() => {
                         this.setState({
                           awaiting: false,
-                          errorMessage: this.state.errorMessage || "",
                         });
                       });
                     }}
                   />
-                  {this.state.errorMessage && (
-                    <span>{this.state.errorMessage}</span>
-                  )}
                 </CardBody>
               </Card>
             )}
