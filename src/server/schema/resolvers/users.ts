@@ -100,6 +100,15 @@ const mutations: MutationResolvers = {
 
     return true;
   },
+  changeUsername: async (_, { username }, { req, res }: Context) => {
+    const user = await getUserFromSession({ req, res });
+
+    user.username = username;
+
+    await user.save();
+
+    return true;
+  },
   deleteUser: async (_, { id }, { req, res }: Context) => {
     let user: User | null;
 

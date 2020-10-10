@@ -26,5 +26,6 @@ export const mutations = gql`
     ): Boolean!
     changePassword(password: String!, passwordConfirmation: String!): Boolean!
     deleteUser(id: String): Boolean!
+    changeUsername(username: String!): Boolean!
   }
 `;

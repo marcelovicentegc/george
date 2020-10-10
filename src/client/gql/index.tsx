@@ -40,6 +40,7 @@ export type Mutation = {
   createUser: Scalars['Boolean'];
   changePassword: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
+  changeUsername: Scalars['Boolean'];
 };
 
 
@@ -96,6 +97,11 @@ export type MutationChangePasswordArgs = {
 
 export type MutationDeleteUserArgs = {
   id?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationChangeUsernameArgs = {
+  username: Scalars['String'];
 };
 
 export enum Permission {
@@ -321,6 +327,16 @@ export type DeleteUserMutationVariables = {
 export type DeleteUserMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'deleteUser'>
+);
+
+export type ChangeUsernameMutationVariables = {
+  username: Scalars['String'];
+};
+
+
+export type ChangeUsernameMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'changeUsername'>
 );
 
 export type GetUserIdQueryVariables = {};
@@ -994,6 +1010,53 @@ export function useDeleteUserMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = ApolloReactCommon.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export const ChangeUsernameDocument = gql`
+    mutation ChangeUsername($username: String!) {
+  changeUsername(username: $username)
+}
+    `;
+export type ChangeUsernameMutationFn = ApolloReactCommon.MutationFunction<ChangeUsernameMutation, ChangeUsernameMutationVariables>;
+export type ChangeUsernameComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<ChangeUsernameMutation, ChangeUsernameMutationVariables>, 'mutation'>;
+
+    export const ChangeUsernameComponent = (props: ChangeUsernameComponentProps) => (
+      <ApolloReactComponents.Mutation<ChangeUsernameMutation, ChangeUsernameMutationVariables> mutation={ChangeUsernameDocument} {...props} />
+    );
+    
+export type ChangeUsernameProps<TChildProps = {}> = ApolloReactHoc.MutateProps<ChangeUsernameMutation, ChangeUsernameMutationVariables> & TChildProps;
+export function withChangeUsername<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  ChangeUsernameMutation,
+  ChangeUsernameMutationVariables,
+  ChangeUsernameProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, ChangeUsernameMutation, ChangeUsernameMutationVariables, ChangeUsernameProps<TChildProps>>(ChangeUsernameDocument, {
+      alias: 'changeUsername',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useChangeUsernameMutation__
+ *
+ * To run a mutation, you first call `useChangeUsernameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeUsernameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeUsernameMutation, { data, loading, error }] = useChangeUsernameMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useChangeUsernameMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ChangeUsernameMutation, ChangeUsernameMutationVariables>) {
+        return ApolloReactHooks.useMutation<ChangeUsernameMutation, ChangeUsernameMutationVariables>(ChangeUsernameDocument, baseOptions);
+      }
+export type ChangeUsernameMutationHookResult = ReturnType<typeof useChangeUsernameMutation>;
+export type ChangeUsernameMutationResult = ApolloReactCommon.MutationResult<ChangeUsernameMutation>;
+export type ChangeUsernameMutationOptions = ApolloReactCommon.BaseMutationOptions<ChangeUsernameMutation, ChangeUsernameMutationVariables>;
 export const GetUserIdDocument = gql`
     query GetUserId {
   getUserId

@@ -88,3 +88,9 @@ export const deleteUser = gql`
     deleteUser(id: $id)
   }
 `;
+
+export const changeUsername = gql`
+  mutation ChangeUsername($username: String!) {
+    changeUsername(username: $username)
+  }
+`;
