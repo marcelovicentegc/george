@@ -1,21 +1,18 @@
 import * as React from "react";
 import * as s from "./main.scss";
 
-interface DashboardWrapperProps {
+interface MainProps {
   children: React.ReactNode;
-  wrapperChildren?: React.ReactNode;
+  topSectionChildren?: React.ReactNode;
 }
 
-export const DashboardWrapper: React.FC<DashboardWrapperProps> = ({
-  children,
-  wrapperChildren,
-}) => {
+export const Main: React.FC<MainProps> = ({ children, topSectionChildren }) => {
   return (
     <div className={s.dashboardWrapper} data-testid="dashboardWrapper">
       <div className={s.dashboard} data-testid="dashboard">
-        {children}
+        {topSectionChildren}
       </div>
-      {wrapperChildren}
+      {children}
     </div>
   );
 };

@@ -1,14 +1,18 @@
 import * as React from "react";
 import { Loader } from "@fluentui/react-northstar";
+import { Main } from "../system/Main";
+import { AddGroup } from "./AddGroup";
 
-const Dashboard = React.lazy(() => import("./Dashboard"));
+const Groups = React.lazy(() => import("./Groups"));
 
-const Groups = () => {
+const Dashboard: React.FC = () => {
   return (
-    <React.Suspense fallback={<Loader />}>
-      <Dashboard />
-    </React.Suspense>
+    <Main topSectionChildren={<AddGroup />}>
+      <React.Suspense fallback={<Loader />}>
+        <Groups />
+      </React.Suspense>
+    </Main>
   );
 };
 
-export { Groups as default };
+export { Dashboard as default };

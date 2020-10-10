@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as s from "./main.scss";
 import { Table, Text, Loader, List } from "@fluentui/react-northstar";
-import { useGroupsQuery } from "../../../../gql";
-import { rootStoreContext } from "../../../../stores/RootStore";
-import { TableWrapper } from "../../../system/TableWrapper";
+import { useGroupsQuery } from "../../../gql";
+import { rootStoreContext } from "../../../stores/RootStore";
+import { TableWrapper } from "../../system/TableWrapper";
 import { toast } from "react-toastify";
-import { NotFound } from "../../../system/NotFound";
+import { NotFound } from "../../system/NotFound";
 
 const Groups: React.FC = () => {
   const { routerStore } = React.useContext(rootStoreContext);

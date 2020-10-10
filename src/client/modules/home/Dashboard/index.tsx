@@ -11,7 +11,7 @@ import { Mutation } from "react-apollo";
 import { addThing } from "../../../../gql/Mutations.graphql";
 import { getThings } from "../../../../gql/Queries.graphql";
 import { toast } from "react-toastify";
-import { DashboardWrapper } from "../../system/DashboardWrapper";
+import { Main } from "../../system/Main";
 
 interface Props {
   groupId: string;
@@ -51,96 +51,106 @@ export const Dashboard: React.FunctionComponent<Props> = observer(
     const controllerId = "choose-controller-id";
 
     return (
-      <DashboardWrapper wrapperChildren={<Components groupId={groupId} />}>
-        <Mutation<AddThingMutation, AddThingMutationVariables>
-          mutation={addThing}
-          onError={(error) => {
-            toast(error.message);
-          }}
-          refetchQueries={[
-            {
-              query: getThings,
-              variables: {
-                groupId,
+      <Main
+        topSectionChildren={
+          <Mutation<AddThingMutation, AddThingMutationVariables>
+            mutation={addThing}
+            onError={(error) => {
+              toast(error.message);
+            }}
+            refetchQueries={[
+              {
+                query: getThings,
+                variables: {
+                  groupId,
+                },
               },
-            },
-          ]}
-          awaitRefetchQueries
-        >
-          {(mutate) => (
-            <Dialog
-              cancelButton="Cancel"
-              confirmButton={awaiting ? "Submitting" : "Submit"}
-              onConfirm={async () => {
-                if (isValid() && !awaiting) {
-                  setAwaiting(true);
-                  await mutate({
-                    variables: {
-                      space,
-                      component,
-                      controller,
-                    },
-                  });
-                  setAwaiting(false);
-                } else {
-                  toast("You must fill in every input field.");
-                }
-              }}
-              content={
-                <>
-                  <Form
-                    fields={[
-                      {
-                        label: "Space",
-                        name: "space",
-                        id: "space",
-                        key: "space",
-                        required: true,
-                        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                          setSpace(e.target.value);
-                        },
+            ]}
+            awaitRefetchQueries
+          >
+            {(mutate) => (
+              <Dialog
+                cancelButton="Cancel"
+                confirmButton={awaiting ? "Submitting" : "Submit"}
+                onConfirm={async () => {
+                  if (isValid() && !awaiting) {
+                    setAwaiting(true);
+                    await mutate({
+                      variables: {
+                        space,
+                        component,
+                        controller,
                       },
-                      {
-                        label: "Component",
-                        name: "component",
-                        id: "component",
-                        key: "component",
-                        type: "component",
-                        required: true,
-                        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                          setComponent(e.target.value);
-                        },
-                      },
-                      {
-                        label: "Controller",
-                        name: "controller",
-                        key: controllerId,
-                        type: "controller",
-                        control: {
-                          as: Dropdown,
-                          items: controllerOptions,
-                          "aria-labelledby": controllerLabelId,
-                          placeholder: "Choose a controller type",
-                          searchInput: {
-                            id: controllerId, // id needs to end up on the search input.
+                    });
+                    setAwaiting(false);
+                  } else {
+                    toast("You must fill in every input field.");
+                  }
+                }}
+                content={
+                  <>
+                    <Form
+                      fields={[
+                        {
+                          label: "Space",
+                          name: "space",
+                          id: "space",
+                          key: "space",
+                          required: true,
+                          onChange: (
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setSpace(e.target.value);
                           },
-                          id: undefined, // not on the main wrapper element.
                         },
-                        required: true,
-                        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                          setController(e.target.value as Controller);
+                        {
+                          label: "Component",
+                          name: "component",
+                          id: "component",
+                          key: "component",
+                          type: "component",
+                          required: true,
+                          onChange: (
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setComponent(e.target.value);
+                          },
                         },
-                      },
-                    ]}
-                  />
-                </>
-              }
-              header="Add component"
-              trigger={<Button circular content="+" />}
-            />
-          )}
-        </Mutation>
-      </DashboardWrapper>
+                        {
+                          label: "Controller",
+                          name: "controller",
+                          key: controllerId,
+                          type: "controller",
+                          control: {
+                            as: Dropdown,
+                            items: controllerOptions,
+                            "aria-labelledby": controllerLabelId,
+                            placeholder: "Choose a controller type",
+                            searchInput: {
+                              id: controllerId, // id needs to end up on the search input.
+                            },
+                            id: undefined, // not on the main wrapper element.
+                          },
+                          required: true,
+                          onChange: (
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setController(e.target.value as Controller);
+                          },
+                        },
+                      ]}
+                    />
+                  </>
+                }
+                header="Add component"
+                trigger={<Button circular content="+" />}
+              />
+            )}
+          </Mutation>
+        }
+      >
+        <Components groupId={groupId} />
+      </Main>
     );
   }
 );

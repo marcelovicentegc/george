@@ -9,7 +9,7 @@ import {
   Permission,
   useGroupNamesQuery,
 } from "../../../gql";
-import { DashboardWrapper } from "../../system/DashboardWrapper";
+import { Main } from "../../system/Main";
 import { CreateUser } from "./CreateUser";
 
 const Users = React.lazy(() => import("./Users"));
@@ -43,36 +43,36 @@ const Dashboard: React.FC = () => {
   }, [data, loading]);
 
   return (
-    <DashboardWrapper
-      wrapperChildren={
-        <React.Suspense fallback={<Loader />}>
-          <Users />
-        </React.Suspense>
+    <Main
+      topSectionChildren={
+        <Mutation<CreateUserMutation, CreateUserMutationVariables>
+          mutation={createUser}
+          onError={(error) => {
+            toast(error.message);
+          }}
+          refetchQueries={[
+            {
+              query: getUsers,
+            },
+          ]}
+          awaitRefetchQueries
+        >
+          {(mutate) => (
+            <CreateUser
+              mutate={mutate}
+              setUserData={setUserData}
+              groupOptions={groupOptions}
+              permissionOptions={permissionOptions}
+              userData={userData}
+            />
+          )}
+        </Mutation>
       }
     >
-      <Mutation<CreateUserMutation, CreateUserMutationVariables>
-        mutation={createUser}
-        onError={(error) => {
-          toast(error.message);
-        }}
-        refetchQueries={[
-          {
-            query: getUsers,
-          },
-        ]}
-        awaitRefetchQueries
-      >
-        {(mutate) => (
-          <CreateUser
-            mutate={mutate}
-            setUserData={setUserData}
-            groupOptions={groupOptions}
-            permissionOptions={permissionOptions}
-            userData={userData}
-          />
-        )}
-      </Mutation>
-    </DashboardWrapper>
+      <React.Suspense fallback={<Loader />}>
+        <Users />
+      </React.Suspense>
+    </Main>
   );
 };
 
