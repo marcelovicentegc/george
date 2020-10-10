@@ -31,10 +31,10 @@ export const DeleteAccount = ({ awaiting, setAwaiting }: Props) => {
         setAwaiting(false);
       }}
       content={
-        "Are you sure you want to delete your user? This action is not reversible."
+        "Are you sure you want to delete your account? This action is not reversible."
       }
-      header="Delete user"
-      trigger={<Button content="Delete user" />}
+      header="Delete account"
+      trigger={<Button content="Delete account" />}
     />
   );
 };

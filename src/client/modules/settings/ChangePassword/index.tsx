@@ -1,5 +1,5 @@
-import { Button, Dialog, Form } from "@fluentui/react-northstar";
 import * as React from "react";
+import { Button, Dialog, Form } from "@fluentui/react-northstar";
 import { useMutation } from "react-apollo";
 import { toast } from "react-toastify";
 import { ChangePasswordDocument, ChangePasswordMutation } from "../../../gql";
@@ -22,26 +22,6 @@ export const ChangePassword = ({ awaiting, setAwaiting }: Props) => {
     <Dialog
       cancelButton="Cancel"
       confirmButton={awaiting ? "Submitting" : "Submit"}
-      onConfirm={async () => {
-        if (
-          passwords.password &&
-          passwords.passwordConfirmation &&
-          passwords.passwordConfirmation === passwords.password
-        ) {
-          setAwaiting(true);
-          await changePassword({
-            variables: {
-              password: passwords.password,
-              passwordConfirmation: passwords.passwordConfirmation,
-            },
-          }).then(() => {
-            toast("Password changed with success");
-          });
-          setAwaiting(false);
-        } else {
-          toast("You must fill every input and they need to match.");
-        }
-      }}
       content={
         <>
           <Form
@@ -72,6 +52,26 @@ export const ChangePassword = ({ awaiting, setAwaiting }: Props) => {
                 },
               },
             ]}
+            onSubmit={async () => {
+              if (
+                passwords.password &&
+                passwords.passwordConfirmation &&
+                passwords.passwordConfirmation === passwords.password
+              ) {
+                setAwaiting(true);
+                await changePassword({
+                  variables: {
+                    password: passwords.password,
+                    passwordConfirmation: passwords.passwordConfirmation,
+                  },
+                }).then(() => {
+                  toast("Password changed with success");
+                });
+                setAwaiting(false);
+              } else {
+                toast("You must fill every input and they need to match.");
+              }
+            }}
           />
         </>
       }
