@@ -16,6 +16,7 @@ const mutations: MutationResolvers = {
     }
 
     const valid = bcrypt.compare(password, user.password);
+
     if (!valid) {
       throw new Error("Wrong password.");
     }

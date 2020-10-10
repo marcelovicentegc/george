@@ -82,3 +82,9 @@ export const changePassword = gql`
     )
   }
 `;
+
+export const deleteUser = gql`
+  mutation DeleteUser($id: String) {
+    deleteUser(id: $id)
+  }
+`;

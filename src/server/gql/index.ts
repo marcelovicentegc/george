@@ -34,6 +34,7 @@ export type Mutation = {
   deleteGroup: Scalars['Boolean'];
   createUser: Scalars['Boolean'];
   changePassword: Scalars['Boolean'];
+  deleteUser: Scalars['Boolean'];
 };
 
 
@@ -85,6 +86,11 @@ export type MutationCreateUserArgs = {
 export type MutationChangePasswordArgs = {
   password: Scalars['String'];
   passwordConfirmation: Scalars['String'];
+};
+
+
+export type MutationDeleteUserArgs = {
+  id?: Maybe<Scalars['String']>;
 };
 
 export enum Permission {
@@ -325,6 +331,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteGroup?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteGroupArgs, 'id'>>,
   createUser?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'username' | 'password' | 'group' | 'permission'>>,
   changePassword?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationChangePasswordArgs, 'password' | 'passwordConfirmation'>>,
+  deleteUser?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteUserArgs, never>>,
 };
 
 export type ProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = {

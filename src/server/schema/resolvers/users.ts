@@ -9,21 +9,14 @@ import { v1 } from "uuid";
 import { getUserFromSession } from "../utils/users";
 
 const queries: QueryResolvers = {
-  getUserId: async (_, __, { req }: Context) => {
-    const userIdFromSession = req.session.userId;
-
-    if (userIdFromSession === undefined) return null;
-
-    const user = await User.findOne(userIdFromSession);
-
-    if (!user) return null;
-
+  getUserId: async (_, __, { req, res }: Context) => {
+    const user = await getUserFromSession({ req, res });
     return user.id;
   },
   getUsers: async (_, __, { req, res }: Context) => {
     const user = await getUserFromSession({ req, res });
 
-    if (!user || user.permission !== Permission.Admin) return null;
+    if (user.permission !== Permission.Admin) return null;
 
     const users = await User.find({ relations: ["profile"] });
 
@@ -104,6 +97,23 @@ const mutations: MutationResolvers = {
     user.password = await bcrypt.hash(password, 12);
 
     await user.save();
+
+    return true;
+  },
+  deleteUser: async (_, { id }, { req, res }: Context) => {
+    let user: User | null;
+
+    if (id) {
+      user = await User.findOne(id);
+    } else {
+      user = await getUserFromSession({ req, res });
+    }
+
+    if (!user) {
+      return false;
+    }
+
+    await user.remove();
 
     return true;
   },
