@@ -1,13 +1,13 @@
 import * as React from "react";
 import * as s from "./main.scss";
-import { getThings } from "../../../../../gql/Queries.graphql";
+import { getThings } from "../../../../gql/Queries.graphql";
 import { Table, Button, Text, Loader } from "@fluentui/react-northstar";
-import { useToggleThingMutation, useGetThingsQuery } from "../../../../gql";
-import { rootStoreContext } from "../../../../stores/RootStore";
-import { TableWrapper } from "../../../system/TableWrapper";
-import { capitalizeFirstLetter } from "../../../../utils/capitalizeFirstLetter";
+import { useToggleThingMutation, useGetThingsQuery } from "../../../gql";
+import { rootStoreContext } from "../../../stores/RootStore";
+import { TableWrapper } from "../../system/TableWrapper";
+import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
 import { toast } from "react-toastify";
-import { NotFound } from "../../../system/NotFound";
+import { NotFound } from "../../system/NotFound";
 
 interface Props {
   groupId: string;
