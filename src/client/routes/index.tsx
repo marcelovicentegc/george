@@ -19,6 +19,7 @@ import {
 import { Header } from "../modules/system/Header";
 import { BASE_ROUTES } from "../utils/routes";
 import { rootStore } from "../stores/RootStore";
+import { Jumbotron } from "../modules/system/Jumbotron";
 
 const Auth = React.lazy(() => import("../modules/auth"));
 const Home = React.lazy(() => import("../modules/home"));
@@ -80,27 +81,30 @@ export const Routes: React.FC = () => {
                         }}
                       </Query>
                       <Switch>
-                        <Route exact path="/:space/:name">
-                          <Controller />
-                        </Route>
-                        <Route exact path="/">
-                          <Home groupId={groupId} />
-                        </Route>
-                        <Route exact path={BASE_ROUTES.SETTINGS}>
-                          <Settings />
-                        </Route>
-                        {permissionData &&
-                          permissionData.getPermission &&
-                          permissionData.getPermission === Permission.Admin && (
-                            <>
-                              <Route exact path={BASE_ROUTES.USERS}>
-                                <Users />
-                              </Route>
-                              <Route exact path={BASE_ROUTES.GROUPS}>
-                                <Groups />
-                              </Route>
-                            </>
-                          )}
+                        <Jumbotron>
+                          <Route exact path="/:space/:name">
+                            <Controller />
+                          </Route>
+                          <Route exact path="/">
+                            <Home groupId={groupId} />
+                          </Route>
+                          <Route exact path={BASE_ROUTES.SETTINGS}>
+                            <Settings />
+                          </Route>
+                          {permissionData &&
+                            permissionData.getPermission &&
+                            permissionData.getPermission ===
+                              Permission.Admin && (
+                              <>
+                                <Route exact path={BASE_ROUTES.USERS}>
+                                  <Users />
+                                </Route>
+                                <Route exact path={BASE_ROUTES.GROUPS}>
+                                  <Groups />
+                                </Route>
+                              </>
+                            )}
+                        </Jumbotron>
                       </Switch>
                     </>
                   );
