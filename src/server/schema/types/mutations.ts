@@ -24,5 +24,6 @@ export const mutations = gql`
       group: String!
       permission: Permission!
     ): Boolean!
+    changePassword(password: String!, passwordConfirmation: String!): Boolean!
   }
 `;

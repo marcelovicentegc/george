@@ -73,3 +73,12 @@ export const deleteGroup = gql`
     deleteGroup(id: $id)
   }
 `;
+
+export const changePassword = gql`
+  mutation ChangePassword($password: String!, $passwordConfirmation: String!) {
+    changePassword(
+      password: $password
+      passwordConfirmation: $passwordConfirmation
+    )
+  }
+`;

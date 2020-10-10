@@ -1,16 +1,10 @@
-import { User } from "../../database/entities";
 import { Permission } from "../../gql";
 import { Context } from "../../utils";
-import { NotFound, Unauthorized } from "./errors";
+import { Unauthorized } from "./errors";
+import { getUserFromSession } from "./users";
 
-export async function isLoggedInUserAdmin({ req }: Context) {
-  const userIdFromSession = req.session.userId;
-
-  if (userIdFromSession === undefined) {
-    throw new Error(NotFound);
-  }
-
-  const user = await User.findOne(userIdFromSession);
+export async function isLoggedInUserAdmin({ req, res }: Context) {
+  const user = await getUserFromSession({ req, res });
 
   if (!user || user.permission !== Permission.Admin) {
     throw new Error(Unauthorized);

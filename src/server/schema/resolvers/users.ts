@@ -1,3 +1,4 @@
+import * as bcrypt from "bcrypt";
 import { IResolvers } from "apollo-server-express";
 import { User } from "../../database/entities/User.model";
 import { Context } from "../../utils";
@@ -5,6 +6,7 @@ import { QueryResolvers, Permission, MutationResolvers } from "../../gql";
 import { isLoggedInUserAdmin } from "../utils/auth";
 import { Group, Profile } from "../../database/entities";
 import { v1 } from "uuid";
+import { getUserFromSession } from "../utils/users";
 
 const queries: QueryResolvers = {
   getUserId: async (_, __, { req }: Context) => {
@@ -18,12 +20,8 @@ const queries: QueryResolvers = {
 
     return user.id;
   },
-  getUsers: async (_, __, { req }: Context) => {
-    const userIdFromSession = req.session.userId;
-
-    if (userIdFromSession === undefined) return null;
-
-    const user = await User.findOne(userIdFromSession);
+  getUsers: async (_, __, { req, res }: Context) => {
+    const user = await getUserFromSession({ req, res });
 
     if (!user || user.permission !== Permission.Admin) return null;
 
@@ -83,10 +81,27 @@ const mutations: MutationResolvers = {
     const user = new User();
 
     user.username = username;
-    user.password = password;
+    user.password = await bcrypt.hash(password, 12);
     user.permission = permission as Permission;
     user.group = group;
     user.profile = profile;
+
+    await user.save();
+
+    return true;
+  },
+  changePassword: async (
+    _,
+    { password, passwordConfirmation },
+    { req, res }: Context
+  ) => {
+    const user = await getUserFromSession({ req, res });
+
+    if (password !== passwordConfirmation) {
+      return false;
+    }
+
+    user.password = await bcrypt.hash(password, 12);
 
     await user.save();
 
